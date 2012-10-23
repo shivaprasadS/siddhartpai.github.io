@@ -6,7 +6,7 @@
 
 	<meta charset="utf-8" />
 
-	<title>Minimal Coming Soon Page</title>
+	<title>Coming Soon</title>
 
 	<!-- CSS -->
 	<link rel="stylesheet" href="css/reset.css">
@@ -35,8 +35,8 @@
 <body>
 
 	<header>
-		<h1>We are working our butts off to finish this website</h1>
-		<p>Our developer, Siddharth, is doing his best to finish this website before the counter, but we can’t help him.</p>
+		<h1>Siddharth is working his butt off to finish this webpage .</h1>
+		
 	</header>
 
 	<div id="main">
