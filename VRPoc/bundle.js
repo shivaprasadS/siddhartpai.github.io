@@ -114,8 +114,7 @@
 	        material = "src: url(texture1.jpg)";
 	      }
 	      _this.setState({
-	        material: material,
-	        position: position
+	        material: material
 	      });
 	    };
 
@@ -96021,7 +96020,6 @@
 	   _createClass(Sky, [{
 	      key: 'render',
 	      value: function render() {
-	         debugger;
 	         return _react2.default.createElement(_aframeReact.Entity, { geometry: { primitive: 'sphere', radius: 500, position: "{[0,130,0]}" },
 	            material: this.props.material,
 	            scale: '1 1 -1' });
