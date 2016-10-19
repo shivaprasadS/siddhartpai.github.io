@@ -124,6 +124,11 @@
 	      material: 'src: url(texture2.jpg)',
 	      position: [0, 0, -5]
 	    };
+	    var images = [{ url: 'texture1.jpg' }, { url: 'texture2.jpg' }];
+	    for (var i = 0; i < images.length; ++i) {
+	      var img = new Image();
+	      img.src = images[i]['url'];
+	    }
 	    return _this;
 	  }
 
