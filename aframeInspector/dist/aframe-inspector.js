@@ -83,11 +83,7 @@
 
 	var _ToolBar2 = _interopRequireDefault(_ToolBar);
 
-	var _SegmentButton = __webpack_require__(235);
-
-	var _SegmentButton2 = _interopRequireDefault(_SegmentButton);
-
-	__webpack_require__(236);
+	__webpack_require__(235);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -97,7 +93,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(238);
+	__webpack_require__(237);
 	var INSPECTOR = __webpack_require__(194);
 
 	var Events = __webpack_require__(176);
@@ -106,6 +102,10 @@
 	// Megahack to include font-awesome.
 	injectCSS('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
 	injectCSS('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
+	injectCSS('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css');
+	if (typeof window !== 'undefined') {
+	  window.React = _react2.default;
+	}
 
 	var Main = function (_React$Component) {
 	  _inherits(Main, _React$Component);
@@ -179,12 +179,12 @@
 	    key: 'render',
 	    value: function render() {
 	      var scene = this.state.sceneEl;
+	      // let editButton = <a className='toggle-edit' onClick={this.toggleEdit}>{(this.state.inspectorEnabled ? 'Back to Scene' : 'Inspect Scene')}</a>;
 	      var editButton = _react2.default.createElement(
-	        'a',
-	        { className: 'toggle-edit', onClick: this.toggleEdit },
-	        this.state.inspectorEnabled ? 'Back to Scene' : 'Inspect Scene'
+	        'button',
+	        { type: 'button', id: 'inspectorEye', className: 'btn', onClick: this.toggleEdit },
+	        _react2.default.createElement('img', { src: '../assets/images/viewer.png', className: 'bottom-nav-icon', alt: '' })
 	      );
-
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -194,12 +194,7 @@
 	          { id: 'aframe-inspector-panels', className: this.state.inspectorEnabled ? '' : 'hidden' },
 	          _react2.default.createElement(
 	            'div',
-	            { id: 'left-sidebar' },
-	            _react2.default.createElement(_SceneGraph2.default, { scene: scene, selectedEntity: this.state.entity })
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { id: 'right-panels' },
+	            { id: 'bottom-panels' },
 	            _react2.default.createElement(_ToolBar2.default, null)
 	          )
 	        ),
@@ -30889,11 +30884,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'scenegraph' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'scenegraph-toolbar' },
-	          _react2.default.createElement(_Toolbar2.default, null)
-	        )
+	        _react2.default.createElement('div', { className: 'scenegraph-toolbar' })
 	      );
 	    }
 	  }]);
@@ -30982,10 +30973,15 @@
 	        // URL.revokeObjectURL(url); breaks Firefox...
 	      }
 	      function saveString(text, filename) {
-	        save(new Blob([text], { type: 'text/html' }), filename);
+	        if (filename.indexOf('json') === -1) {
+	          save(new Blob([text], { type: 'text/html' }), filename);
+	        } else {
+	          save(new Blob([JSON.stringify(text)], { type: 'text/JSON' }), filename);
+	        }
 	      }
 	      var sceneName = (0, _exporter.getSceneName)(document.querySelector('a-scene'));
 	      saveString((0, _exporter.generateHtml)(), sceneName);
+	      saveString((0, _exporter.aframeElementToJSON)(document.querySelector('a-scene')), 'abc.json');
 	    }
 	  }, {
 	    key: 'addEntity',
@@ -31045,7 +31041,41 @@
 	  .replace(/^-+/, '') // Trim - from start of text
 	  .replace(/-+$/, ''); // Trim - from end of text
 	}
+	function aframeElementToJSON(element) {
+	  var childElements = [];
+	  element.childNodes.forEach(function (child) {
+	    var childPacked = {};
+	    if (!child.attributes) {
+	      return;
+	    }
 
+	    childElements.push(childPacked);
+	    for (var n in child.attributes) {
+	      var attribute = child.attributes[n];
+	      var attributeName = attribute.name;
+	      var attributeObject = child.getAttribute(attributeName);
+	      if (attributeName && attributeObject) {
+	        childPacked[attributeName] = attributeObject;
+	      }
+	    }
+	  });
+	  return childElements;
+	}
+
+	function aframeJSONToElement(json) {
+	  return json.map(function (entity) {
+	    var element = document.createElement('a-entity');
+	    for (var propertyName in entity) {
+	      var property = entity[propertyName];
+	      if (propertyName === 'obj-model') {
+	        property.mtl = 'url(' + property.mtl + ')';
+	        property.obj = 'url(' + property.obj + ')';
+	      }
+	      element.setAttribute(propertyName, property);
+	    }
+	    return element;
+	  });
+	}
 	/**
 	 * Generate a filtered stringify HTML from the current page
 	 * @return {string} String that contains the filtered HTML of the current page
@@ -31122,9 +31152,9 @@
 	var ReactDOM = __webpack_require__(35);
 	var Events = __webpack_require__(176);
 	var classNames = __webpack_require__(180);
+	var INSPECTOR = __webpack_require__(194);
 
-
-	var TransformButtons = [{ value: 'translate', icon: 'fa-arrows', transform: true }, { value: 'rotation', icon: 'fa-repeat', transform: true }, { value: 'scale', icon: 'fa-expand', transform: true }, { value: 'box', icon: 'fa-cube', transform: false }, { value: 'circle', icon: 'fa-circle-o', transform: false }, { value: 'plane', icon: 'fa-square-o', transform: false }, { value: 'text', icon: 'fa-pencil', transform: false }, { value: 'sky', icon: 'fa-camera', transform: false }, { value: 'hotspot', icon: 'fa-location-arrow', transform: false }];
+	var TransformButtons = [{ value: 'translate', icon: 'fa-arrows', transform: true }, { value: 'rotate', icon: 'fa-repeat', transform: true }, { value: 'scale', icon: 'fa-expand', transform: true }, { value: 'box', icon: 'fa-cube', transform: false }, { value: 'circle', icon: 'fa-circle-o', transform: false }, { value: 'plane', icon: 'fa-square-o', transform: false }, { value: 'text', icon: 'fa-pencil', transform: false }, { value: 'sky', icon: 'fa-camera', transform: false }, { value: 'hotspot', icon: 'fa-location-arrow', transform: false }];
 
 	var Toolbar = function (_React$Component) {
 	  _inherits(Toolbar, _React$Component);
@@ -31151,6 +31181,14 @@
 	      $('input[type=file]').click();
 	    };
 
+	    _this.toggleEdit = function () {
+	      if (_this.state.inspectorEnabled) {
+	        INSPECTOR.close();
+	      } else {
+	        INSPECTOR.open();
+	      }
+	    };
+
 	    _this.skyChanged = function (name, value, event) {
 	      var fr = new FileReader();
 	      fr.onload = function () {
@@ -31161,9 +31199,208 @@
 	    };
 
 	    _this.renderFileWidget = function () {
-	      // if(this.state.showFileWidget){
-	      return React.createElement(_FileWidget2.default, { onChange: _this.skyChanged, value: _this.state.fileName, name: 'toolbarFileWidget', componentname: '_toolbarFileWidget' });
-	      // }
+	      if (_this.state.showFileWidget) {
+	        return React.createElement(_FileWidget2.default, { onChange: _this.skyChanged, value: _this.state.fileName, name: 'toolbarFileWidget', componentname: '_toolbarFileWidget' });
+	      }
+	    };
+
+	    _this.toggle360Tools = function () {
+	      _this.setState({ show360Tools: !_this.state.show360Tools });
+	      _this.setState({ showTransformTools: false });
+	    };
+
+	    _this.toggleFileWidget = function () {
+	      _this.setState({ showFileWidget: !_this.showFileWidget });
+	      _this.setState({ show360Tools: false });
+	    };
+
+	    _this.toggleTransformTools = function () {
+	      _this.setState({ showTransformTools: !_this.showTransformTools });
+	      _this.setState({ showFileWidget: false });
+	    };
+
+	    _this.renderTransformTools = function () {
+	      if (_this.state.showTransformTools) {
+	        return React.createElement(
+	          'div',
+	          { className: 'row transform-menu-row' },
+	          React.createElement(
+	            'div',
+	            { className: 'primary-menu' },
+	            React.createElement(
+	              'div',
+	              { className: 'btn-group-justified' },
+	              React.createElement(
+	                'div',
+	                { className: 'btn-group' },
+	                React.createElement(
+	                  'button',
+	                  { type: 'button', className: 'btn btn-nav secondary-btn-nav', onClick: _this.changeTransformMode.bind(_this, 'translate') },
+	                  React.createElement('img', { src: '../assets/images/translate.png', className: 'bottom-nav-icon translate-icon', alt: '' })
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'btn-group' },
+	                React.createElement(
+	                  'button',
+	                  { type: 'button', className: 'btn btn-nav secondary-btn-nav', onClick: _this.changeTransformMode.bind(_this, 'scale') },
+	                  React.createElement('img', { src: '../assets/images/scale.png', className: 'bottom-nav-icon scale-icon', alt: '' })
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'btn-group' },
+	                React.createElement(
+	                  'button',
+	                  { type: 'button', className: 'btn btn-nav secondary-btn-nav', onClick: _this.changeTransformMode.bind(_this, 'rotate') },
+	                  React.createElement('img', { src: '../assets/images/rotate.png', className: 'bottom-nav-icon rotate-icon', alt: '' })
+	                )
+	              )
+	            )
+	          )
+	        );
+	      }
+	    };
+
+	    _this.render360Tools = function () {
+	      if (_this.state.show360Tools) {
+	        return React.createElement(
+	          'div',
+	          { className: 'row secondary-menu-row' },
+	          React.createElement(
+	            'div',
+	            { className: 'primary-menu' },
+	            React.createElement(
+	              'div',
+	              { className: 'btn-group-justified' },
+	              React.createElement(
+	                'div',
+	                { className: 'btn-group' },
+	                React.createElement(
+	                  'button',
+	                  { type: 'button', className: 'btn btn-nav secondary-btn-nav', onClick: _this.toggleFileWidget.bind(_this) },
+	                  React.createElement('img', { src: '../assets/images/360photo.png', className: 'bottom-nav-icon', alt: '' })
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'btn-group' },
+	                React.createElement(
+	                  'button',
+	                  { type: 'button', className: 'btn btn-nav secondary-btn-nav', onClick: _this.toggleFileWidget.bind(_this) },
+	                  React.createElement('img', { src: '../assets/images/360video.png', className: 'bottom-nav-icon', alt: '' })
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'btn-group' },
+	                React.createElement(
+	                  'button',
+	                  { type: 'button', className: 'btn btn-nav secondary-btn-nav' },
+	                  React.createElement('img', { src: '../assets/images/augmented.png', className: 'bottom-nav-icon', alt: '' })
+	                )
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'btn-group' },
+	                React.createElement(
+	                  'button',
+	                  { type: 'button', className: 'btn btn-nav secondary-btn-nav' },
+	                  React.createElement('img', { src: '../assets/images/codesnippet.png', className: 'bottom-nav-icon', alt: '' })
+	                )
+	              )
+	            )
+	          )
+	        );
+	      }
+	    };
+
+	    _this.renderToolBar = function () {
+	      return React.createElement(
+	        'div',
+	        { className: 'row primary-menu-row' },
+	        React.createElement(
+	          'div',
+	          { className: 'primary-menu' },
+	          React.createElement(
+	            'div',
+	            { className: 'btn-group-justified' },
+	            React.createElement(
+	              'div',
+	              { className: 'btn-group primary-btn-group' },
+	              React.createElement(
+	                'button',
+	                { type: 'button', className: 'btn btn-nav primary-btn-nav', onClick: _this.toggleEdit.bind(_this) },
+	                React.createElement('img', { src: '../assets/images/viewer.png', className: 'bottom-nav-icon', alt: '' })
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'btn-group primary-btn-group' },
+	              React.createElement(
+	                'button',
+	                { type: 'button', className: 'btn btn-nav primary-btn-nav', onClick: _this.toggle360Tools.bind(_this) },
+	                React.createElement('img', { src: '../assets/images/canvas.png', className: 'bottom-nav-icon', alt: '' })
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'btn-group primary-btn-group' },
+	              React.createElement(
+	                'button',
+	                { type: 'button', className: 'btn btn-nav primary-btn-nav' },
+	                React.createElement('img', { src: '../assets/images/objects.png', className: 'bottom-nav-icon', alt: '', onClick: _this.addEntity.bind(_this, 'box') })
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'btn-group primary-btn-group' },
+	              React.createElement(
+	                'button',
+	                { type: 'button', className: 'btn btn-nav primary-btn-nav' },
+	                React.createElement('img', { src: '../assets/images/tools.png', className: 'bottom-nav-icon', alt: '', onClick: _this.toggleTransformTools.bind(_this) })
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'btn-group primary-btn-group' },
+	              React.createElement(
+	                'button',
+	                { type: 'button', className: 'btn btn-nav primary-btn-nav' },
+	                React.createElement('img', { src: '../assets/images/text.png', className: 'bottom-nav-icon', alt: '' })
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'btn-group primary-btn-group' },
+	              React.createElement(
+	                'button',
+	                { type: 'button', className: 'btn btn-nav primary-btn-nav' },
+	                React.createElement('img', { src: '../assets/images/sticker.png', className: 'bottom-nav-icon', alt: '', onClick: _this.addEntity.bind(_this, 'circle') })
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'btn-group primary-btn-group' },
+	              React.createElement(
+	                'button',
+	                { type: 'button', className: 'btn btn-nav primary-btn-nav' },
+	                React.createElement('img', { src: '../assets/images/effects.png', className: 'bottom-nav-icon', alt: '' })
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'btn-group primary-btn-group' },
+	              React.createElement(
+	                'button',
+	                { type: 'button', className: 'btn btn-nav primary-btn-nav' },
+	                React.createElement('img', { src: '../assets/images/elements.png', className: 'bottom-nav-icon', alt: '' })
+	              )
+	            )
+	          )
+	        )
+	      );
 	    };
 
 	    _this.renderTransformButtons = function () {
@@ -31191,7 +31428,10 @@
 	      selectedTransform: 'translate',
 	      localSpace: false,
 	      showFileWidget: false,
-	      fileName: ''
+	      show360Tools: false,
+	      showTransformTools: false,
+	      fileName: '',
+	      inspectorEnabled: true
 	    };
 	    return _this;
 	  }
@@ -31237,32 +31477,34 @@
 	    value: function render() {
 	      return React.createElement(
 	        'div',
-	        { className: 'toolbar' },
-	        this.renderTransformButtons(),
-	        React.createElement(
-	          'span',
-	          { className: 'local-transform' },
-	          React.createElement('input', { id: 'local', type: 'checkbox',
-	            checked: this.state.localSpace || this.state.selectedTransform === 'scale',
-	            disabled: this.state.selectedTransform === 'scale',
-	            onChange: this.onLocalChange }),
-	          React.createElement(
-	            'label',
-	            { htmlFor: 'local' },
-	            'local'
-	          )
-	        ),
-	        React.createElement(
-	          'div',
-	          null,
-	          this.renderFileWidget()
-	        )
+	        { className: 'container-fluid tool-container' },
+	        this.renderTransformTools(),
+	        this.render360Tools(),
+	        this.renderFileWidget(),
+	        this.renderToolBar()
 	      );
 	    }
 	  }]);
 
 	  return Toolbar;
 	}(React.Component);
+
+	/*
+
+	      <div className='toolbar'>
+	        {this.renderTransformButtons()}
+	        <span className='local-transform'>
+	          <input id='local' type='checkbox'
+	            checked={this.state.localSpace || this.state.selectedTransform === 'scale'}
+	            disabled={this.state.selectedTransform === 'scale'}
+	            onChange={this.onLocalChange}/>
+	          <label htmlFor='local'>local</label>
+	        </span>
+	        <div>{this.renderFileWidget()}</div>
+	      </div>
+
+	*/
+
 
 	exports.default = Toolbar;
 
@@ -31316,7 +31558,30 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return React.createElement('input', { type: 'file', value: this.state.value, onChange: this.onChange });
+	      return React.createElement(
+	        'div',
+	        { className: 'primary-menu-drop row' },
+	        React.createElement(
+	          'div',
+	          { className: 'cta-section' },
+	          React.createElement(
+	            'h3',
+	            null,
+	            'Drag and Drop'
+	          ),
+	          React.createElement(
+	            'h5',
+	            null,
+	            'your 360 Files here'
+	          ),
+	          React.createElement(
+	            'label',
+	            { className: 'cta', htmlFor: 'inputFile' },
+	            'Click to browse'
+	          ),
+	          React.createElement('input', { type: 'file', id: 'inputFile', value: this.state.value, onChange: this.onChange })
+	        )
+	      );
 	    }
 	  }]);
 
@@ -31347,198 +31612,10 @@
 /* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var React = __webpack_require__(2);
-	var Events = __webpack_require__(176);
-	var classNames = __webpack_require__(180);
-
-	var TransformButtons = [{ value: 'translate', icon: 'fa-arrows' }, { value: 'rotate', icon: 'fa-repeat' }, { value: 'scale', icon: 'fa-expand' }];
-
-	var SegmentButton = function (_React$Component) {
-	  _inherits(SegmentButton, _React$Component);
-
-	  function SegmentButton(props) {
-	    _classCallCheck(this, SegmentButton);
-
-	    var _this = _possibleConstructorReturn(this, (SegmentButton.__proto__ || Object.getPrototypeOf(SegmentButton)).call(this, props));
-
-	    _this.changeTransformMode = function (mode) {
-	      _this.setState({ selectedTransform: mode });
-	      Events.emit('transformmodechanged', mode);
-	      ga('send', 'event', 'Toolbar', 'selectHelper', mode);
-	    };
-
-	    _this.onLocalChange = function (e) {
-	      var local = e.target.checked;
-	      _this.setState({ localSpace: local });
-	      Events.emit('spacechanged', local ? 'local' : 'world');
-	      ga('send', 'event', 'Toolbar', 'toggleLocal', local);
-	    };
-
-	    _this.renderTransformButtons = function () {
-	      return TransformButtons.map(function (option, i) {
-	        var _classNames;
-
-	        var selected = option.value === this.state.selectedTransform;
-	        var classes = classNames((_classNames = {
-	          button: true,
-	          fa: true
-	        }, _defineProperty(_classNames, option.icon, true), _defineProperty(_classNames, 'active', selected), _classNames));
-
-	        return React.createElement('a', { title: option.value, key: i,
-	          onClick: this.changeTransformMode.bind(this, option.value),
-	          className: classes });
-	      }.bind(_this));
-	    };
-
-	    _this.state = {
-	      selectedTransform: 'translate',
-	      localSpace: false
-	    };
-	    return _this;
-	  }
-
-	  _createClass(SegmentButton, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-
-	      Events.on('transformmodechanged', function (mode) {
-	        _this2.setState({ selectedTransform: mode });
-	      });
-	    }
-	  }, {
-	    key: 'addEntity',
-	    value: function addEntity() {
-	      Events.emit('createnewentity', { element: 'a-entity', id: 'boxComponent', components: { geometry: "primitive: box; depth: 2",
-	          material: "color: #6173F4; opacity: 0.8",
-	          physics: "mass: 5; boundingBox: 1 1 2" } });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return React.createElement(
-	        'div',
-	        { id: 'menu' },
-	        React.createElement(
-	          'div',
-	          { className: 'item1 item' },
-	          React.createElement(
-	            'div',
-	            { className: 'content' },
-	            React.createElement(
-	              'a',
-	              { href: '#one' },
-	              'one'
-	            )
-	          )
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'item2 item' },
-	          React.createElement(
-	            'div',
-	            { className: 'content' },
-	            React.createElement(
-	              'a',
-	              { href: '#two' },
-	              'two'
-	            )
-	          )
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'item3 item' },
-	          React.createElement(
-	            'div',
-	            { className: 'content' },
-	            React.createElement(
-	              'a',
-	              { href: '#three' },
-	              'three'
-	            )
-	          )
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'item4 item' },
-	          React.createElement(
-	            'div',
-	            { className: 'content' },
-	            React.createElement(
-	              'a',
-	              { href: '#four' },
-	              'four'
-	            )
-	          )
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'item5 item' },
-	          React.createElement(
-	            'div',
-	            { className: 'content' },
-	            React.createElement(
-	              'a',
-	              { href: '#five' },
-	              'five'
-	            )
-	          )
-	        ),
-	        React.createElement(
-	          'div',
-	          { id: 'wrapper6' },
-	          React.createElement(
-	            'div',
-	            { className: 'item6 item' },
-	            React.createElement(
-	              'div',
-	              { className: 'content' },
-	              React.createElement(
-	                'a',
-	                { href: '#', onClick: this.addEntity },
-	                React.createElement('img', { className: 'segmentButton', src: 'assets/textures/box-outline.png' })
-	              )
-	            )
-	          )
-	        ),
-	        React.createElement(
-	          'div',
-	          { id: 'center', draggable: 'true' },
-	          React.createElement('a', { href: '#' })
-	        )
-	      );
-	    }
-	  }]);
-
-	  return SegmentButton;
-	}(React.Component);
-
-	exports.default = SegmentButton;
-
-/***/ },
-/* 236 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(237);
+	var content = __webpack_require__(236);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(193)(content, {});
@@ -31558,7 +31635,7 @@
 	}
 
 /***/ },
-/* 237 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(192)();
@@ -31566,13 +31643,13 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  font-family: Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  margin: 0;\n}\n\nbody.aframe-inspector-opened {\n  overflow: hidden;\n}\n\nhr {\n  border: 0;\n  border-top: 1px solid #ccc;\n}\n\na {\n  cursor: pointer;\n}\n\nbutton {\n  position: relative;\n}\n\ncode {\n  font-family: Consolas, Andale Mono, Monaco, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;\n}\n\ntextarea {\n  -moz-tab-size: 4;\n    -o-tab-size: 4;\n       tab-size: 4;\n  white-space: pre;\n  word-wrap: normal;\n}\n\ntextarea.success {\n  border-color: #8b8 !important;\n}\n\ntextarea.fail {\n  border-color: #f00 !important;\n  background-color: rgba(255, 0, 0, 0.05);\n}\n\ntextarea,\ninput {\n  outline: none; /* osx */\n}\n\n#left-sidebar,\n#right-panels {\n  z-index: 9999;\n}\n\n#sidebar,\n#left-sidebar,\n.panel {\n  cursor: default;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.collapsible .static {\n  margin: 0;\n}\n\n.collapsible .static .collapse-button {\n  float: left;\n  margin-right: 6px;\n  width: 0;\n  height: 0;\n  border: 6px solid transparent;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  margin-top: 2px;\n  border-left-color: #1faaf2;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  margin-top: 6px;\n  border-top-color: #1faaf2;\n}\n\n.collapsible.collapsed .content {\n  display: none;\n}\n\n.toggle-edit {\n  background-color: #ed3160;\n  position: fixed;\n  left: 3px;\n  top: 3px;\n  padding: 6px 10px;\n  color: #fff;\n  text-decoration: none;\n  text-align: center;\n  z-index: 99999;\n  width: 174px;\n}\n\n.toggle-edit:hover {\n  background-color: rgb(228, 43, 90);\n}\n\n.scenegraph {\n  border-top: 1px solid #111;\n  padding-top: 32px;\n}\n\n.scenegraph .search {\n  padding: 5px;\n}\n\n.scenegraph-.segment-circle {\n  background-color: #333;\n  position: fixed;\n  top: 32px;\n}\n\n.scenegraph-actions {\n  padding: 9px 0 5px;\n}\n\n.search {\n  position: relative;\n  color: #aaa;\n  font-size: 16px;\n}\n\n.search input {\n  width: 185px;\n  height: 22px;\n  background: #222;\n  border-radius: 5px;\n}\n\n.search input {\n  text-indent: 10px;\n}\n\n.search .fa-search {\n  position: absolute;\n  top: 10px;\n  right: 11px;\n}\n\ninput {\n  background-color: transparent;\n  border: 1px solid #555;\n  color: #fff;\n}\n\ninput,\n.texture canvas {\n  -webkit-transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n  transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n}\n\ninput[type=text],\ninput[type=number],\ninput.string,\ninput.number {\n  min-height: 14px;\n  outline: none;\n}\n\ninput.number {\n  color: #20b1fb !important;\n  font-size: 12px;\n  border: 0;\n  padding: 2px;\n  cursor: col-resize;\n  background-color: transparent !important;\n}\n\ninput.string:focus,\ninput.number:focus {\n  border: 1px solid #20b1fb;\n  cursor: auto;\n  color: #fff;\n}\n\n#left-sidebar {\n  position: fixed;\n  left: 0;\n  top: 0;\n  bottom: 0;\n  width: 200px;\n  overflow: auto;\n  background: #2b2b2b;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  height: 100%;\n}\n\n#sidebar {\n  width: 330px;\n  background: #2b2b2b;\n}\n\n#sidebar * {\n  vertical-align: middle;\n}\n\ninput,\ntextarea,\nselect {\n  background: #222;\n  border: 1px solid transparent;\n  color: #888;\n}\n\n.row {\n  min-height: 20px;\n  margin-bottom: 10px;\n}\n\ninput[type=color] {\n  border: 1px solid #111;\n  background-color: #333;\n  cursor: pointer;\n}\n\n.texture canvas {\n  border: 1px solid #222;\n}\n\ninput[type=color] {\n  height: 16px;\n  width: 64px;\n  cursor: pointer;\n  padding: 0;\n}\n\n/* Note: these vendor-prefixed selectors cannot be grouped! */\n\ninput[type=color]::-webkit-color-swatch {\n  border: 0;  /* To remove the gray border. */\n}\n\ninput[type=color]::-webkit-color-swatch-wrapper {\n  padding: 0;  /* To remove the inner padding. */\n}\n\ninput[type=color]::-moz-color-swatch {\n  border: 0;\n}\n\ninput[type=color]::-moz-focus-inner {\n  border: 0;  /* To remove the inner border (specific to Firefox). */\n  padding: 0;\n}\n\nbody {\n  font-family: 'Roboto', sans-serif;\n  font-size: 12px;\n  color: #fff;\n}\n\nbody.editor-opened {\n  background-color: #191919;\n}\n\n.components {\n  background-color: #323232;\n  color: #bcbcbc;\n  width: 330px;\n  position: fixed;\n  height: 100%;\n  overflow: auto;\n}\n\ndiv.vec2,\ndiv.vec3 {\n  display: inline;\n}\n\n.vec2 input.number,\n.vec3 input.number {\n  width: 46px;\n}\n\n.collapsible-header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.component-title span {\n  float: left;\n  max-width: 110px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  text-transform: uppercase;\n}\n\n.collapsible .static {\n  vertical-align: middle;\n  background-color: #323232;\n  color: #fff;\n  padding: 10px;\n  border-top: 1px solid #262626;\n  border-bottom: 1px solid #262626;\n  height: 16px;\n}\n\n.collapsible .menu {\n  text-align: right;\n}\n\n.collapsible .menu::after {\n  color: #bbb;\n  content: '\\2807';\n  font-size: 12px;\n  padding: 5px;\n  text-align: right;\n}\n\n.collapsible .static .collapse-button {\n  margin-top: 2px;\n  width: 0;\n  height: 0;\n  float: left;\n  margin-right: 10px;\n  border-left: 5px solid transparent;\n  border-right: 5px solid transparent;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #bbb;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #bbb;\n}\n\n.collapsible .content {\n  background-color: #2b2b2b;\n  padding: 10px;\n}\n\n.components .row {\n  min-height: 20px;\n  margin-bottom: 10px;\n}\n\n.components * {\n  vertical-align: middle;\n}\n\n.components .row .text {\n  cursor: default;\n  display: inline-block;\n  vertical-align: middle;\n  width: 120px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n.components .row .map_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n\n.hidden {\n  visibility: hidden;\n}\n\n.texture canvas + input {\n  margin-left: 5px;\n}\n\n.texture .fa {\n  padding-right: 5px;\n}\n\n.scenegraph-bottom {\n  background-color: #323232;\n  bottom: 10;\n  height: 40px;\n  z-index: 100;\n  border-top: 1px solid #111;\n  left: 0;\n}\n\na.button {\n  color: #bcbcbc;\n  font-size: 16px;\n  text-decoration: none;\n  margin-left: 10px;\n}\n\na.button:hover {\n  color: #1faaf2;\n}\n\n.scenegraph-bottom a {\n  float: right;\n  margin: 10px;\n}\n\n.modal {\n  position: fixed;\n  z-index: 9999;\n  padding-top: 100px;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  background-color: rgb(0, 0, 0);\n  background-color: rgba(0, 0, 0, 0.4);\n}\n\n.modal-content {\n  position: relative;\n  background-color: #232323;\n  margin: auto;\n  padding: 0;\n  width: 889px;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n  -webkit-animation-name: animatetop;\n          animation-name: animatetop;\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s;\n}\n\n@-webkit-keyframes animatetop {\n  from {\n    top: -300px;\n    opacity: 0;\n  }\n\n  to {\n    top: 0;\n    opacity: 1;\n  }\n}\n\n@keyframes animatetop {\n  from {\n    top: -300px;\n    opacity: 0;\n  }\n\n  to {\n    top: 0;\n    opacity: 1;\n  }\n}\n\n.close {\n  color: white;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n}\n\n.close:hover,\n.close:focus {\n  color: #08f;\n  text-decoration: none;\n  cursor: pointer;\n}\n\n.modal-header {\n  padding: 2px 16px;\n  color: white;\n}\n\n.modal-body {\n  padding: 16px;\n  overflow: auto;\n}\n\n.modal-footer {\n  padding: 2px 16px;\n  color: white;\n}\n\n/* Gallery */\n\n.gallery {\n  padding: 0;\n  overflow: auto;\n  margin: 0 auto;\n}\n\n.gallery li {\n  width: 155px;\n  margin: 8px;\n  float: left;\n  overflow: hidden;\n  display: inline-block;\n  box-shadow: 3px 3px 8px -2px rgba(0, 0, 0, 0.63);\n  cursor: pointer;\n}\n\n.gallery li:hover {\n  box-shadow: 0 0 4px 3px rgba(29, 138, 190, 0.63);\n}\n\n.gallery li .detail {\n  background-color: #323232;\n  padding: 10px;\n  min-height: 60px;\n}\n\n.gallery li:hover .detail {\n  background-color: #444;\n}\n\n.gallery li .detail span {\n  color: #bbb !important;\n}\n\n.gallery li .detail span.title {\n  color: #eee !important;\n  font-weight: bold;\n}\n\n.preview {\n  width: 200px;\n  float: right;\n  padding: 10px;\n}\n\n.new_asset_options {\n  float: left;\n  width: 600px;\n}\n\n.modal button {\n  display: inline-block;\n  margin: 0 10px 0 0;\n  padding: 5px 10px;\n  font-size: 12px;\n  line-height: 1.8;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  box-shadow: none;\n  border-radius: 0;\n  cursor: pointer;\n}\n\n.modal button:focus {\n  outline: none;\n}\n\n.modal button {\n  color: #fff;\n  background-color: #1eaaf1;\n  border: none;\n}\n\n.modal button:hover,\n.modal button.hover {\n  background-color: #346392;\n  text-shadow: -1px 1px #27496d;\n}\n\n.modal button:active,\n.modal button.active {\n  background-color: #27496d;\n  text-shadow: -1px 1px #193047;\n}\n\n.newimage {\n  padding: 10px;\n  background-color: #323232;\n  overflow: auto;\n}\n\n.hide {\n  display: none;\n}\n\nspan.value {\n  color: #fff;\n  display: inline-block;\n}\n\nspan.mixinlist {\n  color: #888 !important;\n  display: inline-block;\n}\n\nspan.mixinlist ul {\n  list-style-type: none;\n  padding: 5px;\n  margin: 5px 0 0;\n  background-color: #222;\n}\n\nspan.mixinlist ul li {\n  margin-bottom: 3px;\n  font-size: 11px;\n}\n\nspan.mixinlist ul li:last-child {\n  margin-bottom: 0;\n}\n\nspan.mixin {\n  width: 100px;\n  display: inline-block;\n}\n\n.mixinlist {\n  margin-left: 120px;\n}\n\nspan.subcomponent {\n  color: #999;\n  margin-left: 10px;\n  float: none !important;\n  vertical-align: top !important;\n}\n\n.collapsible .static {\n  cursor: pointer;\n}\n\n.a-canvas.state-dragging {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n\ncode,\npre,\ninput,\ntextarea,\nselect {\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.Select,\n.wf-active code,\n.wf-active pre,\n.wf-active input,\n.wf-active textarea,\n.wf-active select {\n  font-family: Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.tagName {\n  font-weight: 500;\n}\n\n.sidebar-title {\n  color: #aaa;\n  text-align: center;\n  background-color: #444;\n  padding: 6px 10px;\n  font-size: 12px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  position: relative;\n}\n\n.segment-circle {\n  height: 32px;\n  background-color: #262626;\n  color: #333;\n  position: relative;\n}\n\n.segment-circle * {\n  vertical-align: middle;\n  padding: 8px;\n  margin-left: 0px;\n}\n\n.segment-circle a.button {\n  margin: 0 6px 0 0;\n}\n\n.segment-circle .active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.segment-circle .active:hover {\n  color: #fff !important;\n}\n\n.toolbar {\n  height: 32px;\n  background-color: #262626;\n  color: #333;\n  position: relative;\n}\n\n.toolbar * {\n  vertical-align: middle;\n  padding: 8px;\n  margin-left: 0;\n}\n\n.toolbar a.button {\n  margin: 0 6px 0 0;\n}\n\n.toolbar .active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.toolbar .active:hover {\n  color: #fff !important;\n}\n\n.local-transform {\n  padding-left: 10px;\n}\n\n.local-transform label {\n  color: #aaa;\n  padding-left: 5px;\n}\n\n.local-transform a.button {\n  padding-top: 0;\n}\n\n.outliner {\n  color: #868686;\n  background: #2b2b2b;\n  padding: 0;\n  font-size: 12px;\n  cursor: default;\n  outline: none;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n  overflow-y: auto;\n  position: fixed;\n  width: 200px;\n  top: 98px;\n  height: calc(100% - 98px);\n}\n\n.outliner .option {\n  padding: 4px;\n  white-space: nowrap;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.outliner .option.active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.outliner .option .component:hover {\n  color: #1faaf2;\n}\n\n.outliner .option.active .component:hover {\n  color: #1888c1;\n}\n\n.outliner .option .icons {\n  display: none;\n  margin: 0 3px 0 10px;\n}\n\n.outliner .option .icons .button {\n  font-size: 12px;\n  color: #fff;\n}\n\n.outliner .option.active .icons {\n  display: inline;\n}\n\n.outliner .fa {\n  color: #aaa;\n}\n\n.outliner .active .fa {\n  color: #fff;\n}\n\na.flat-button {\n  color: #bcbcbc;\n  background-color: #262626;\n  font-size: 11px;\n  text-decoration: none;\n  margin-left: 10px;\n  padding: 5px;\n}\n\na.flat-button:hover {\n  color: #1faaf2;\n}\n\n.component-title {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\na.help-link {\n  opacity: 0.4;\n}\n\na.help-link:hover {\n  opacity: 1;\n}\n\n#right-panels {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  position: fixed;\n  top: 0;\n  right: 0;\n}\n\n#aframe-inspector-panels {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n/* This is a temporaly hack, we should style the editor instead of overwriting\n   the a-scene to fix the \"display: block\" issue. */\n\n.aframe-inspector-opened a-scene {\n  display: inline !important;\n}\n\n.aframe-inspector-opened a-scene .a-canvas {\n  position: fixed;\n  background-color: #191919;\n  z-index: 9999;\n}\n\nspan.entity-name {\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n  color: #fff;\n  font-size: 16px;\n}\n\n.add-component {\n  width: 200px;\n}\n\n.Select-control {\n  background-color: #222 !important;\n  border-radius: 0;\n  color: #1faaf2;\n  border: none;\n}\n\n.Select-menu-outer {\n  border: none;\n}\n\n.Select-menu-outer .is-focused {\n  background-color: #1faaf2 !important;\n  color: #fff;\n}\n\n.Select-option {\n  background-color: #222 !important;\n}\n\n.select-widget {\n  display: inline-block;\n  width: 157px;\n}\n\n.Select-placeholder,\n.Select--single > .Select-control .Select-value {\n  color: #1faaf2 !important;\n}\n\n.Select-value-label {\n  color: #1faaf2 !important;\n}\n\n.row .Select-control {\n  height: 24px;\n  font-size: 11px;\n}\n\n.row .Select-placeholder,\n.row .Select--single > .Select-control .Select-value {\n  line-height: 19px;\n}\n\n.row .Select-input {\n  height: 22px;\n}\n\n.row input[type=text],\n.row input[type=number],\n.row input.string,\n.row input.number {\n  min-height: 20px;\n  padding-left: 5px;\n  padding-right: 5px;\n  color: #1faaf2;\n  border: 1px solid transparent;\n  background: #222;\n}\n\n/* shortcuts help */\n\n.help-lists {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.help-list {\n  list-style: none;\n  margin: 0;\n  padding: 0 0 10px;\n  width: 350px;\n}\n\n.help-list li {\n  margin-right: 40px;\n}\n\n.help-key-unit {\n  line-height: 1.8;\n  margin-right: 2em;\n  padding: 5px 0;\n}\n\n.help-key {\n  min-width: 60px;\n  position: relative;\n  bottom: 2px;\n  margin-right: 4px;\n}\n\n.help-key span {\n  font-size: 12px;\n  color: #999;\n  display: inline-block;\n  padding: 0 8px;\n  text-align: center;\n  background-color: #2e2e2e;\n  background-repeat: repeat-x;\n  border: 1px solid #666;\n  border-radius: 3px;\n  box-shadow: 0 0 5px #000;\n}\n\n.help-key-def {\n  display: inline-block;\n  margin-left: 1em;\n  color: #bbb;\n}\n\n.add-component {\n  text-align: left;\n}\n\n.add-component-container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: #2b2b2b;\n  padding: 10px;\n}\n\n.aregistry-button {\n  padding: 8px;\n  font-size: 12px;\n  margin-left: 10px;\n}\n\n.aregistry-button:hover {\n  background-color: #1faaf2;\n}\n\n.aregistry-button img {\n  width: 20px;\n  height: 20px;\n}\n\n#menu {\n    background: #aaa;\n    position: relative;\n    width: 200px;\n    height: 200px;\n    margin: 0 auto;\n    overflow: hidden;\n    border-radius: 100px;\n    -moz-border-radius: 100px;\n    -webkit-border-radius: 100px;\n}\n\n#center {\n    position: absolute;\n    left: 70px;\n    top: 70px;\n    width: 60px;\n    height: 60px;\n    z-index: 10;\n    background: #eee;\n    background: -webkit-linear-gradient(top, #eee, #aaa);\n    background: linear-gradient(top, #eee, #aaa);\n    background: -moz-linear-gradient(top, #eee, #aaa);\n    background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#aaa));\n    border-radius: 30px;\n    -moz-border-radius: 30px;\n    -webkit-border-radius: 30px;\n}\n\n#center a {\n    display: block;\n    width: 100%;\n    height: 100%\n}\n\n.item {\n    background: #aaa;\n    overflow: hidden;\n    position: absolute;\n    width: 100px;\n    height: 100px;\n    transform-origin: 100% 100%;\n    -moz-transform-origin: 100% 100%;\n    -webkit-transform-origin: 100% 100%;\n    transition: background .5s;\n    -moz-transition: background .5s;\n    -webkit-transition: background .5s;\n    -o-transition: background .5s;\n    -ms-transition: background .5s;\n}\n\n.item:hover {\n    background: #eee\n}\n\n.item1 {\n    z-index: 1;\n    transform: rotate(60deg);\n    -moz-transform: rotate(60deg);\n    -webkit-transform: rotate(60deg);\n}\n\n.item2 {\n    z-index: 2;\n    transform: rotate(120deg);\n    -moz-transform: rotate(120deg);\n    -webkit-transform: rotate(120deg);\n}\n\n.item3 {\n    z-index: 3;\n    transform: rotate(180deg);\n    -moz-transform: rotate(180deg);\n    -webkit-transform: rotate(180deg);\n}\n\n.item4 {\n    z-index: 4;\n    transform: rotate(240deg);\n    -moz-transform: rotate(240deg);\n    -webkit-transform: rotate(240deg);\n}\n\n.item5 {\n    z-index: 5;\n    transform: rotate(300deg);\n    -moz-transform: rotate(300deg);\n    -webkit-transform: rotate(300deg);\n}\n\n.item6 {\n    border: none;\n    position: absolute;\n    z-index: 6;\n    transform: rotate(-30deg);\n    -moz-transform: rotate(-30deg);\n    -webkit-transform: rotate(-30deg);\n}\n\n#wrapper6 {\n    position: absolute;\n    width: 100px;\n    height: 100px;\n    overflow: hidden;\n    transform-origin: 100% 100%;\n    -moz-transform-origin: 100% 100%;\n    -webkit-transform-origin: 100% 100%;\n}\n\n.item1 .content {\n    left: -10px;\n    top: 15px;\n    transform: rotate(-60deg);\n    -moz-transform: rotate(-60deg);\n    -webkit-transform: rotate(-60deg);\n}\n\n.item2 .content {\n    left: -11px;\n    top: 16px;\n    transform: rotate(-120deg);\n    -moz-transform: rotate(-120deg);\n    -webkit-transform: rotate(-120deg);\n}\n\n.item3 .content {\n    left: -7px;\n    top: 12px;\n    transform: rotate(-180deg);\n    -moz-transform: rotate(-180deg);\n    -webkit-transform: rotate(-180deg);\n}\n\n.item4 .content {\n    left: -5px;\n    top: 18px;\n    transform: rotate(-240deg);\n    -moz-transform: rotate(-240deg);\n    -webkit-transform: rotate(-240deg);\n}\n\n.item5 .content {\n    left: -10px;\n    top: 20px;\n    transform: rotate(-300deg);\n    -moz-transform: rotate(-300deg);\n    -webkit-transform: rotate(-300deg);\n}\n\n.item6 .content {\n    left: 20px;\n    top: -10px;\n    transform: rotate(30deg);\n    -moz-transform: rotate(30deg);\n    -webkit-transform: rotate(30deg);\n}\n\n.content, .content a {\n    width: 100%;\n    height: 100%;\n    text-align: center\n}\n\n.content {\n    position: absolute;\n}\n\n.content a {\n    line-height: 100px;\n    display: block;\n    position: absolute;\n    text-decoration: none;\n    font-family: 'Segoe UI', Arial, Verdana, sans-serif;\n    font-size: 20px;\n    text-shadow: 1px 1px #eee;\n    text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff\n}\n\n.display-target {\n    display: none;\n    text-align: center;\n    opacity: 0;\n}\n\n.display-target:target {\n    display: block;\n    opacity: 1;\n    animation: fade-in 1s;\n    -moz-animation: fade-in 1s;\n    -webkit-animation: fade-in 1s;\n    -o-animation: fade-in 1s;\n    -ms-animation: fade-in 1s;\n}\n\n@keyframes fade-in {\n    from { opacity: 0 }\n    to { opacity: 1 }\n}\n\n@-webkit-keyframes fade-in {\n    from { opacity: 0 }\n    to { opacity: 1 }\n}\n\n.segmentButton{\n  width: 30px;\n  height: 30px;\n  position: relative;\n  top: 15px;\n}\n\n.exportHTML{\n    background-color: #ed3160;\n    position: fixed;\n    left: 3px;\n    top: 36px;\n    padding: 6px 10px;\n    color: #fff !important;\n    text-decoration: none;\n    text-align: center;\n    z-index: 99999;\n    width: 174px;\n    margin:auto !important;\n\n}\n\n.exportHTML:hover{\n  color:#fff;\n}", ""]);
+	exports.push([module.id, "body {\n  font-family: Helvetica, Arial, sans-serif;\n  font-size: 14px;\n  margin: 0;\n}\n\ninput:focus,\nselect:focus,\ntextarea:focus,\nbutton:focus {\n    outline: none;\n}\n\nbody.aframe-inspector-opened {\n  overflow: hidden;\n}\n\nhr {\n  border: 0;\n  border-top: 1px solid #ccc;\n}\n\na {\n  cursor: pointer;\n}\n\nbutton {\n  position: relative;\n}\n\ncode {\n  font-family: Consolas, Andale Mono, Monaco, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;\n}\n\ntextarea {\n  -moz-tab-size: 4;\n    -o-tab-size: 4;\n       tab-size: 4;\n  white-space: pre;\n  word-wrap: normal;\n}\n\ntextarea.success {\n  border-color: #8b8 !important;\n}\n\ntextarea.fail {\n  border-color: #f00 !important;\n  background-color: rgba(255, 0, 0, 0.05);\n}\n\ntextarea,\ninput {\n  outline: none; /* osx */\n}\n\n#left-sidebar,\n#right-panels,\n#bottom-panels {\n  z-index: 9999;\n}\n\n#sidebar,\n#left-sidebar,\n.panel {\n  cursor: default;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.collapsible .static {\n  margin: 0;\n}\n\n.collapsible .static .collapse-button {\n  float: left;\n  margin-right: 6px;\n  width: 0;\n  height: 0;\n  border: 6px solid transparent;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  margin-top: 2px;\n  border-left-color: #1faaf2;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  margin-top: 6px;\n  border-top-color: #1faaf2;\n}\n\n.collapsible.collapsed .content {\n  display: none;\n}\n\n.toggle-edit {\n  background-color: #ed3160;\n  position: fixed;\n  left: 3px;\n  top: 3px;\n  padding: 6px 10px;\n  color: #fff;\n  text-decoration: none;\n  text-align: center;\n  z-index: 99999;\n  width: 174px;\n}\n\n.toggle-edit:hover {\n  background-color: rgb(228, 43, 90);\n}\n\n.scenegraph {\n  border-top: 1px solid #111;\n  padding-top: 32px;\n}\n\n.scenegraph .search {\n  padding: 5px;\n}\n\n.scenegraph-.segment-circle {\n  background-color: #333;\n  position: fixed;\n  top: 32px;\n}\n\n.scenegraph-actions {\n  padding: 9px 0 5px;\n}\n\n.search {\n  position: relative;\n  color: #aaa;\n  font-size: 16px;\n}\n\n.search input {\n  width: 185px;\n  height: 22px;\n  background: #222;\n  border-radius: 5px;\n}\n\n.search input {\n  text-indent: 10px;\n}\n\n.search .fa-search {\n  position: absolute;\n  top: 10px;\n  right: 11px;\n}\n\ninput {\n  background-color: transparent;\n  border: 1px solid #555;\n  color: #fff;\n}\n\ninput,\n.texture canvas {\n  -webkit-transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n  transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n}\n\ninput[type=text],\ninput[type=number],\ninput.string,\ninput.number {\n  min-height: 14px;\n  outline: none;\n}\n\ninput.number {\n  color: #20b1fb !important;\n  font-size: 12px;\n  border: 0;\n  padding: 2px;\n  cursor: col-resize;\n  background-color: transparent !important;\n}\n\ninput.string:focus,\ninput.number:focus {\n  border: 1px solid #20b1fb;\n  cursor: auto;\n  color: #fff;\n}\n\n#left-sidebar {\n  position: fixed;\n  left: 0;\n  top: 0;\n  bottom: 0;\n  width: 200px;\n  overflow: auto;\n  background: #2b2b2b;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  height: 100%;\n}\n\n#sidebar {\n  width: 330px;\n  background: #2b2b2b;\n}\n\n#sidebar * {\n  vertical-align: middle;\n}\n\ninput,\ntextarea,\nselect {\n  background: #222;\n  border: 1px solid transparent;\n  color: #888;\n}\n\n.row {\n  min-height: 20px;\n  margin-bottom: 10px;\n}\n\ninput[type=color] {\n  border: 1px solid #111;\n  background-color: #333;\n  cursor: pointer;\n}\n\n.texture canvas {\n  border: 1px solid #222;\n}\n\ninput[type=color] {\n  height: 16px;\n  width: 64px;\n  cursor: pointer;\n  padding: 0;\n}\n\n/* Note: these vendor-prefixed selectors cannot be grouped! */\n\ninput[type=color]::-webkit-color-swatch {\n  border: 0;  /* To remove the gray border. */\n}\n\ninput[type=color]::-webkit-color-swatch-wrapper {\n  padding: 0;  /* To remove the inner padding. */\n}\n\ninput[type=color]::-moz-color-swatch {\n  border: 0;\n}\n\ninput[type=color]::-moz-focus-inner {\n  border: 0;  /* To remove the inner border (specific to Firefox). */\n  padding: 0;\n}\n\nbody {\n  font-family: 'Roboto', sans-serif;\n  font-size: 12px;\n  color: #fff;\n}\n\nbody.editor-opened {\n  background-color: #191919;\n}\n\n.components {\n  background-color: #323232;\n  color: #bcbcbc;\n  width: 330px;\n  position: fixed;\n  height: 100%;\n  overflow: auto;\n}\n\ndiv.vec2,\ndiv.vec3 {\n  display: inline;\n}\n\n.vec2 input.number,\n.vec3 input.number {\n  width: 46px;\n}\n\n.collapsible-header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.component-title span {\n  float: left;\n  max-width: 110px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  text-transform: uppercase;\n}\n\n.collapsible .static {\n  vertical-align: middle;\n  background-color: #323232;\n  color: #fff;\n  padding: 10px;\n  border-top: 1px solid #262626;\n  border-bottom: 1px solid #262626;\n  height: 16px;\n}\n\n.collapsible .menu {\n  text-align: right;\n}\n\n.collapsible .menu::after {\n  color: #bbb;\n  content: '\\2807';\n  font-size: 12px;\n  padding: 5px;\n  text-align: right;\n}\n\n.collapsible .static .collapse-button {\n  margin-top: 2px;\n  width: 0;\n  height: 0;\n  float: left;\n  margin-right: 10px;\n  border-left: 5px solid transparent;\n  border-right: 5px solid transparent;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #bbb;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #bbb;\n}\n\n.collapsible .content {\n  background-color: #2b2b2b;\n  padding: 10px;\n}\n\n.components .row {\n  min-height: 20px;\n  margin-bottom: 10px;\n}\n\n.components * {\n  vertical-align: middle;\n}\n\n.components .row .text {\n  cursor: default;\n  display: inline-block;\n  vertical-align: middle;\n  width: 120px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n\n.components .row .map_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n\n.hidden {\n  visibility: hidden;\n}\n\n.texture canvas + input {\n  margin-left: 5px;\n}\n\n.texture .fa {\n  padding-right: 5px;\n}\n\n.scenegraph-bottom {\n  background-color: #323232;\n  bottom: 10;\n  height: 40px;\n  z-index: 100;\n  border-top: 1px solid #111;\n  left: 0;\n}\n\na.button {\n  color: #bcbcbc;\n  font-size: 16px;\n  text-decoration: none;\n  margin-left: 10px;\n}\n\na.button:hover {\n  color: #1faaf2;\n}\n\n.scenegraph-bottom a {\n  float: right;\n  margin: 10px;\n}\n\n.modal {\n  position: fixed;\n  z-index: 9999;\n  padding-top: 100px;\n  left: 0;\n  top: 0;\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  background-color: rgb(0, 0, 0);\n  background-color: rgba(0, 0, 0, 0.4);\n}\n\n.modal-content {\n  position: relative;\n  background-color: #232323;\n  margin: auto;\n  padding: 0;\n  width: 889px;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n  -webkit-animation-name: animatetop;\n          animation-name: animatetop;\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s;\n}\n\n@-webkit-keyframes animatetop {\n  from {\n    top: -300px;\n    opacity: 0;\n  }\n\n  to {\n    top: 0;\n    opacity: 1;\n  }\n}\n\n@keyframes animatetop {\n  from {\n    top: -300px;\n    opacity: 0;\n  }\n\n  to {\n    top: 0;\n    opacity: 1;\n  }\n}\n\n.close {\n  color: white;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n}\n\n.close:hover,\n.close:focus {\n  color: #08f;\n  text-decoration: none;\n  cursor: pointer;\n}\n\n.modal-header {\n  padding: 2px 16px;\n  color: white;\n}\n\n.modal-body {\n  padding: 16px;\n  overflow: auto;\n}\n\n.modal-footer {\n  padding: 2px 16px;\n  color: white;\n}\n\n/* Gallery */\n\n.gallery {\n  padding: 0;\n  overflow: auto;\n  margin: 0 auto;\n}\n\n.gallery li {\n  width: 155px;\n  margin: 8px;\n  float: left;\n  overflow: hidden;\n  display: inline-block;\n  box-shadow: 3px 3px 8px -2px rgba(0, 0, 0, 0.63);\n  cursor: pointer;\n}\n\n.gallery li:hover {\n  box-shadow: 0 0 4px 3px rgba(29, 138, 190, 0.63);\n}\n\n.gallery li .detail {\n  background-color: #323232;\n  padding: 10px;\n  min-height: 60px;\n}\n\n.gallery li:hover .detail {\n  background-color: #444;\n}\n\n.gallery li .detail span {\n  color: #bbb !important;\n}\n\n.gallery li .detail span.title {\n  color: #eee !important;\n  font-weight: bold;\n}\n\n.preview {\n  width: 200px;\n  float: right;\n  padding: 10px;\n}\n\n.new_asset_options {\n  float: left;\n  width: 600px;\n}\n\n.modal button {\n  display: inline-block;\n  margin: 0 10px 0 0;\n  padding: 5px 10px;\n  font-size: 12px;\n  line-height: 1.8;\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  box-shadow: none;\n  border-radius: 0;\n  cursor: pointer;\n}\n\n.modal button:focus {\n  outline: none;\n}\n\n.modal button {\n  color: #fff;\n  background-color: #1eaaf1;\n  border: none;\n}\n\n.modal button:hover,\n.modal button.hover {\n  background-color: #346392;\n  text-shadow: -1px 1px #27496d;\n}\n\n.modal button:active,\n.modal button.active {\n  background-color: #27496d;\n  text-shadow: -1px 1px #193047;\n}\n\n.newimage {\n  padding: 10px;\n  background-color: #323232;\n  overflow: auto;\n}\n\n.hide {\n  display: none;\n}\n\nspan.value {\n  color: #fff;\n  display: inline-block;\n}\n\nspan.mixinlist {\n  color: #888 !important;\n  display: inline-block;\n}\n\nspan.mixinlist ul {\n  list-style-type: none;\n  padding: 5px;\n  margin: 5px 0 0;\n  background-color: #222;\n}\n\nspan.mixinlist ul li {\n  margin-bottom: 3px;\n  font-size: 11px;\n}\n\nspan.mixinlist ul li:last-child {\n  margin-bottom: 0;\n}\n\nspan.mixin {\n  width: 100px;\n  display: inline-block;\n}\n\n.mixinlist {\n  margin-left: 120px;\n}\n\nspan.subcomponent {\n  color: #999;\n  margin-left: 10px;\n  float: none !important;\n  vertical-align: top !important;\n}\n\n.collapsible .static {\n  cursor: pointer;\n}\n\n.a-canvas.state-dragging {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n\ncode,\npre,\ninput,\ntextarea,\nselect {\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.Select,\n.wf-active code,\n.wf-active pre,\n.wf-active input,\n.wf-active textarea,\n.wf-active select {\n  font-family: Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.tagName {\n  font-weight: 500;\n}\n\n.sidebar-title {\n  color: #aaa;\n  text-align: center;\n  background-color: #444;\n  padding: 6px 10px;\n  font-size: 12px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  position: relative;\n}\n\n.segment-circle {\n  height: 32px;\n  background-color: #262626;\n  color: #333;\n  position: relative;\n}\n\n.segment-circle * {\n  vertical-align: middle;\n  padding: 8px;\n  margin-left: 0px;\n}\n\n.segment-circle a.button {\n  margin: 0 6px 0 0;\n}\n\n.segment-circle .active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.segment-circle .active:hover {\n  color: #fff !important;\n}\n\n.toolbar {\n  height: 32px;\n  background-color: #262626;\n  color: #333;\n  position: relative;\n}\n\n.toolbar * {\n  vertical-align: middle;\n  padding: 8px;\n  margin-left: 0;\n}\n\n.toolbar a.button {\n  margin: 0 6px 0 0;\n}\n\n.toolbar .active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.toolbar .active:hover {\n  color: #fff !important;\n}\n\n.local-transform {\n  padding-left: 10px;\n}\n\n.local-transform label {\n  color: #aaa;\n  padding-left: 5px;\n}\n\n.local-transform a.button {\n  padding-top: 0;\n}\n\n.outliner {\n  color: #868686;\n  background: #2b2b2b;\n  padding: 0;\n  font-size: 12px;\n  cursor: default;\n  outline: none;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n  overflow-y: auto;\n  position: fixed;\n  width: 200px;\n  top: 98px;\n  height: calc(100% - 98px);\n}\n\n.outliner .option {\n  padding: 4px;\n  white-space: nowrap;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.outliner .option.active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.outliner .option .component:hover {\n  color: #1faaf2;\n}\n\n.outliner .option.active .component:hover {\n  color: #1888c1;\n}\n\n.outliner .option .icons {\n  display: none;\n  margin: 0 3px 0 10px;\n}\n\n.outliner .option .icons .button {\n  font-size: 12px;\n  color: #fff;\n}\n\n.outliner .option.active .icons {\n  display: inline;\n}\n\n.outliner .fa {\n  color: #aaa;\n}\n\n.outliner .active .fa {\n  color: #fff;\n}\n\na.flat-button {\n  color: #bcbcbc;\n  background-color: #262626;\n  font-size: 11px;\n  text-decoration: none;\n  margin-left: 10px;\n  padding: 5px;\n}\n\na.flat-button:hover {\n  color: #1faaf2;\n}\n\n.component-title {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n}\n\na.help-link {\n  opacity: 0.4;\n}\n\na.help-link:hover {\n  opacity: 1;\n}\n\n#right-panels {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  position: fixed;\n  top: 0;\n  right: 0;\n}\n\n#aframe-inspector-panels {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n/* This is a temporaly hack, we should style the editor instead of overwriting\n   the a-scene to fix the \"display: block\" issue. */\n\n.aframe-inspector-opened a-scene {\n  display: inline !important;\n}\n\n.aframe-inspector-opened a-scene .a-canvas {\n  position: fixed;\n  background-color: #191919;\n  z-index: 9999;\n}\n\nspan.entity-name {\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n  color: #fff;\n  font-size: 16px;\n}\n\n.add-component {\n  width: 200px;\n}\n\n.Select-control {\n  background-color: #222 !important;\n  border-radius: 0;\n  color: #1faaf2;\n  border: none;\n}\n\n.Select-menu-outer {\n  border: none;\n}\n\n.Select-menu-outer .is-focused {\n  background-color: #1faaf2 !important;\n  color: #fff;\n}\n\n.Select-option {\n  background-color: #222 !important;\n}\n\n.select-widget {\n  display: inline-block;\n  width: 157px;\n}\n\n.Select-placeholder,\n.Select--single > .Select-control .Select-value {\n  color: #1faaf2 !important;\n}\n\n.Select-value-label {\n  color: #1faaf2 !important;\n}\n\n.row .Select-control {\n  height: 24px;\n  font-size: 11px;\n}\n\n.row .Select-placeholder,\n.row .Select--single > .Select-control .Select-value {\n  line-height: 19px;\n}\n\n.row .Select-input {\n  height: 22px;\n}\n\n.row input[type=text],\n.row input[type=number],\n.row input.string,\n.row input.number {\n  min-height: 20px;\n  padding-left: 5px;\n  padding-right: 5px;\n  color: #1faaf2;\n  border: 1px solid transparent;\n  background: #222;\n}\n\n/* shortcuts help */\n\n.help-lists {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.help-list {\n  list-style: none;\n  margin: 0;\n  padding: 0 0 10px;\n  width: 350px;\n}\n\n.help-list li {\n  margin-right: 40px;\n}\n\n.help-key-unit {\n  line-height: 1.8;\n  margin-right: 2em;\n  padding: 5px 0;\n}\n\n.help-key {\n  min-width: 60px;\n  position: relative;\n  bottom: 2px;\n  margin-right: 4px;\n}\n\n.help-key span {\n  font-size: 12px;\n  color: #999;\n  display: inline-block;\n  padding: 0 8px;\n  text-align: center;\n  background-color: #2e2e2e;\n  background-repeat: repeat-x;\n  border: 1px solid #666;\n  border-radius: 3px;\n  box-shadow: 0 0 5px #000;\n}\n\n.help-key-def {\n  display: inline-block;\n  margin-left: 1em;\n  color: #bbb;\n}\n\n.add-component {\n  text-align: left;\n}\n\n.add-component-container {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: #2b2b2b;\n  padding: 10px;\n}\n\n.aregistry-button {\n  padding: 8px;\n  font-size: 12px;\n  margin-left: 10px;\n}\n\n.aregistry-button:hover {\n  background-color: #1faaf2;\n}\n\n.aregistry-button img {\n  width: 20px;\n  height: 20px;\n}\n\n#menu {\n    background: #aaa;\n    position: relative;\n    width: 200px;\n    height: 200px;\n    margin: 0 auto;\n    overflow: hidden;\n    border-radius: 100px;\n    -moz-border-radius: 100px;\n    -webkit-border-radius: 100px;\n}\n\n#center {\n    position: absolute;\n    left: 70px;\n    top: 70px;\n    width: 60px;\n    height: 60px;\n    z-index: 10;\n    /*Commented out because it breaks the build, webpack */\n    /*background: #eee;*/\n    /*background: linear-gradient(top, #eee, #aaa);*/\n    /*background: -moz-linear-gradient(top, #eee, #aaa);*/\n    /*background: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#aaa));*/\n    border-radius: 30px;\n    -moz-border-radius: 30px;\n    -webkit-border-radius: 30px;\n}\n\n#center a {\n    display: block;\n    width: 100%;\n    height: 100%\n}\n\n.item {\n    background: #aaa;\n    overflow: hidden;\n    position: absolute;\n    width: 100px;\n    height: 100px;\n    transform-origin: 100% 100%;\n    -moz-transform-origin: 100% 100%;\n    -webkit-transform-origin: 100% 100%;\n    transition: background .5s;\n    -moz-transition: background .5s;\n    -webkit-transition: background .5s;\n    -o-transition: background .5s;\n    -ms-transition: background .5s;\n}\n\n.item:hover {\n    background: #eee\n}\n\n.item1 {\n    z-index: 1;\n    transform: rotate(60deg);\n    -moz-transform: rotate(60deg);\n    -webkit-transform: rotate(60deg);\n}\n\n.item2 {\n    z-index: 2;\n    transform: rotate(120deg);\n    -moz-transform: rotate(120deg);\n    -webkit-transform: rotate(120deg);\n}\n\n.item3 {\n    z-index: 3;\n    transform: rotate(180deg);\n    -moz-transform: rotate(180deg);\n    -webkit-transform: rotate(180deg);\n}\n\n.item4 {\n    z-index: 4;\n    transform: rotate(240deg);\n    -moz-transform: rotate(240deg);\n    -webkit-transform: rotate(240deg);\n}\n\n.item5 {\n    z-index: 5;\n    transform: rotate(300deg);\n    -moz-transform: rotate(300deg);\n    -webkit-transform: rotate(300deg);\n}\n\n.item6 {\n    border: none;\n    position: absolute;\n    z-index: 6;\n    transform: rotate(-30deg);\n    -moz-transform: rotate(-30deg);\n    -webkit-transform: rotate(-30deg);\n}\n\n#wrapper6 {\n    position: absolute;\n    width: 100px;\n    height: 100px;\n    overflow: hidden;\n    transform-origin: 100% 100%;\n    -moz-transform-origin: 100% 100%;\n    -webkit-transform-origin: 100% 100%;\n}\n\n.item1 .content {\n    left: -10px;\n    top: 15px;\n    transform: rotate(-60deg);\n    -moz-transform: rotate(-60deg);\n    -webkit-transform: rotate(-60deg);\n}\n\n.item2 .content {\n    left: -11px;\n    top: 16px;\n    transform: rotate(-120deg);\n    -moz-transform: rotate(-120deg);\n    -webkit-transform: rotate(-120deg);\n}\n\n.item3 .content {\n    left: -7px;\n    top: 12px;\n    transform: rotate(-180deg);\n    -moz-transform: rotate(-180deg);\n    -webkit-transform: rotate(-180deg);\n}\n\n.item4 .content {\n    left: -5px;\n    top: 18px;\n    transform: rotate(-240deg);\n    -moz-transform: rotate(-240deg);\n    -webkit-transform: rotate(-240deg);\n}\n\n.item5 .content {\n    left: -10px;\n    top: 20px;\n    transform: rotate(-300deg);\n    -moz-transform: rotate(-300deg);\n    -webkit-transform: rotate(-300deg);\n}\n\n.item6 .content {\n    left: 20px;\n    top: -10px;\n    transform: rotate(30deg);\n    -moz-transform: rotate(30deg);\n    -webkit-transform: rotate(30deg);\n}\n\n.content, .content a {\n    width: 100%;\n    height: 100%;\n    text-align: center\n}\n\n.content {\n    position: absolute;\n}\n\n.content a {\n    line-height: 100px;\n    display: block;\n    position: absolute;\n    text-decoration: none;\n    font-family: 'Segoe UI', Arial, Verdana, sans-serif;\n    font-size: 20px;\n    text-shadow: 1px 1px #eee;\n    text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #fff\n}\n\n.display-target {\n    display: none;\n    text-align: center;\n    opacity: 0;\n}\n\n.display-target:target {\n    display: block;\n    opacity: 1;\n    animation: fade-in 1s;\n    -moz-animation: fade-in 1s;\n    -webkit-animation: fade-in 1s;\n    -o-animation: fade-in 1s;\n    -ms-animation: fade-in 1s;\n}\n\n@keyframes fade-in {\n    from { opacity: 0 }\n    to { opacity: 1 }\n}\n\n@-webkit-keyframes fade-in {\n    from { opacity: 0 }\n    to { opacity: 1 }\n}\n\n.segmentButton{\n  width: 30px;\n  height: 30px;\n  position: relative;\n  top: 15px;\n}\n\n.exportHTML{\n    background-color: #ed3160;\n    position: fixed;\n    left: 3px;\n    top: 36px;\n    padding: 6px 10px;\n    color: #fff !important;\n    text-decoration: none;\n    text-align: center;\n    z-index: 99999;\n    width: 174px;\n    margin:auto !important;\n\n}\n\n.exportHTML:hover{\n  color:#fff;\n}\n\n.navbar-default {\n  background: transparent;\n  border: none;\n  padding-top: 20px;\n}\n\n.navbar li a {\n  background-color: transparent !important;\n}\n\n.transform-menu-row {\n  background-color: #2D4C60;\n  position: fixed;\n  bottom: 92px;\n  margin : auto !important;\n  width: 100%;\n}\n\n.secondary-menu-row {\n  background-color: #2D4C60;\n  position: fixed;\n  bottom: 92px;\n  margin : auto !important;\n  width: 100%;\n}\n\n.primary-menu-row {\n  background-color: #223D4E;\n  position: fixed;\n  bottom: 0;\n  margin : auto !important;\n  width: 100%;\n}\n\n.primary-menu {\n  /*max-width: 6  80px;*/\n  margin: 0 auto;\n}\n\n.primary-btn-group.btn-group {\n  padding: 20px 0 15px 0;\n  border-bottom: 5px solid #223D4E;\n}\n\n.primary-btn-group.btn-group:hover {\n  border-bottom: 5px solid #00A3FF;\n}\n\n.primary-btn-nav.btn-nav {\n  background-color: #223D4E; /* Safari/Chrome, other WebKit */    /* Firefox, other Gecko */\n  box-sizing: border-box;         /* Opera/IE 8+ */\n}\n\n.primary-btn-nav.btn-nav:hover {\n  // color: #FFFAFA;\n  // cursor: pointer;\n  // -webkit-transition: color 1s; /* For Safari 3.1 to 6.0 */\n  // transition: color 1s;\n}\n\n.primary-btn-nav.btn-nav.active {\n  color: #FFFAFA;\n  padding: 2px;\n  border-top: 6px solid #FFFAFA;\n  border-bottom: 6px solid #FFFAFA;\n  border-left: 0;\n  border-right: 0;\n  box-sizing:border-box;\n  -moz-box-sizing:border-box;\n  -webkit-box-sizing:border-box;\n  -webkit-transition: border 0.3s ease-out, color 0.3s ease 0.5s; /* IE10 is actually unprefixed */\n  transition: border 0.3s ease-out, color 0.3s ease 0.5s;\n  -webkit-animation: pulsate 1.2s linear infinite;\n  animation: pulsate 1.2s linear infinite;\n}\n\n.primary-btn-nav.btn-nav.active:before {\n  content: '';\n  position: absolute;\n  border-style: solid;\n  border-width: 6px 6px 0;\n  border-color: #FFFAFA transparent;\n  display: block;\n  width: 0;\n  z-index: 1;\n  margin-left: -6px;\n  top: 0;\n  left: 50%;\n}\n\n.primary-btn-nav.btn-nav .glyphicon {\n  padding-top: 16px;\n  font-size: 40px;\n}\n\n.primary-btn-nav.btn-nav.active p {\n  margin-bottom: 8px;\n}\n\n.primary-menu-drop {\n  padding: 15px;\n  bottom: 81px;\n    width: 100%;\n    position: fixed;\n        margin: auto !important;\n  background:#2D4C60;\n}\n\n.cta-section {\n  border: 2px dotted #223d4e;\n  text-align: center;\n  color: white;\n}\n\n.cta-section h3 {\n  text-transform: uppercase;\n  font-size: 18px;\n  margin-bottom: 0;\n}\n\n.cta-section h5 {\n  margin-top: 3px;\n  font-size: 12px;\n}\n\n.cta {\n  color: white;\n  text-transform: uppercase;\n  font-size: 10px;\n  padding: 10px 25px;\n  background: #00a4ff;\n  display: inline-block;\n  border-radius: 4px;\n  margin-bottom: 20px;\n  margin-top: 7px;\n}\n\n.secondary-btn-nav {\n  background: #2D4C60;\n  padding: 45px 0 45px 0;\n}\n\n@-webkit-keyframes pulsate {\n  50% { color: #FFFAFA; }\n}\n\n@keyframes pulsate {\n  50% { color: #FFFAFA; }\n}\n\n.tool-container{\n  width:100%;\n  padding:0px !important;\n}\n\n#bottom-panels{\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  margin-bottom:auto;\n  width:100%;\n  z-index: 9999;\n}\n\n#inputFile{\n  display : none;\n}\n\n.translate-icon,.scale-icon,.rotate-icon{\n  width:14%;\n  height:27%;\n}\n\n#inspectorEye{\n    position: fixed;\n    bottom: 10px;\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 238 */
+/* 237 */
 /***/ function(module, exports) {
 
 	'use strict';
