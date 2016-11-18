@@ -31195,12 +31195,12 @@
 	        document.querySelector('a-sky').setAttribute('src', fr.result);
 	      };
 	      fr.readAsDataURL(event.target.files[0]);
-	      this.setState({ showFileWidget: false });
+	      _this.setState({ showFileWidget: false });
 	    };
 
 	    _this.renderFileWidget = function () {
 	      if (_this.state.showFileWidget) {
-	        return React.createElement(_FileWidget2.default, { onChange: _this.skyChanged, value: _this.state.fileName, name: 'toolbarFileWidget', componentname: '_toolbarFileWidget' });
+	        return React.createElement(_FileWidget2.default, { onChange: _this.skyChanged.bind(_this), value: _this.state.fileName, name: 'toolbarFileWidget', componentname: '_toolbarFileWidget' });
 	      }
 	    };
 
@@ -31210,12 +31210,12 @@
 	    };
 
 	    _this.toggleFileWidget = function () {
-	      _this.setState({ showFileWidget: !_this.showFileWidget });
+	      _this.setState({ showFileWidget: !_this.state.showFileWidget });
 	      _this.setState({ show360Tools: false });
 	    };
 
 	    _this.toggleTransformTools = function () {
-	      _this.setState({ showTransformTools: !_this.showTransformTools });
+	      _this.setState({ showTransformTools: !_this.state.showTransformTools });
 	      _this.setState({ showFileWidget: false });
 	    };
 
