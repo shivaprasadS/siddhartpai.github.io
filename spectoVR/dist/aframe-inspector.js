@@ -31193,6 +31193,7 @@
 	      var fr = new FileReader();
 	      fr.onload = function () {
 	        document.querySelector('a-sky').setAttribute('src', fr.result);
+	        document.querySelector('a-sky').removeAttribute('color');
 	      };
 	      fr.readAsDataURL(event.target.files[0]);
 	      _this.setState({ showFileWidget: false });
