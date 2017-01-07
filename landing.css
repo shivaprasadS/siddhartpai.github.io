@@ -1,0 +1,74 @@
+  body {
+      color: #fff;
+      font-size: 1rem;
+      font-family: "proxima-nova",sans-serif;
+  }
+  a:hover{
+    color: #fff;
+    text-decoration: none;
+  }
+  img{
+    overflow: hidden;
+  }
+  .margin {
+    margin-bottom: 150px;
+  }
+  .intro-para{
+    line-height: 25px;
+    font-size: 1.7rem;
+    padding-bottom: 20px;
+  }
+  .homepage-ipad{
+    overflow: hidden;
+  }
+  .homepage-ipad img{
+      width: 1200px;
+  }
+  .vr img{
+    margin-left: -200px;
+  }
+  .product-ss img{
+    width: 60%;
+    margin: auto;
+  }
+  .big-text{
+    font-size: 4.6rem;
+  }
+  .dive{
+    background: #565556;
+    border:none;
+    padding: 15px 40px;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  .bg-1 { 
+      background-color: #ee5050; /* Green */
+      color: #ffffff;
+      padding-top: 100px;
+  }
+  .container-fluid {
+      padding-top: 70px;
+      padding-bottom: 70px;
+  }
+  .navbar {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      font-size: 12px;
+      background: #ee5050;
+  }
+  .navbar-brand{
+    color: #fff;
+    font-weight: bold;
+  }
+  .navbar-nav li{
+    display: inline;
+    padding:10px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .navbar-nav  li a{
+    color: #fff;
+  }
