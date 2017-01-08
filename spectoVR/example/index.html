@@ -2,31 +2,36 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Example Scene</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.3.2/aframe.js"></script>
+    <title>Specto VR</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.3.2/aframe.min.js"></script>
+      <script src="https://rawgit.com/bryik/aframe-bmfont-text-component/master/dist/aframe-bmfont-text-component.min.js"></script>
+      <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script> 
+
   </head>
   <body>
     <a-scene debug="true">
       <a-assets>
+        <a-mixin id="blue" material="color: #4CC3D9"></a-mixin>
+        <a-mixin id="blueBox" geometry="primitive: box; depth: 2; height: 5; width: 1" material="color: #4CC3D9"></a-mixin>
+        <a-mixin id="box" geometry="primitive: box; depth: 1; height: 1; width: 1"></a-mixin>
+        <a-mixin id="cylinder" geometry="primitive: cylinder; height: 0.3; radius: 0.75; segmentsRadial: 6"></a-mixin>
+        <a-mixin id="green" material="color: #7BC8A4"></a-mixin>
+        <a-mixin id="orange" material="color: #F16745"></a-mixin>
+        <a-mixin id="purple" material="color: #93648D"></a-mixin>
+        <a-mixin id="short" scale="1 0.5 1"></a-mixin>
+        <a-mixin id="yellow" material="color: #FFC65D"></a-mixin>
+        <img id="crateImg" src="assets/textures/crate.gif">
+        <img id="floorImg" src="assets/textures/grasslight-big.jpg">
       </a-assets>
 
-      <!-- Meshes. -->
-      <!-- <a-entity id="blueBox" mixin="blueBox" position="0 8 0"></a-entity>
-      <a-entity id="shortOrangeBox" mixin="short orange box" position="-5 2 0"></a-entity>
-      <a-entity id="shortYellowBox" mixin="short yellow box" position="5 2 0"></a-entity>
-      <a-entity id="redBox" geometry="primitive: box" material="color:#f00" position="-4 1 0">
-        <a-animation attribute="rotation" to="0 360 0" repeat="indefinite" easing="linear" dur="9600"></a-animation>
-      </a-entity>
-      <a-entity id="yellowSphere" geometry="primitive: sphere" material="color:#ff0; metalness:0.0; roughness:1.0" position="-2 2 -2"></a-entity>
-      <a-box src="assets/textures/brick_bump.jpg" position="-5 5 -2" width="1" color="#F16745"></a-box>
-      <a-box id="box" position="0 2 0" height="2" color="#FFC65D"></a-box>
-
-      <!-- Models. -->
-  
-      <!-- Camera. -->
       <a-entity id="cameraWrapper" position="0 1 8">
         <a-entity id="camera" camera look-controls wasd-controls>
-          <!-- Cursor. -->
           <a-entity id="cursor" position="0 0 -2"
                     geometry="primitive: ring; radiusOuter: 0.016; radiusInner: 0.01"
                     material="color: #ff9; shader: flat; transparent: true; opacity: 0.5"
@@ -34,11 +39,12 @@
           </a-entity>
         </a-entity>
       </a-entity>
-
-      <a-sky color="#000"></a-sky>
+      <a-sky color="#0dacff"></a-sky>
     </a-scene>
 
-    <script src="../dist/aframe-inspector.min.js"></script>
+    <script src="../dist/aframe-inspector.js"></script>
     <script src="https://rawgit.com/ngokevin/kframe/master/dist/kframe.min.js"></script>
+    
+
   </body>
 </html>
