@@ -150,15 +150,20 @@
 	    _this.renderExperience = function () {
 	      var scene = _this.state.sceneEl;
 	      var editButton = _react2.default.createElement(
-	        'a',
-	        { className: 'toggle-edit', onClick: _this.toggleEdit },
-	        _this.state.inspectorEnabled ? 'Back to Scene' : 'Inspect Scene'
+	        'button',
+	        { type: 'button', id: 'inspectorEye', className: 'btn', onClick: _this.toggleEdit },
+	        _react2.default.createElement('img', { src: '../../assets/img/viewer.png', alt: '' })
 	      );
 	      if (_this.state.startExperience) {
 	        return _react2.default.createElement(
 	          'div',
-	          { id: 'aframe-inspector-panels', className: _this.state.inspectorEnabled ? '' : 'hidden' },
-	          _react2.default.createElement(_SpectoToolBar2.default, null)
+	          null,
+	          editButton,
+	          _react2.default.createElement(
+	            'div',
+	            { id: 'aframe-inspector-panels', className: _this.state.inspectorEnabled ? '' : 'hidden' },
+	            _react2.default.createElement(_SpectoToolBar2.default, null)
+	          )
 	        );
 	      }
 	    };
@@ -205,6 +210,12 @@
 
 	      Events.on('openhelpmodal', function () {
 	        _this2.setState({ isHelpOpen: true });
+	      });
+	      Events.on('inspectorOpened', function () {
+	        _this2.setState({ inspectorEnabled: true });
+	      });
+	      Events.on('inspectorClosed', function () {
+	        _this2.setState({ inspectorEnabled: false });
 	      });
 	    }
 	  }, {
@@ -31616,6 +31627,8 @@
 
 	var React = __webpack_require__(2);
 	var Events = __webpack_require__(186);
+	var INSPECTOR = __webpack_require__(204);
+
 	var classNames = __webpack_require__(190);
 
 
@@ -31651,6 +31664,16 @@
 
 	    _this2.hotspotActiveScene = function (scene) {
 	      _this2.setCurrentScene(scene);
+	    };
+
+	    _this2.toggleEdit = function () {
+	      if (_this2.state.inspectorEnabled) {
+	        INSPECTOR.close();
+	        Events.emit('inspectorClosed');
+	      } else {
+	        Events.emit('inspectorOpened');
+	        INSPECTOR.open();
+	      }
 	    };
 
 	    _this2.renderViewer = function () {};
@@ -31694,6 +31717,7 @@
 	    _this2.state = {
 	      option: undefined,
 	      selectedTool: null,
+	      inspectorEnabled: true,
 	      optionHistory: [],
 	      experience: {
 	        id: 4,
@@ -31737,7 +31761,7 @@
 	            { className: 'row' },
 	            React.createElement(
 	              'div',
-	              { className: 'viewer col-xs-1' },
+	              { className: 'viewer col-xs-1', onClick: this.toggleEdit.bind(this) },
 	              React.createElement(
 	                'span',
 	                { className: 'img-icon' },
@@ -35452,7 +35476,7 @@
 
 
 	// module
-	exports.push([module.id, "    /* Remove the navbar's default margin-bottom and rounded borders */ \n    .navbar {\n      padding: 10px;\n      margin-bottom: 0;\n      border-radius: 0;\n    } \n    .img-icon{\n      padding: 0 5px;\n    } \n    .img-icon img{\n        width: 20px;\n      } \n    .empty{\n        height: 375px;\n      } \n    .search{\n      background:#3e5078;\n      opacity: .9;\n      padding-top: 15px;\n    } \n    .search-input{\n      border-radius: 20px;\n      border: 0;\n      background: #2a3956;\n      padding: 5px;\n      width: 60%;\n      margin: auto;\n    } \n    .search-input input{\n      background: none;\n      border:0;\n      width: 80%;\n      margin-left: 10px;\n    } \n    .upload{\n      background: white;\n      border-radius: 20px;\n      color: #18273e;\n      padding: 5px 10px;\n      font-weight: bold;\n      font-size: 12px;\n      margin-right:10px;\n    } \n    .scene-container{\n      padding-top: 20px;\n    } \n    .create-scene{\n      position: relative;\n      padding-left: 0;\n      padding-bottom: 10px;\n    } \n    .create-scene img{\n        width: 100px;\n    } \n    .buttonName{\n      position: absolute;\n      top:25px;\n      left:10px;\n      color: black;\n      width: 100%;\n      font-weight: bold;\n    } \n    .scene-btn{\n      position: absolute;\n      width:100%;\n      color: black;\n      height: 50%;\n      background: none;\n      border: none;\n      font-size: 12px;\n      font-weight: bold;\n    } \n    .slider-button{\n      padding-top: 7px;\n    } \n    .slider-button div{\n      padding:0;\n    } \n    .slider-button .glyphicon{\n      color:#7a859c;\n    } \n    .slider-button hr{\n      border-top:3px solid #7a859c;\n      margin-top:10px; \n    } \n    .name-scene-para{\n      color: white;\n      position: absolute;\n      width: 100%;\n      top: 2px;\n      font-size: 10px;\n      font-weight: bold;\n      left: 10px;\n    } \n    .name-scene-input{\n      position: absolute;\n      color:white;\n      top: 30px;\n      width: 60%;\n      height: 40px;\n      left: 20px;\n      background: none;\n      border: none;\n      font-size: 12px;\n      overflow: hidden;\n    } \n    .btn-option{\n      position: absolute;\n      width: 100%;\n      top: 60px;\n      right:-15px;\n    } \n    .canvas-white img{\n      width:20px;\n    } \n    .del-btn img{\n      width: 12px;\n    } \n    /* footer */ \n    footer {\n      background-color: #18273e;\n      color: white;\n      //padding: 15px;\n      width: 100%;\n      height:50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    } \n    .viewer{\n      padding-top: 15px;\n    } \n    .nav-tabs{\n      position: absolute;\n      top: -10px;\n      width: 90%;\n      margin: auto;\n      left: 41%;\n    } \n    .nav-tabs .img-icon{\n      margin: 10px;\n      padding-top: 13px;\n      border-top:3px solid #fff; \n    } \n    .nav-tabs .active{\n      border-top:3px solid #04a0f8; \n    } \n    footer .img-icon img{\n      width: 30px;\n    } \n    input:focus, button:focus, textarea:focus{\n      outline: none;\n    } \n    ul li{\n      display: inline;\n    } \n    #ToolOptions{\n\t    position: absolute;\n\t    bottom: 0px;\n\t    width: 100%;\n\t    height: 161px;\n\t    background-color: #18273e;\n    \tz-index:9999;\n\t    bottom: 50px;\n    } \n    #Photo360 {\n\t\tbackground-image: url(" + __webpack_require__(269) + ");\n\t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n  } \n    #Photo360:hover {\n\t   background-image: url(" + __webpack_require__(270) + ");\n  } \n    #Photo360 .text,#Photo360:hover .uploadText,#Video360 .text,#Video360:hover .uploadText{\n\t\tdisplay:block;\n  } \n    #Photo360:hover .text,#Photo360 .uploadText,#Video360:hover .text,#Video360 .uploadText{\n\t\tdisplay:none;\n  } \n    #Video360{\n  \t\tbackground-image: url(" + __webpack_require__(271) + ");\n  \t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n  \t} \n    #Video360:hover{\n  \t\tbackground-image: url(" + __webpack_require__(270) + ");\n  \t} \n    .number{\n      position: absolute;\n      top: 5px;\n      right: 0;\n      background: #fff;\n      border-radius: 100%;\n      height: 18px;\n      color: #000;\n      width: 18px;\n      font-size: 12px;\n      font-weight: bold;\n    } \n    .active-btn{\n      position: absolute;\n      top:5px;\n      left: 20px;\n      padding:2px;\n      background: #fff;\n      color: #000;\n      border-radius: 10px;\n      font-size: 8px;\n      font-weight: bold;\n    } \n    .crosshair {\n  cursor: crosshair !important; \n} \n    .scene-create{\n      margin: 35px;\n    } \n    .fadeout-retina{\n      background: url(" + __webpack_require__(272) + ");\n      color: #000;\n    } \n    .startingoff{\n      background: url(" + __webpack_require__(273) + ");\n    } \n    .animate{\n      background: url(" + __webpack_require__(274) + ");\n    } \n    .objects{\n      background: url(" + __webpack_require__(275) + "); \n    } \n    .animate-card{\n      background: url(" + __webpack_require__(276) + ");     \n    } \n    .himalay{\n      background: url(" + __webpack_require__(277) + ");\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 135px;\n      border-radius: 6px;\n    } \n    .card-image{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 171.33px;\n      border-radius: 6px;\n      padding: 1px 10px;\n    } \n    .pd-all{\n      padding: 30px 0;\n    } \n    .save-btn{\n      background: #fff;\n      color: #000;\n      padding: 10px;\n      border-radius: 20px;\n    } \n    .middle-text{\n      padding: 10px;\n    } \n    .edit-pic{\n      padding-top: 85px;\n    } \n    .himalay img{\n      width: 15%;\n      margin: 5px;\n    } \n    .himalay img:last-child{\n      width: 11%;\n    } \n    .pic-info{\n      background: #fff;\n      color:#000;\n      border-bottom-right-radius: 6px;\n      border-bottom-left-radius: 6px;\n    } \n    .pic-heading{\n      margin-bottom: 0;\n      padding-top: 10px;\n    } \n    .pic-detail{\n      font-size: 12px;\n      padding-bottom: 10px;\n    } \n    .mainPage{\n  background: #333;\n    color: white;\n } \n    ::-webkit-input-placeholder { /* WebKit browsers */\n    color:    #fff !important;\n} \n    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */\n    color:    #fff;\n} \n    ::-moz-placeholder { /* Mozilla Firefox 19+ */\n    color:    #fff;\n} \n    :-ms-input-placeholder { /* Internet Explorer 10+ */\n    color:    #fff;\n} \n    @media (max-width: 530px) {\n  .search-input{\n    width: 100%;\n  }\n  h6{\n    left: 0;\n  }\n  .upload{\n    margin-right: 0;\n    font-size: 11px;\n  }\n  .glyphicon-remove{\n    font-size: 9px;\n  }\n  .search-input input{\n    width: 79%;\n  }\n  .steps{\n    font-size: 12.5px;\n    font-weight: bold;\n  }\n} \n    @media (min-width: 992px) and (max-width: 1199px){\n  .create-scene{\n    margin-right: 3%;\n  }\n  .sl-btn{\n    right: -10px;\n  }\n  h6{\n    top:16px;\n    left:20px;\n  }\n} \n    @media (min-width: 768px) and (max-width: 991px) {\n  h6{\n    left:-14px;\n  }\n  .sl-btn{\n    right:50px;\n  }\n  .card-image{\n    margin-bottom: 20px;\n  }\n  .himalay{\n    margin-bottom: 70px;\n  }\n} \n    @media (max-width: 767px) {\n .steps {\n   text-align: center;\n }\n .card-image{\n    margin-bottom: 20px;\n  }\n  .himalay{\n    margin-bottom: 70px;\n  }\n  \n}", ""]);
+	exports.push([module.id, "    /* Remove the navbar's default margin-bottom and rounded borders */ \n    .navbar {\n      padding: 10px;\n      margin-bottom: 0;\n      border-radius: 0;\n    } \n    .img-icon{\n      padding: 0 5px;\n    } \n    .img-icon img{\n        width: 20px;\n      } \n    .empty{\n        height: 375px;\n      } \n    .search{\n      background:#3e5078;\n      opacity: .9;\n      padding-top: 15px;\n    } \n    .search-input{\n      border-radius: 20px;\n      border: 0;\n      background: #2a3956;\n      padding: 5px;\n      width: 60%;\n      margin: auto;\n    } \n    .search-input input{\n      background: none;\n      border:0;\n      width: 80%;\n      margin-left: 10px;\n    } \n    .upload{\n      background: white;\n      border-radius: 20px;\n      color: #18273e;\n      padding: 5px 10px;\n      font-weight: bold;\n      font-size: 12px;\n      margin-right:10px;\n    } \n    .scene-container{\n      padding-top: 20px;\n    } \n    .create-scene{\n      position: relative;\n      padding-left: 0;\n      padding-bottom: 10px;\n    } \n    .create-scene img{\n        width: 100px;\n    } \n    .buttonName{\n      position: absolute;\n      top:25px;\n      left:10px;\n      color: black;\n      width: 100%;\n      font-weight: bold;\n    } \n    .scene-btn{\n      position: absolute;\n      width:100%;\n      color: black;\n      height: 50%;\n      background: none;\n      border: none;\n      font-size: 12px;\n      font-weight: bold;\n    } \n    .slider-button{\n      padding-top: 7px;\n    } \n    .slider-button div{\n      padding:0;\n    } \n    .slider-button .glyphicon{\n      color:#7a859c;\n    } \n    .slider-button hr{\n      border-top:3px solid #7a859c;\n      margin-top:10px; \n    } \n    .name-scene-para{\n      color: white;\n      position: absolute;\n      width: 100%;\n      top: 2px;\n      font-size: 10px;\n      font-weight: bold;\n      left: 10px;\n    } \n    .name-scene-input{\n      position: absolute;\n      color:white;\n      top: 30px;\n      width: 60%;\n      height: 40px;\n      left: 20px;\n      background: none;\n      border: none;\n      font-size: 12px;\n      overflow: hidden;\n    } \n    .btn-option{\n      position: absolute;\n      width: 100%;\n      top: 60px;\n      right:-15px;\n    } \n    .canvas-white img{\n      width:20px;\n    } \n    .del-btn img{\n      width: 12px;\n    } \n    /* footer */ \n    footer {\n      background-color: #18273e;\n      color: white;\n      //padding: 15px;\n      width: 100%;\n      height:50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    } \n    .viewer{\n      padding-top: 15px;\n    } \n    .nav-tabs{\n      position: absolute;\n      top: -10px;\n      width: 90%;\n      margin: auto;\n      left: 41%;\n    } \n    .nav-tabs .img-icon{\n      margin: 10px;\n      padding-top: 13px;\n      border-top:3px solid #fff; \n    } \n    .nav-tabs .active{\n      border-top:3px solid #04a0f8; \n    } \n    footer .img-icon img{\n      width: 30px;\n    } \n    input:focus, button:focus, textarea:focus{\n      outline: none;\n    } \n    ul li{\n      display: inline;\n    } \n    #ToolOptions{\n\t    position: absolute;\n\t    bottom: 0px;\n\t    width: 100%;\n\t    height: 161px;\n\t    background-color: #18273e;\n    \tz-index:9999;\n\t    bottom: 50px;\n    } \n    #Photo360 {\n\t\tbackground-image: url(" + __webpack_require__(269) + ");\n\t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n  } \n    #Photo360:hover {\n\t   background-image: url(" + __webpack_require__(270) + ");\n  } \n    #Photo360 .text,#Photo360:hover .uploadText,#Video360 .text,#Video360:hover .uploadText{\n\t\tdisplay:block;\n  } \n    #Photo360:hover .text,#Photo360 .uploadText,#Video360:hover .text,#Video360 .uploadText{\n\t\tdisplay:none;\n  } \n    #Video360{\n  \t\tbackground-image: url(" + __webpack_require__(271) + ");\n  \t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n  \t} \n    #Video360:hover{\n  \t\tbackground-image: url(" + __webpack_require__(270) + ");\n  \t} \n    .number{\n      position: absolute;\n      top: 5px;\n      right: 0;\n      background: #fff;\n      border-radius: 100%;\n      height: 18px;\n      color: #000;\n      width: 18px;\n      font-size: 12px;\n      font-weight: bold;\n    } \n    .active-btn{\n      position: absolute;\n      top:5px;\n      left: 20px;\n      padding:2px;\n      background: #fff;\n      color: #000;\n      border-radius: 10px;\n      font-size: 8px;\n      font-weight: bold;\n    } \n    .crosshair {\n  cursor: crosshair !important; \n} \n    .scene-create{\n      margin: 35px;\n    } \n    .fadeout-retina{\n      background: url(" + __webpack_require__(272) + ");\n      color: #000;\n    } \n    .startingoff{\n      background: url(" + __webpack_require__(273) + ");\n    } \n    .animate{\n      background: url(" + __webpack_require__(274) + ");\n    } \n    .objects{\n      background: url(" + __webpack_require__(275) + "); \n    } \n    .animate-card{\n      background: url(" + __webpack_require__(276) + ");     \n    } \n    .himalay{\n      background: url(" + __webpack_require__(277) + ");\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 135px;\n      border-radius: 6px;\n    } \n    .card-image{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 171.33px;\n      border-radius: 6px;\n      padding: 1px 10px;\n    } \n    .pd-all{\n      padding: 30px 0;\n    } \n    .save-btn{\n      background: #fff;\n      color: #000;\n      padding: 10px;\n      border-radius: 20px;\n    } \n    .middle-text{\n      padding: 10px;\n    } \n    .edit-pic{\n      padding-top: 85px;\n    } \n    .himalay img{\n      width: 15%;\n      margin: 5px;\n    } \n    .himalay img:last-child{\n      width: 11%;\n    } \n    .pic-info{\n      background: #fff;\n      color:#000;\n      border-bottom-right-radius: 6px;\n      border-bottom-left-radius: 6px;\n    } \n    .pic-heading{\n      margin-bottom: 0;\n      padding-top: 10px;\n    } \n    .pic-detail{\n      font-size: 12px;\n      padding-bottom: 10px;\n    } \n    .mainPage{\n  background: #333;\n    color: white;\n } \n    ::-webkit-input-placeholder { /* WebKit browsers */\n    color:    #fff !important;\n} \n    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */\n    color:    #fff;\n} \n    ::-moz-placeholder { /* Mozilla Firefox 19+ */\n    color:    #fff;\n} \n    :-ms-input-placeholder { /* Internet Explorer 10+ */\n    color:    #fff;\n} \n    @media (max-width: 530px) {\n  .search-input{\n    width: 100%;\n  }\n  h6{\n    left: 0;\n  }\n  .upload{\n    margin-right: 0;\n    font-size: 11px;\n  }\n  .glyphicon-remove{\n    font-size: 9px;\n  }\n  .search-input input{\n    width: 79%;\n  }\n  .steps{\n    font-size: 12.5px;\n    font-weight: bold;\n  }\n} \n    @media (min-width: 992px) and (max-width: 1199px){\n  .create-scene{\n    margin-right: 3%;\n  }\n  .sl-btn{\n    right: -10px;\n  }\n  h6{\n    top:16px;\n    left:20px;\n  }\n} \n    @media (min-width: 768px) and (max-width: 991px) {\n  h6{\n    left:-14px;\n  }\n  .sl-btn{\n    right:50px;\n  }\n  .card-image{\n    margin-bottom: 20px;\n  }\n  .himalay{\n    margin-bottom: 70px;\n  }\n} \n    @media (max-width: 767px) {\n .steps {\n   text-align: center;\n }\n .card-image{\n    margin-bottom: 20px;\n  }\n  .himalay{\n    margin-bottom: 70px;\n  }\n  \n} \n    #inspectorEye{\n    position: fixed;\n    bottom: 36px;\n    background: none;\n} \n    .a-body{\n  \n    background: #333;\n}", ""]);
 
 	// exports
 
