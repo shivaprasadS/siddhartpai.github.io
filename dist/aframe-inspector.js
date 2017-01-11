@@ -87,13 +87,15 @@
 
 	var _SpectoToolBar2 = _interopRequireDefault(_SpectoToolBar);
 
-	var _experiences = __webpack_require__(264);
+	var _experiences = __webpack_require__(265);
 
 	var _experiences2 = _interopRequireDefault(_experiences);
 
-	__webpack_require__(265);
+	__webpack_require__(266);
 
-	__webpack_require__(267);
+	__webpack_require__(268);
+
+	__webpack_require__(284);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -103,7 +105,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(278);
+	__webpack_require__(286);
 	var INSPECTOR = __webpack_require__(204);
 
 	var Events = __webpack_require__(186);
@@ -111,6 +113,7 @@
 	// Megahack to include font-awesome.
 	injectCSS('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
 	injectCSS('https://fonts.googleapis.com/css?family=Roboto:400,300,500');
+	injectCSS('https://fonts.googleapis.com/css?family=Karla:400,700');
 
 	var Main = function (_React$Component) {
 	  _inherits(Main, _React$Component);
@@ -21937,15 +21940,15 @@
 
 	var _AddComponent2 = _interopRequireDefault(_AddComponent);
 
-	var _Component = __webpack_require__(215);
+	var _Component = __webpack_require__(214);
 
 	var _Component2 = _interopRequireDefault(_Component);
 
-	var _CommonComponents = __webpack_require__(235);
+	var _CommonComponents = __webpack_require__(234);
 
 	var _CommonComponents2 = _interopRequireDefault(_CommonComponents);
 
-	var _DefaultComponents = __webpack_require__(214);
+	var _DefaultComponents = __webpack_require__(236);
 
 	var _DefaultComponents2 = _interopRequireDefault(_DefaultComponents);
 
@@ -22127,8 +22130,8 @@
 	      });
 
 	      this.options = commonOptions.concat(registryOptions);
-	      this.options.sort(function (a, b) {
-	        return a.label >= b.label;
+	      this.options = this.options.sort(function (a, b) {
+	        return a.label === b.label ? 0 : a.label < b.label ? -1 : 1;
 	      });
 	    }
 	  }, {
@@ -22163,7 +22166,6 @@
 	        _react2.default.createElement(_reactSelect2.default, {
 	          className: 'add-component',
 	          ref: 'select',
-	          autofocus: true,
 	          options: this.options,
 	          simpleValue: true,
 	          clearable: true,
@@ -25612,7 +25614,8 @@
 	  var sceneHelpers = inspector.sceneHelpers;
 	  var objects = [];
 
-	  var grid = new THREE.GridHelper(30, 1);
+	  var grid = new THREE.GridHelper(30, 60, 0xbbbbbb, 0x888888);
+
 	  sceneHelpers.add(grid);
 
 	  var camera = inspector.inspectorCameraEl.getObject3D('camera');
@@ -27323,7 +27326,7 @@
 
 				_dragging = false;
 
-				if (event instanceof TouchEvent) {
+				if ('TouchEvent' in window && event instanceof TouchEvent) {
 
 					// Force "rollover"
 
@@ -27816,6 +27819,7 @@
 
 	ShaderLoader.prototype = {
 	  loadShadersData: function loadShadersData() {
+	    return;
 	    var xhr = new window.XMLHttpRequest();
 	    // @todo Remove the sync call and use a callback
 	    xhr.open('GET', 'https://raw.githubusercontent.com/fernandojsg/aframe-shaders/master/shaders.json', false);
@@ -27866,8 +27870,14 @@
 
 	/* globals AFRAME */
 	var Events = __webpack_require__(186);
-	var shouldCaptureKeyEvent = AFRAME.utils.shouldCaptureKeyEvent;
 
+
+	function shouldCaptureKeyEvent(event) {
+	  if (event.metaKey) {
+	    return false;
+	  }
+	  return event.target.tagName !== 'INPUT' && event.target.tagName !== 'TEXTAREA';
+	}
 
 	module.exports = {
 	  onKeyUp: function onKeyUp(event) {
@@ -27946,12 +27956,6 @@
 	exports.getClipboardRepresentation = getClipboardRepresentation;
 
 	var _utils = __webpack_require__(209);
-
-	var _DefaultComponents = __webpack_require__(214);
-
-	var _DefaultComponents2 = _interopRequireDefault(_DefaultComponents);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Events = __webpack_require__(186);
 	var components = AFRAME.components;
@@ -28089,6 +28093,7 @@
 	function getClipboardRepresentation(entity) {
 	  //entity.flushToDOM();
 	  var clone = entity.cloneNode(true);
+	  var defaultComponents = Object.keys(clone.defaultComponents);
 
 	  removeDefaultAttributes(clone);
 	  removeNotModifiedMixedinAttributes(entity, clone);
@@ -28104,9 +28109,9 @@
 	      }
 	    }
 
-	    for (var _i = 0; _i < _DefaultComponents2.default.length; _i++) {
-	      if (el.getAttribute(_DefaultComponents2.default[_i]).length === 0) {
-	        el.removeAttribute(_DefaultComponents2.default[_i]);
+	    for (var _i = 0; _i < defaultComponents.length; _i++) {
+	      if (el.getAttribute(defaultComponents[_i])) {
+	        el.removeAttribute(defaultComponents[_i]);
 	      }
 	    }
 	  }
@@ -28195,17 +28200,6 @@
 
 /***/ },
 /* 214 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = ['visible', 'position', 'scale', 'rotation'];
-
-/***/ },
-/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28220,19 +28214,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _PropertyRow = __webpack_require__(216);
+	var _PropertyRow = __webpack_require__(215);
 
 	var _PropertyRow2 = _interopRequireDefault(_PropertyRow);
 
-	var _Collapsible = __webpack_require__(226);
+	var _Collapsible = __webpack_require__(225);
 
 	var _Collapsible2 = _interopRequireDefault(_Collapsible);
 
-	var _clipboard = __webpack_require__(227);
+	var _clipboard = __webpack_require__(226);
 
 	var _clipboard2 = _interopRequireDefault(_clipboard);
 
-	var _component = __webpack_require__(225);
+	var _component = __webpack_require__(224);
 
 	var _Events = __webpack_require__(186);
 
@@ -28404,7 +28398,7 @@
 	exports.default = Component;
 
 /***/ },
-/* 216 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28425,41 +28419,41 @@
 
 	var _lodash2 = _interopRequireDefault(_lodash);
 
-	var _BooleanWidget = __webpack_require__(217);
+	var _BooleanWidget = __webpack_require__(216);
 
 	var _BooleanWidget2 = _interopRequireDefault(_BooleanWidget);
 
-	var _ColorWidget = __webpack_require__(218);
+	var _ColorWidget = __webpack_require__(217);
 
 	var _ColorWidget2 = _interopRequireDefault(_ColorWidget);
 
-	var _InputWidget = __webpack_require__(219);
+	var _InputWidget = __webpack_require__(218);
 
 	var _InputWidget2 = _interopRequireDefault(_InputWidget);
 
-	var _NumberWidget = __webpack_require__(220);
+	var _NumberWidget = __webpack_require__(219);
 
 	var _NumberWidget2 = _interopRequireDefault(_NumberWidget);
 
-	var _SelectWidget = __webpack_require__(221);
+	var _SelectWidget = __webpack_require__(220);
 
 	var _SelectWidget2 = _interopRequireDefault(_SelectWidget);
 
-	var _TextureWidget = __webpack_require__(222);
+	var _TextureWidget = __webpack_require__(221);
 
 	var _TextureWidget2 = _interopRequireDefault(_TextureWidget);
 
-	var _Vec3Widget = __webpack_require__(223);
+	var _Vec3Widget = __webpack_require__(222);
 
 	var _Vec3Widget2 = _interopRequireDefault(_Vec3Widget);
 
-	var _Vec2Widget = __webpack_require__(224);
+	var _Vec2Widget = __webpack_require__(223);
 
 	var _Vec2Widget2 = _interopRequireDefault(_Vec2Widget);
 
 	var _entity = __webpack_require__(213);
 
-	var _component = __webpack_require__(225);
+	var _component = __webpack_require__(224);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28493,6 +28487,9 @@
 	      var gaTrackComponentUpdate = (0, _lodash2.default)(function () {
 	        ga('send', 'event', 'Components', 'changeProperty', _this2.id);
 	      });
+
+	      var value = props.schema.type === 'selector' ? props.entity.getDOMAttribute(props.componentname)[props.name] : props.data;
+
 	      var widgetProps = {
 	        componentname: props.componentname,
 	        entity: props.entity,
@@ -28508,7 +28505,7 @@
 	          _entity.updateEntity.apply(this, [props.entity, propertyName, value]);
 	          gaTrackComponentUpdate();
 	        },
-	        value: props.data
+	        value: value
 	      };
 	      var numberWidgetProps = {
 	        min: props.schema.hasOwnProperty('min') ? props.schema.min : -Infinity,
@@ -28557,7 +28554,8 @@
 	    key: 'render',
 	    value: function render() {
 	      var props = this.props;
-	      var title = props.name + '\n - type: ' + props.schema.type + '\n - value: ' + JSON.stringify(props.data);
+	      var value = props.schema.type === 'selector' ? props.entity.getDOMAttribute(props.componentname)[props.name] : JSON.stringify(props.data);
+	      var title = props.name + '\n - type: ' + props.schema.type + '\n - value: ' + value;
 	      var helpLink = props.showHelp ? (0, _component.getComponentDocsHtmlLink)(props.name) : '';
 	      return _react2.default.createElement(
 	        'div',
@@ -28585,7 +28583,7 @@
 	exports.default = PropertyRow;
 
 /***/ },
-/* 217 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28656,7 +28654,7 @@
 	exports.default = BooleanWidget;
 
 /***/ },
-/* 218 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28684,29 +28682,74 @@
 	    var _this = _possibleConstructorReturn(this, (ColorWidget.__proto__ || Object.getPrototypeOf(ColorWidget)).call(this, props));
 
 	    _this.onChange = function (e) {
-	      var value = e.target.value;
-	      _this.setState({ value: value });
-	      if (_this.props.onChange) {
-	        _this.props.onChange(_this.props.name, value);
+	      _this.setValue(e.target.value);
+	    };
+
+	    _this.onKeyUp = function (e) {
+	      e.stopPropagation();
+	      // if (e.keyCode === 13)
+	      {
+	        _this.setValue(e.target.value);
 	      }
 	    };
 
-	    _this.state = { value: correctColorValue(_this.props.value) || '' };
+	    _this.onChangeText = function (e) {
+	      _this.setState({ value: e.target.value });
+	    };
+
+	    var value = _this.props.value;
+	    _this.color = new THREE.Color();
+
+	    _this.state = {
+	      value: value,
+	      pickerValue: _this.getHexString(value)
+	    };
 	    return _this;
 	  }
 
 	  _createClass(ColorWidget, [{
+	    key: 'setValue',
+	    value: function setValue(value) {
+	      var pickerValue = this.getHexString(value);
+
+	      this.state = {
+	        value: value,
+	        pickerValue: pickerValue
+	      };
+
+	      if (this.props.onChange) {
+	        this.props.onChange(this.props.name, value);
+	      }
+	    }
+	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(newProps) {
 	      if (newProps.value !== this.state.value) {
-	        this.setState({ value: correctColorValue(newProps.value) });
+	        this.setState({
+	          value: newProps.value,
+	          pickerValue: this.getHexString(newProps.value)
+	        });
 	      }
+	    }
+	  }, {
+	    key: 'getHexString',
+	    value: function getHexString(value) {
+	      return '#' + this.color.set(value).getHexString();
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return React.createElement('input', { type: 'color', className: 'color', value: this.state.value,
-	        title: this.state.value, onChange: this.onChange });
+	      return React.createElement(
+	        'span',
+	        { className: 'color-widget' },
+	        React.createElement('input', { type: 'color', className: 'color', value: this.state.pickerValue,
+	          title: this.state.value, onChange: this.onChange }),
+	        React.createElement('input', { type: 'text', className: 'color_value',
+	          value: this.state.value,
+	          onKeyUp: this.onKeyUp,
+	          onChange: this.onChangeText
+	        })
+	      );
 	    }
 	  }]);
 
@@ -28725,16 +28768,8 @@
 	};
 	exports.default = ColorWidget;
 
-
-	function correctColorValue(value) {
-	  if (value.length === 4) {
-	    value = '#' + value[1] + value[1] + value[2] + value[2] + value[3] + value[3];
-	  }
-	  return value;
-	}
-
 /***/ },
-/* 219 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28800,7 +28835,7 @@
 	exports.default = InputWidget;
 
 /***/ },
-/* 220 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -28979,7 +29014,7 @@
 	exports.default = NumberWidget;
 
 /***/ },
-/* 221 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29077,7 +29112,7 @@
 	exports.default = SelectWidget;
 
 /***/ },
-/* 222 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29308,7 +29343,7 @@
 	exports.default = TextureWidget;
 
 /***/ },
-/* 223 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29325,7 +29360,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _NumberWidget = __webpack_require__(220);
+	var _NumberWidget = __webpack_require__(219);
 
 	var _NumberWidget2 = _interopRequireDefault(_NumberWidget);
 
@@ -29399,7 +29434,7 @@
 	exports.default = Vec3Widget;
 
 /***/ },
-/* 224 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29416,7 +29451,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _NumberWidget = __webpack_require__(220);
+	var _NumberWidget = __webpack_require__(219);
 
 	var _NumberWidget2 = _interopRequireDefault(_NumberWidget);
 
@@ -29488,7 +29523,7 @@
 	exports.default = Vec2Widget;
 
 /***/ },
-/* 225 */
+/* 224 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29581,7 +29616,7 @@
 	}
 
 /***/ },
-/* 226 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29676,12 +29711,12 @@
 	exports.default = Collapsible;
 
 /***/ },
-/* 227 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(228), __webpack_require__(230), __webpack_require__(231)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(227), __webpack_require__(229), __webpack_require__(230)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('./clipboard-action'), require('tiny-emitter'), require('good-listener'));
 	    } else {
@@ -29866,12 +29901,12 @@
 	});
 
 /***/ },
-/* 228 */
+/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
 	    if (true) {
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(229)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [module, __webpack_require__(228)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof exports !== "undefined") {
 	        factory(module, require('select'));
 	    } else {
@@ -30100,7 +30135,7 @@
 	});
 
 /***/ },
-/* 229 */
+/* 228 */
 /***/ function(module, exports) {
 
 	function select(element) {
@@ -30139,7 +30174,7 @@
 
 
 /***/ },
-/* 230 */
+/* 229 */
 /***/ function(module, exports) {
 
 	function E () {
@@ -30211,11 +30246,11 @@
 
 
 /***/ },
-/* 231 */
+/* 230 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var is = __webpack_require__(232);
-	var delegate = __webpack_require__(233);
+	var is = __webpack_require__(231);
+	var delegate = __webpack_require__(232);
 
 	/**
 	 * Validates all params and calls the right
@@ -30312,7 +30347,7 @@
 
 
 /***/ },
-/* 232 */
+/* 231 */
 /***/ function(module, exports) {
 
 	/**
@@ -30367,10 +30402,10 @@
 
 
 /***/ },
-/* 233 */
+/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var closest = __webpack_require__(234);
+	var closest = __webpack_require__(233);
 
 	/**
 	 * Delegates event to a selector.
@@ -30417,7 +30452,7 @@
 
 
 /***/ },
-/* 234 */
+/* 233 */
 /***/ function(module, exports) {
 
 	var DOCUMENT_NODE_TYPE = 9;
@@ -30453,7 +30488,7 @@
 
 
 /***/ },
-/* 235 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30468,17 +30503,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _widgets = __webpack_require__(236);
+	var _widgets = __webpack_require__(235);
 
-	var _DefaultComponents = __webpack_require__(214);
+	var _DefaultComponents = __webpack_require__(236);
 
 	var _DefaultComponents2 = _interopRequireDefault(_DefaultComponents);
 
-	var _PropertyRow = __webpack_require__(216);
+	var _PropertyRow = __webpack_require__(215);
 
 	var _PropertyRow2 = _interopRequireDefault(_PropertyRow);
 
-	var _Collapsible = __webpack_require__(226);
+	var _Collapsible = __webpack_require__(225);
 
 	var _Collapsible2 = _interopRequireDefault(_Collapsible);
 
@@ -30492,7 +30527,7 @@
 
 	var _Events2 = _interopRequireDefault(_Events);
 
-	var _clipboard = __webpack_require__(227);
+	var _clipboard = __webpack_require__(226);
 
 	var _clipboard2 = _interopRequireDefault(_clipboard);
 
@@ -30548,7 +30583,7 @@
 	      var components = entity ? entity.components : {};
 	      return Object.keys(components).filter(function (key) {
 	        return _DefaultComponents2.default.indexOf(key) !== -1;
-	      }).map(function (componentName) {
+	      }).sort().map(function (componentName) {
 	        var componentData = components[componentName];
 	        var schema = AFRAME.components[componentName].schema;
 	        return _react2.default.createElement(_PropertyRow2.default, { onChange: _entity.updateEntity, key: componentName, name: componentName,
@@ -30615,21 +30650,32 @@
 	exports.default = CommonComponents;
 
 /***/ },
-/* 236 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	module.exports = {
-	  BooleanWidget: __webpack_require__(217).default,
-	  ColorWidget: __webpack_require__(218).default,
-	  InputWidget: __webpack_require__(219).default,
-	  NumberWidget: __webpack_require__(220).default,
-	  SelectWidget: __webpack_require__(221).default,
-	  TextureWidget: __webpack_require__(222).default,
-	  Vec3Widget: __webpack_require__(223).default,
-	  Vec2Widget: __webpack_require__(224).default
+	  BooleanWidget: __webpack_require__(216).default,
+	  ColorWidget: __webpack_require__(217).default,
+	  InputWidget: __webpack_require__(218).default,
+	  NumberWidget: __webpack_require__(219).default,
+	  SelectWidget: __webpack_require__(220).default,
+	  TextureWidget: __webpack_require__(221).default,
+	  Vec3Widget: __webpack_require__(222).default,
+	  Vec2Widget: __webpack_require__(223).default
 	};
+
+/***/ },
+/* 236 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = ['visible', 'position', 'scale', 'rotation'];
 
 /***/ },
 /* 237 */
@@ -31247,6 +31293,20 @@
 	        return value.id.toUpperCase().indexOf(filterText) > -1 || value.tagName.toUpperCase().indexOf(filterText) > -1;
 	      }).map(function (option, idx) {
 	        var className = 'option' + (option.value === _this3.state.value ? ' active' : '');
+	        var cloneButton = _react2.default.createElement('a', { onClick: function onClick() {
+	            return _this3.cloneEntity(option.value);
+	          },
+	          title: 'Clone entity', className: 'button fa fa-clone' });
+	        var removeButton = _react2.default.createElement('a', { onClick: function onClick(event) {
+	            event.stopPropagation();(0, _entity.removeEntity)(option.value);
+	          },
+	          title: 'Remove entity', className: 'button fa fa-trash-o' });
+
+	        if (option.value.tagName === 'A-SCENE') {
+	          cloneButton = '';
+	          removeButton = '';
+	        }
+
 	        return _react2.default.createElement(
 	          'div',
 	          { key: idx, className: className, value: option.value,
@@ -31257,14 +31317,8 @@
 	          _react2.default.createElement(
 	            'span',
 	            { className: 'icons' },
-	            _react2.default.createElement('a', { onClick: function onClick() {
-	                return _this3.cloneEntity(option.value);
-	              },
-	              title: 'Clone entity', className: 'button fa fa-clone' }),
-	            _react2.default.createElement('a', { onClick: function onClick(event) {
-	                event.stopPropagation();(0, _entity.removeEntity)(option.value);
-	              },
-	              title: 'Remove entity', className: 'button fa fa-trash-o' })
+	            cloneButton,
+	            removeButton
 	          )
 	        );
 	      });
@@ -31327,7 +31381,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _clipboard = __webpack_require__(227);
+	var _clipboard = __webpack_require__(226);
 
 	var _clipboard2 = _interopRequireDefault(_clipboard);
 
@@ -31720,7 +31774,7 @@
 	      inspectorEnabled: true,
 	      optionHistory: [],
 	      experience: {
-	        id: 4,
+	        id: 5,
 	        name: 'experienceA',
 	        scenes: []
 	      },
@@ -31770,7 +31824,7 @@
 	            ),
 	            React.createElement(
 	              'div',
-	              { className: 'col-xs-11 text-center' },
+	              { className: 'col-xs-11 col-sm-11 col-md-11 text-center footer-mobile' },
 	              React.createElement(
 	                'ul',
 	                { className: 'nav nav-tabs', role: 'tablist' },
@@ -31850,6 +31904,10 @@
 
 	var _LinkScenes2 = _interopRequireDefault(_LinkScenes);
 
+	var _TextTools = __webpack_require__(264);
+
+	var _TextTools2 = _interopRequireDefault(_TextTools);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31924,6 +31982,12 @@
 				// Events.on('sceneChanged', (scene) =>{
 				// 	this.setState({currentScene:scene});
 				// })
+
+			}
+		}, {
+			key: 'closeButtonClicked',
+			value: function closeButtonClicked() {
+				Events.emit('changeToolOptions', undefined);
 			}
 		}, {
 			key: 'renderOptions',
@@ -31945,6 +32009,8 @@
 					return React.createElement(_NewTrigger2.default, { experience: this.props.experience, currentScene: this.state.currentScene });
 				} else if (this.props.option === 'LinkScenes') {
 					return React.createElement(_LinkScenes2.default, { experience: this.props.experience, currentScene: this.state.currentScene });
+				} else if (this.props.option === 'text') {
+					return React.createElement(_TextTools2.default, { experience: this.props.experience, currentScene: this.state.currentScene });
 				} else {
 					return React.createElement('div', null);
 				}
@@ -31952,6 +32018,8 @@
 		}, {
 			key: 'render',
 			value: function render() {
+				var _this2 = this;
+
 				console.log('rendering');
 				if (this.props.option !== undefined) {
 					return React.createElement(
@@ -31962,7 +32030,7 @@
 							{ className: 'row search' },
 							React.createElement(
 								'div',
-								{ className: 'col-xs-4 text-left' },
+								{ className: 'col-xs-12 col-sm-4 col-md-4 text-left' },
 								React.createElement(
 									'span',
 									null,
@@ -31971,7 +32039,7 @@
 							),
 							React.createElement(
 								'div',
-								{ className: 'col-xs-4' },
+								{ className: 'col-xs-8 col-sm-5 col-md-4' },
 								React.createElement(
 									'div',
 									{ className: 'search-input' },
@@ -31981,13 +32049,15 @@
 							),
 							React.createElement(
 								'div',
-								{ className: 'col-xs-4 text-right' },
+								{ className: 'col-xs-4 col-sm-3 col-md-4 text-right' },
 								React.createElement(
 									'span',
 									{ className: 'upload' },
 									'UPLOAD'
 								),
-								React.createElement('span', { className: 'glyphicon glyphicon-remove' })
+								React.createElement('span', { className: 'glyphicon glyphicon-remove', onClick: function onClick() {
+										_this2.closeButtonClicked();
+									} })
 							)
 						),
 						React.createElement(
@@ -32076,8 +32146,12 @@
 				return React.createElement(
 					'div',
 					{ className: 'col-xs-12 scene-container' },
-					React.createElement(_CreateSceneButton2.default, { state: 'initial' }),
-					this.renderSceneButtons()
+					React.createElement(
+						'div',
+						{ className: 'scroll-container' },
+						React.createElement(_CreateSceneButton2.default, { state: 'initial' }),
+						this.renderSceneButtons()
+					)
 				);
 			}
 		}]);
@@ -32131,7 +32205,7 @@
 			};
 
 			_this.sceneCreated = function (vrScene, result) {
-				vrScene.id = result.scene; //Ask akash to change this in API to id rather than scene . 
+				vrScene.id = result.scene; //Ask akash to change this in API to id rather than scene .
 				vrScene.shareURL = result.html_url;
 
 				Events.emit('newscenecreated', vrScene);
@@ -32159,7 +32233,7 @@
 				if (this.state.currentState === STATES[0]) {
 					return React.createElement(
 						'div',
-						{ className: 'col-xs-1 text-left create-scene', onClick: this.incrementState.bind(this, STATES[1]) },
+						{ className: 'col-xs-2 col-sm-2 col-md-1 col-lg-1 text-left create-scene', onClick: this.incrementState.bind(this, STATES[1]) },
 						React.createElement('img', { src: '../../assets/img/create-scene.png' }),
 						React.createElement(
 							'div',
@@ -32170,7 +32244,7 @@
 				} else if (this.state.currentState === STATES[1]) {
 					return React.createElement(
 						'div',
-						{ className: 'col-xs-1 text-left create-scene' },
+						{ className: 'col-xs-2 col-sm-2 col-md-1 col-lg-1 text-left create-scene' },
 						React.createElement('img', { src: '../assets/img/create-scene2.png' }),
 						React.createElement(
 							'button',
@@ -32179,14 +32253,14 @@
 						),
 						React.createElement(
 							'button',
-							{ className: 'scene-btn col-xs-12', style: { top: '39px' } },
+							{ className: 'scene-btn col-xs-12', style: { top: '6.2vh' } },
 							'Use Template'
 						)
 					);
 				} else if (this.state.currentState === STATES[2]) {
 					return React.createElement(
 						'div',
-						{ className: 'col-xs-1 text-left create-scene' },
+						{ className: 'col-xs-2 col-sm-2 col-md-1 col-lg-1 text-left create-scene' },
 						React.createElement('img', { src: '../assets/img/name-scene.png' }),
 						React.createElement(
 							'p',
@@ -34356,7 +34430,6 @@
 				_this.setSceneAsCurrent();
 				Events.emit('sceneChanged', _this.state.scene);
 				if (_this.checkIfSceneIsInitialized()) {
-					_this.setState({ isSkySet: true });
 					(0, _SpectoAframeLib.loadScene)(_this.state.scene.html_content);
 				} else {
 					_this.loadRealitySelector();
@@ -34364,15 +34437,23 @@
 				console.log(_this.state.scene);
 			};
 
+			_this.renderImage = function () {
+				if (_this.state.isSkySet) {
+					return React.createElement('img', { src: _this.state.backgroundImage });
+				} else {
+					return React.createElement('img', { src: '../assets/img/name-scene.png' });
+				}
+			};
+
 			_this.renderSceneButton = function (scene) {
 				var _this2 = this;
 
 				return React.createElement(
 					'div',
-					{ className: 'col-xs-1 text-left create-scene', onClick: function onClick() {
+					{ className: 'col-xs-2 col-sm-2 col-md-1 col-lg-1 text-left create-scene', onClick: function onClick() {
 							_this2.sceneButtonClicked();
 						} },
-					React.createElement('img', { src: '../assets/img/name-scene.png' }),
+					this.renderImage(),
 					React.createElement(
 						'div',
 						{ className: 'buttonName', style: { color: 'white' } },
@@ -34397,8 +34478,10 @@
 
 			_this.state = {
 				scene: props.scene,
-				isSkySet: _this.checkIfSceneIsInitialized()
+				backgroundImage: '',
+				isSkySet: false
 			};
+
 			return _this;
 		}
 
@@ -34406,6 +34489,7 @@
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				Events.on('skyChanged', this.setSky.bind(this));
+				this.checkIfSceneIsInitialized();
 			}
 		}, {
 			key: 'checkIfSceneIsInitialized',
@@ -34414,6 +34498,8 @@
 					var parser = new window.DOMParser();
 					var xmlDoc = parser.parseFromString(this.props.scene.html_content, 'text/html');
 					var isSkySet = xmlDoc.querySelector('a-sky').getAttribute('src') === null ? false : true;
+					this.setState({ backgroundImage: xmlDoc.querySelector('a-sky').getAttribute('src') });
+					this.setState({ isSkySet: true });
 					return isSkySet;
 				} catch (e) {
 					return false;
@@ -34701,7 +34787,7 @@
 						React.createElement('img', { src: '../assets/img/trigger.png' }),
 						React.createElement(
 							'div',
-							{ className: 'buttonName' },
+							{ className: 'anotherbuttonName' },
 							'New Trigger'
 						)
 					),
@@ -34711,7 +34797,7 @@
 						React.createElement('img', { src: '../assets/img/trigger1.png' }),
 						React.createElement(
 							'div',
-							{ className: 'buttonName' },
+							{ className: 'anotherbuttonName' },
 							'Trigger',
 							React.createElement('br', null),
 							' Animation'
@@ -34774,10 +34860,10 @@
 				return React.createElement(
 					'div',
 					{ className: 'row col-xs-12 scene-container' },
-					React.createElement('div', { className: 'hidden-xs col-sm-4 col-md-4 col-lg-4' }),
+					React.createElement('div', { className: 'hidden-xs col-sm-2 col-md-4 col-lg-4' }),
 					React.createElement(
 						'div',
-						{ className: 'col-xs-4 col-sm-2 col-md-2 col-lg-1 create-scene' },
+						{ className: 'col-xs-2 col-sm-2 col-md-2 col-lg-1 create-scene' },
 						React.createElement('img', { src: '../assets/img/trigger.png' }),
 						React.createElement(
 							'div',
@@ -34787,7 +34873,7 @@
 					),
 					React.createElement(
 						'div',
-						{ className: 'col-xs-4 col-sm-2 col-md-2 col-lg-1 create-scene', onClick: function onClick() {
+						{ className: 'col-xs-2 col-sm-2 col-md-2 col-lg-1 create-scene', onClick: function onClick() {
 								_this2.linkSceneClicked();
 							} },
 						React.createElement('img', { src: '../assets/img/trigger1.png' }),
@@ -34799,7 +34885,7 @@
 					),
 					React.createElement(
 						'div',
-						{ className: 'col-xs-4 col-sm-2 col-md-2 col-lg-1 create-scene' },
+						{ className: 'col-xs-2 col-sm-2 col-md-2 col-lg-1 create-scene' },
 						React.createElement('img', { src: '../assets/img/trigger1.png' }),
 						React.createElement(
 							'div',
@@ -34904,8 +34990,12 @@
 			value: function render() {
 				return React.createElement(
 					'div',
-					{ className: 'row col-xs-12 scene-container' },
-					this.renderHotspotButtons()
+					{ className: 'col-xs-12 scene-container' },
+					React.createElement(
+						'div',
+						{ className: 'scroll-container' },
+						this.renderHotspotButtons()
+					)
 				);
 			}
 		}]);
@@ -35057,6 +35147,151 @@
 
 /***/ },
 /* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	// This the the parent Component for the text tools layout
+
+	var React = __webpack_require__(2);
+	var Events = __webpack_require__(186);
+	var classNames = __webpack_require__(190);
+
+	var TextTools = function (_React$Component) {
+	  _inherits(TextTools, _React$Component);
+
+	  function TextTools(props) {
+	    _classCallCheck(this, TextTools);
+
+	    return _possibleConstructorReturn(this, (TextTools.__proto__ || Object.getPrototypeOf(TextTools)).call(this, props));
+	  }
+
+	  _createClass(TextTools, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'div',
+	        { className: 'row col-md-12 scene-container' },
+	        React.createElement(
+	          'div',
+	          { className: 'col-md-2 text-tool' },
+	          React.createElement(
+	            'div',
+	            { className: 'col-xs-8 create-scene' },
+	            React.createElement('img', { src: '../assets/img/textTool/box-filter.png' }),
+	            React.createElement(
+	              'div',
+	              { className: 'anotherbuttonName' },
+	              'Box Filter'
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'col-xs-4 ' },
+	            React.createElement(
+	              'div',
+	              { className: 'small-text-icon' },
+	              React.createElement('img', { src: '../assets/img/textTool/text-normal.png' })
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'text-icon' },
+	              React.createElement('img', { src: '../assets/img/textTool/text-black-layer.png' })
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'text-icon' },
+	              React.createElement('img', { src: '../assets/img/textTool/text-white-layer.png' })
+	            )
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'col-md-4 text-left text-tool' },
+	          React.createElement('textarea', { name: '', className: 'heading-text', placeholder: 'Heading' })
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'col-md-4 text-tool text-left' },
+	          React.createElement(
+	            'div',
+	            { className: 'col-md-5' },
+	            React.createElement(
+	              'span',
+	              { className: 'text-rotate' },
+	              React.createElement('img', { src: '../assets/img/textTool/2d-text.png' }),
+	              React.createElement('img', { className: 'Text3d', src: '../assets/img/textTool/3d-text.png' })
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'opacitySlider' },
+	              'Opacity',
+	              React.createElement('input', { type: 'range', min: '100', max: '500', step: '10' })
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'col-md-6' },
+	            React.createElement(
+	              'p',
+	              { className: 'picker-heading' },
+	              'Font'
+	            ),
+	            React.createElement(
+	              'select',
+	              { name: '', className: 'dropdown' },
+	              React.createElement(
+	                'option',
+	                { value: '' },
+	                'Montserrat regular'
+	              ),
+	              React.createElement(
+	                'option',
+	                { value: '' },
+	                'regular'
+	              )
+	            ),
+	            React.createElement(
+	              'p',
+	              { className: 'picker-heading' },
+	              'Color'
+	            ),
+	            React.createElement('input', { type: 'text', className: 'pick-color' })
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'col-md-2 text-left tool-option' },
+	          React.createElement('img', { src: '../assets/img/textTool/duplicate-text.png' }),
+	          React.createElement('br', null),
+	          React.createElement('img', { src: '../assets/img/textTool/delete-text.png' })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return TextTools;
+	}(React.Component);
+
+	exports.default = TextTools;
+
+/***/ },
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -35236,7 +35471,7 @@
 	            { className: 'col-xs-6 col-sm-3 col-md-2' },
 	            React.createElement(
 	              'div',
-	              { className: 'himalay' },
+	              { className: 'himalay static-bg' },
 	              React.createElement(
 	                'div',
 	                { className: 'edit-pic text-right' },
@@ -35268,7 +35503,7 @@
 	            { className: 'col-xs-6 col-sm-3 col-md-2' },
 	            React.createElement(
 	              'div',
-	              { className: 'himalay' },
+	              { className: 'water static-bg' },
 	              React.createElement(
 	                'div',
 	                { className: 'edit-pic text-right' },
@@ -35284,13 +35519,13 @@
 	                  React.createElement(
 	                    'strong',
 	                    null,
-	                    'Himalayas Experience'
+	                    'Sall the Waters'
 	                  )
 	                ),
 	                React.createElement(
 	                  'p',
 	                  { className: 'pic-detail' },
-	                  'opened Dec28th 2016'
+	                  'opened Dec25th 2016'
 	                )
 	              )
 	            )
@@ -35300,7 +35535,7 @@
 	            { className: 'col-xs-6 col-sm-3 col-md-2' },
 	            React.createElement(
 	              'div',
-	              { className: 'himalay' },
+	              { className: 'eagle static-bg' },
 	              React.createElement(
 	                'div',
 	                { className: 'edit-pic text-right' },
@@ -35316,13 +35551,13 @@
 	                  React.createElement(
 	                    'strong',
 	                    null,
-	                    'Himalayas Experience'
+	                    'Eagle Flight'
 	                  )
 	                ),
 	                React.createElement(
 	                  'p',
 	                  { className: 'pic-detail' },
-	                  'opened Dec28th 2016'
+	                  'opened Nov4th 2016'
 	                )
 	              )
 	            )
@@ -35332,7 +35567,7 @@
 	            { className: 'col-xs-6 col-sm-3 col-md-2' },
 	            React.createElement(
 	              'div',
-	              { className: 'himalay' },
+	              { className: 'musuem static-bg' },
 	              React.createElement(
 	                'div',
 	                { className: 'edit-pic text-right' },
@@ -35348,13 +35583,13 @@
 	                  React.createElement(
 	                    'strong',
 	                    null,
-	                    'Himalayas Experience'
+	                    'A Visit to the Musuem'
 	                  )
 	                ),
 	                React.createElement(
 	                  'p',
 	                  { className: 'pic-detail' },
-	                  'opened Dec28th 2016'
+	                  'opened Nov4th 2016'
 	                )
 	              )
 	            )
@@ -35364,7 +35599,7 @@
 	            { className: 'col-xs-6 col-sm-3 col-md-2' },
 	            React.createElement(
 	              'div',
-	              { className: 'himalay' },
+	              { className: 'rainbow static-bg' },
 	              React.createElement(
 	                'div',
 	                { className: 'edit-pic text-right' },
@@ -35380,13 +35615,45 @@
 	                  React.createElement(
 	                    'strong',
 	                    null,
-	                    'Himalayas Experience'
+	                    'Over the Rainbow'
 	                  )
 	                ),
 	                React.createElement(
 	                  'p',
 	                  { className: 'pic-detail' },
-	                  'opened Dec28th 2016'
+	                  'opened Nov28th 2016'
+	                )
+	              )
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'col-xs-6 col-sm-3 col-md-2' },
+	            React.createElement(
+	              'div',
+	              { className: 'roller static-bg' },
+	              React.createElement(
+	                'div',
+	                { className: 'edit-pic text-right' },
+	                React.createElement('img', { src: '../../assets/img/duplicate-scene-retina.png' }),
+	                React.createElement('img', { src: '../../assets/img/delete-scene.png' })
+	              ),
+	              React.createElement(
+	                'div',
+	                { className: 'pic-info' },
+	                React.createElement(
+	                  'p',
+	                  { className: 'pic-heading' },
+	                  React.createElement(
+	                    'strong',
+	                    null,
+	                    'The Roller Coaster'
+	                  )
+	                ),
+	                React.createElement(
+	                  'p',
+	                  { className: 'pic-detail' },
+	                  'opened Oct3rd 2016'
 	                )
 	              )
 	            )
@@ -35402,13 +35669,13 @@
 	exports.default = Experience;
 
 /***/ },
-/* 265 */
+/* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(266);
+	var content = __webpack_require__(267);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(203)(content, {});
@@ -35428,7 +35695,7 @@
 	}
 
 /***/ },
-/* 266 */
+/* 267 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(202)();
@@ -35436,19 +35703,19 @@
 
 
 	// module
-	exports.push([module.id, "body.aframe-inspector-opened {\n  color: #fff;\n  font-family: 'Roboto', sans-serif;\n  font-size: 12px;\n  margin: 0;\n  overflow: hidden;\n}\n\n.toggle-edit {\n  background-color: #ed3160;\n  color: #fff;\n  font-family: 'Roboto', sans-serif;\n  font-size: 12px;\n  left: 3px;\n  margin: 0;\n  padding: 6px 10px;\n  position: fixed;\n  text-align: center;\n  text-decoration: none;\n  top: 3px;\n  width: 174px;\n  z-index: 99999;\n}\n\n.toggle-edit:hover {\n  background-color: rgb(228, 43, 90);\n}\n\nhr {\n  border: 0;\n  border-top: 1px solid #ccc;\n}\n\na {\n  cursor: pointer;\n}\n\nbutton {\n  position: relative;\n}\n\ncode {\n  font-family: Consolas, Andale Mono, Monaco, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;\n}\n\ntextarea {\n  -moz-tab-size: 4;\n    -o-tab-size: 4;\n       tab-size: 4;\n  white-space: pre;\n  word-wrap: normal;\n}\n\ntextarea.success {\n  border-color: #8b8 !important;\n}\n\ntextarea.fail {\n  background-color: rgba(255, 0, 0, 0.05);\n  border-color: #f00 !important;\n}\n\ntextarea,\ninput {\n  outline: none; /* osx */\n}\n\n#left-sidebar,\n#right-panels {\n  z-index: 9999;\n}\n\n#sidebar,\n#left-sidebar,\n.panel {\n  cursor: default;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.collapsible .static {\n  margin: 0;\n}\n\n.collapsible .static .collapse-button {\n  border: 6px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 6px;\n  width: 0;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #1faaf2;\n  margin-top: 2px;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #1faaf2;\n  margin-top: 6px;\n}\n\n.collapsible.collapsed .content {\n  display: none;\n}\n\n.scenegraph {\n  border-top: 1px solid #111;\n  padding-top: 32px;\n}\n\n.scenegraph .search {\n  padding: 5px;\n}\n\n.scenegraph-toolbar {\n  background-color: #333;\n  position: fixed;\n  top: 32px;\n}\n\n.scenegraph-actions {\n  padding: 9px 0 5px;\n}\n\n.search {\n  color: #aaa;\n  font-size: 16px;\n  position: relative;\n}\n\n.search input {\n  background: #222;\n  border-radius: 5px;\n  height: 22px;\n  width: 185px;\n}\n\n.search input {\n  text-indent: 10px;\n}\n\n.search .fa-search {\n  position: absolute;\n  right: 11px;\n  top: 10px;\n}\n\ninput {\n  background-color: transparent;\n  border: 1px solid #555;\n  color: #fff;\n}\n\ninput,\n.texture canvas {\n  -webkit-transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n  transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n}\n\ninput[type=text],\ninput[type=number],\ninput.string,\ninput.number {\n  min-height: 14px;\n  outline: none;\n}\n\ninput.number {\n  background-color: transparent !important;\n  border: 0;\n  color: #20b1fb !important;\n  cursor: col-resize;\n  font-size: 12px;\n  padding: 2px;\n}\n\ninput.string:focus,\ninput.number:focus {\n  border: 1px solid #20b1fb;\n  color: #fff;\n  cursor: auto;\n}\n\n#left-sidebar {\n  background: #2b2b2b;\n  bottom: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  position: fixed;\n  top: 0;\n  width: 200px;\n}\n\n#sidebar {\n  background: #2b2b2b;\n  width: 330px;\n}\n\n#sidebar * {\n  vertical-align: middle;\n}\n\ninput,\ntextarea,\nselect {\n  background: #222;\n  border: 1px solid transparent;\n  color: #888;\n}\n\n.row {\n  margin-bottom: 10px;\n  min-height: 20px;\n}\n\ninput[type=color] {\n  background-color: #333;\n  border: 1px solid #111;\n  cursor: pointer;\n}\n\n.texture canvas {\n  border: 1px solid #222;\n}\n\ninput[type=color] {\n  cursor: pointer;\n  height: 16px;\n  padding: 0;\n  width: 64px;\n}\n\n/* Note: these vendor-prefixed selectors cannot be grouped! */\n\ninput[type=color]::-webkit-color-swatch {\n  border: 0;  /* To remove the gray border. */\n}\n\ninput[type=color]::-webkit-color-swatch-wrapper {\n  padding: 0;  /* To remove the inner padding. */\n}\n\ninput[type=color]::-moz-color-swatch {\n  border: 0;\n}\n\ninput[type=color]::-moz-focus-inner {\n  border: 0;  /* To remove the inner border (specific to Firefox). */\n  padding: 0;\n}\n\n.components {\n  background-color: #323232;\n  color: #bcbcbc;\n  height: 100%;\n  overflow: auto;\n  position: fixed;\n  width: 330px;\n}\n\ndiv.vec2,\ndiv.vec3 {\n  display: inline;\n}\n\n.vec2 input.number,\n.vec3 input.number {\n  width: 46px;\n}\n\n.collapsible-header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.component-title span {\n  float: left;\n  max-width: 110px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n\n.collapsible .static {\n  background-color: #323232;\n  border-bottom: 1px solid #262626;\n  border-top: 1px solid #262626;\n  color: #fff;\n  height: 16px;\n  padding: 10px;\n  vertical-align: middle;\n}\n\n.collapsible .menu {\n  text-align: right;\n}\n\n.collapsible .menu::after {\n  color: #bbb;\n  content: '\\2807';\n  font-size: 12px;\n  padding: 5px;\n  text-align: right;\n}\n\n.collapsible .static .collapse-button {\n  border-left: 5px solid transparent;\n  border-right: 5px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 10px;\n  margin-top: 2px;\n  width: 0;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #bbb;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #bbb;\n}\n\n.collapsible .content {\n  background-color: #2b2b2b;\n  padding: 10px;\n}\n\n.components .row {\n  margin-bottom: 10px;\n  min-height: 20px;\n}\n\n.components * {\n  vertical-align: middle;\n}\n\n.components .row .text {\n  cursor: default;\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  vertical-align: middle;\n  width: 120px;\n}\n\n.components .row .map_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n\n.hidden {\n  visibility: hidden;\n}\n\n.texture canvas + input {\n  margin-left: 5px;\n}\n\n.texture .fa {\n  padding-right: 5px;\n}\n\n.scenegraph-bottom {\n  background-color: #323232;\n  border-top: 1px solid #111;\n  bottom: 10;\n  height: 40px;\n  left: 0;\n  z-index: 100;\n}\n\na.button {\n  color: #bcbcbc;\n  font-size: 16px;\n  margin-left: 10px;\n  text-decoration: none;\n}\n\na.button:hover {\n  color: #1faaf2;\n}\n\n.scenegraph-bottom a {\n  float: right;\n  margin: 10px;\n}\n\n.modal {\n  background-color: rgb(0, 0, 0);\n  background-color: rgba(0, 0, 0, 0.4);\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  padding-top: 100px;\n  position: fixed;\n  top: 0;\n  width: 100%;\n  z-index: 9999;\n}\n\n.modal-content {\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s;\n  -webkit-animation-name: animatetop;\n          animation-name: animatetop;\n  background-color: #232323;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n  margin: auto;\n  padding: 0;\n  position: relative;\n  width: 889px;\n}\n\n@-webkit-keyframes animatetop {\n  from {\n    opacity: 0;\n    top: -300px;\n  }\n\n  to {\n    opacity: 1;\n    top: 0;\n  }\n}\n\n@keyframes animatetop {\n  from {\n    opacity: 0;\n    top: -300px;\n  }\n\n  to {\n    opacity: 1;\n    top: 0;\n  }\n}\n\n.close {\n  color: white;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n}\n\n.close:hover,\n.close:focus {\n  color: #08f;\n  cursor: pointer;\n  text-decoration: none;\n}\n\n.modal-header {\n  color: white;\n  padding: 2px 16px;\n}\n\n.modal-body {\n  overflow: auto;\n  padding: 16px;\n}\n\n.modal-footer {\n  color: white;\n  padding: 2px 16px;\n}\n\n/* Gallery */\n\n.gallery {\n  margin: 0 auto;\n  overflow: auto;\n  padding: 0;\n}\n\n.gallery li {\n  box-shadow: 3px 3px 8px -2px rgba(0, 0, 0, 0.63);\n  cursor: pointer;\n  display: inline-block;\n  float: left;\n  margin: 8px;\n  overflow: hidden;\n  width: 155px;\n}\n\n.gallery li:hover {\n  box-shadow: 0 0 4px 3px rgba(29, 138, 190, 0.63);\n}\n\n.gallery li .detail {\n  background-color: #323232;\n  min-height: 60px;\n  padding: 10px;\n}\n\n.gallery li:hover .detail {\n  background-color: #444;\n}\n\n.gallery li .detail span {\n  color: #bbb !important;\n}\n\n.gallery li .detail span.title {\n  color: #eee !important;\n  font-weight: bold;\n}\n\n.preview {\n  float: right;\n  padding: 10px;\n  width: 200px;\n}\n\n.new_asset_options {\n  float: left;\n  width: 600px;\n}\n\n.modal button {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  border-radius: 0;\n  box-shadow: none;\n  cursor: pointer;\n  display: inline-block;\n  font-size: 12px;\n  line-height: 1.8;\n  margin: 0 10px 0 0;\n  padding: 5px 10px;\n}\n\n.modal button:focus {\n  outline: none;\n}\n\n.modal button {\n  background-color: #1eaaf1;\n  border: none;\n  color: #fff;\n}\n\n.modal button:hover,\n.modal button.hover {\n  background-color: #346392;\n  text-shadow: -1px 1px #27496d;\n}\n\n.modal button:active,\n.modal button.active {\n  background-color: #27496d;\n  text-shadow: -1px 1px #193047;\n}\n\n.newimage {\n  background-color: #323232;\n  overflow: auto;\n  padding: 10px;\n}\n\n.hide {\n  display: none;\n}\n\nspan.value {\n  color: #fff;\n  display: inline-block;\n}\n\nspan.mixinlist {\n  color: #888 !important;\n  display: inline-block;\n}\n\nspan.mixinlist ul {\n  background-color: #222;\n  list-style-type: none;\n  margin: 5px 0 0;\n  padding: 5px;\n}\n\nspan.mixinlist ul li {\n  font-size: 11px;\n  margin-bottom: 3px;\n}\n\nspan.mixinlist ul li:last-child {\n  margin-bottom: 0;\n}\n\nspan.mixin {\n  display: inline-block;\n  width: 100px;\n}\n\n.mixinlist {\n  margin-left: 120px;\n}\n\nspan.subcomponent {\n  color: #999;\n  float: none !important;\n  margin-left: 10px;\n  vertical-align: top !important;\n}\n\n.collapsible .static {\n  cursor: pointer;\n}\n\n.a-canvas.state-dragging {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n\ncode,\npre,\ninput,\ntextarea,\nselect {\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.Select,\n.wf-active code,\n.wf-active pre,\n.wf-active input,\n.wf-active textarea,\n.wf-active select {\n  font-family: Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.tagName {\n  font-weight: 500;\n}\n\n.sidebar-title {\n  background-color: #444;\n  color: #aaa;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  font-size: 12px;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 6px 10px;\n  position: relative;\n  text-align: center;\n}\n\n.toolbar {\n  background-color: #262626;\n  color: #333;\n  height: 32px;\n  position: relative;\n}\n\n.toolbar * {\n  margin-left: 0;\n  padding: 8px;\n  vertical-align: middle;\n}\n\n.toolbar a.button {\n  margin: 0 6px 0 0;\n}\n\n.toolbar .active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.toolbar .active:hover {\n  color: #fff !important;\n}\n\n.local-transform {\n  padding-left: 10px;\n}\n\n.local-transform label {\n  color: #aaa;\n  padding-left: 5px;\n}\n\n.local-transform a.button {\n  padding-top: 0;\n}\n\n.outliner {\n  background: #2b2b2b;\n  color: #868686;\n  cursor: default;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n  font-size: 12px;\n  height: calc(100% - 98px);\n  outline: none;\n  overflow-y: auto;\n  padding: 0;\n  position: fixed;\n  top: 98px;\n  width: 200px;\n}\n\n.outliner .option {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 4px;\n  white-space: nowrap;\n}\n\n.outliner .option.active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.outliner .option .component:hover {\n  color: #1faaf2;\n}\n\n.outliner .option.active .component:hover {\n  color: #1888c1;\n}\n\n.outliner .option .icons {\n  display: none;\n  margin: 0 3px 0 10px;\n}\n\n.outliner .option .icons .button {\n  color: #fff;\n  font-size: 12px;\n}\n\n.outliner .option.active .icons {\n  display: inline;\n}\n\n.outliner .fa {\n  color: #aaa;\n}\n\n.outliner .active .fa {\n  color: #fff;\n}\n\na.flat-button {\n  background-color: #262626;\n  color: #bcbcbc;\n  font-size: 11px;\n  margin-left: 10px;\n  padding: 5px;\n  text-decoration: none;\n}\n\na.flat-button:hover {\n  color: #1faaf2;\n}\n\n.component-title {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n\na.help-link {\n  opacity: 0.4;\n}\n\na.help-link:hover {\n  opacity: 1;\n}\n\n#right-panels {\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  position: fixed;\n  right: 0;\n  top: 0;\n}\n\n#aframe-inspector-panels {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n/* This is a temporaly hack, we should style the editor instead of overwriting\n   the a-scene to fix the \"display: block\" issue. */\n\n.aframe-inspector-opened a-scene {\n  display: inline !important;\n}\n\n.aframe-inspector-opened a-scene .a-canvas {\n  background-color: #191919;\n  position: fixed;\n  z-index: 9999;\n  zoom: reset;\n}\n\nspan.entity-name {\n  color: #fff;\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n  font-size: 16px;\n}\n\n.add-component {\n  width: 200px;\n}\n\n.Select-control {\n  background-color: #222 !important;\n  border: none;\n  border-radius: 0;\n  color: #1faaf2;\n}\n\n.Select-menu-outer {\n  border: none;\n}\n\n.Select-menu-outer .is-focused {\n  background-color: #1faaf2 !important;\n  color: #fff;\n}\n\n.Select-option {\n  background-color: #222 !important;\n}\n\n.select-widget {\n  display: inline-block;\n  width: 157px;\n}\n\n.Select-placeholder,\n.Select--single > .Select-control .Select-value {\n  color: #1faaf2 !important;\n}\n\n.Select-value-label {\n  color: #1faaf2 !important;\n}\n\n.row .Select-control {\n  font-size: 11px;\n  height: 24px;\n}\n\n.row .Select-placeholder,\n.row .Select--single > .Select-control .Select-value {\n  line-height: 19px;\n}\n\n.row .Select-input {\n  height: 22px;\n}\n\n.row input[type=text],\n.row input[type=number],\n.row input.string,\n.row input.number {\n  background: #222;\n  border: 1px solid transparent;\n  color: #1faaf2;\n  min-height: 20px;\n  padding-left: 5px;\n  padding-right: 5px;\n}\n\n/* shortcuts help */\n\n.help-lists {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.help-list {\n  list-style: none;\n  margin: 0;\n  padding: 0 0 10px;\n  width: 350px;\n}\n\n.help-list li {\n  margin-right: 40px;\n}\n\n.help-key-unit {\n  line-height: 1.8;\n  margin-right: 2em;\n  padding: 5px 0;\n}\n\n.help-key {\n  bottom: 2px;\n  margin-right: 4px;\n  min-width: 60px;\n  position: relative;\n}\n\n.help-key span {\n  background-color: #2e2e2e;\n  background-repeat: repeat-x;\n  border: 1px solid #666;\n  border-radius: 3px;\n  box-shadow: 0 0 5px #000;\n  color: #999;\n  display: inline-block;\n  font-size: 12px;\n  padding: 0 8px;\n  text-align: center;\n}\n\n.help-key-def {\n  color: #bbb;\n  display: inline-block;\n  margin-left: 1em;\n}\n\n.add-component {\n  text-align: left;\n}\n\n.add-component .option {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.add-component .option span {\n  color: #1faaf2;\n}\n\n.Select-menu-outer .is-focused span {\n  color: #fff;\n}\n\n.add-component-container {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: #2b2b2b;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  padding: 10px;\n}\n\n.aregistry-button {\n  font-size: 12px;\n  margin-left: 10px;\n  padding: 8px;\n}\n\n.aregistry-button:hover {\n  background-color: #1faaf2;\n}\n\n.aregistry-button img {\n  height: 20px;\n  width: 20px;\n}\n", ""]);
+	exports.push([module.id, "body.aframe-inspector-opened {\n  color: #fff;\n  font-family: 'Karla', sans-serif;\n  font-size: 12px;\n  margin: 0;\n  overflow: hidden;\n}\n\n.toggle-edit {\n  background-color: #ed3160;\n  color: #fff;\n  font-family: 'Karla', sans-serif;\n  font-size: 12px;\n  left: 3px;\n  margin: 0;\n  padding: 6px 10px;\n  position: fixed;\n  text-align: center;\n  text-decoration: none;\n  top: 3px;\n  width: 174px;\n  z-index: 99999;\n}\n\n.toggle-edit:hover {\n  background-color: rgb(228, 43, 90);\n}\n\nhr {\n  border: 0;\n  border-top: 1px solid #ccc;\n}\n\na {\n  cursor: pointer;\n}\n\nbutton {\n  position: relative;\n}\n\ncode {\n  font-family: Consolas, Andale Mono, Monaco, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;\n}\n\ntextarea {\n  -moz-tab-size: 4;\n    -o-tab-size: 4;\n       tab-size: 4;\n  white-space: pre;\n  word-wrap: normal;\n}\n\ntextarea.success {\n  border-color: #8b8 !important;\n}\n\ntextarea.fail {\n  background-color: rgba(255, 0, 0, 0.05);\n  border-color: #f00 !important;\n}\n\ntextarea,\ninput {\n  outline: none; /* osx */\n}\n\n#left-sidebar,\n#right-panels {\n  z-index: 9999;\n}\n\n#sidebar,\n#left-sidebar,\n.panel {\n  cursor: default;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.collapsible .static {\n  margin: 0;\n}\n\n.collapsible .static .collapse-button {\n  border: 6px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 6px;\n  width: 0;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #1faaf2;\n  margin-top: 2px;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #1faaf2;\n  margin-top: 6px;\n}\n\n.collapsible.collapsed .content {\n  display: none;\n}\n\n.scenegraph {\n  border-top: 1px solid #111;\n  padding-top: 32px;\n}\n\n.scenegraph .search {\n  padding: 5px;\n}\n\n.scenegraph-toolbar {\n  background-color: #333;\n  position: fixed;\n  top: 32px;\n}\n\n.scenegraph-actions {\n  padding: 9px 0 5px;\n}\n\n.search {\n  color: #aaa;\n  font-size: 16px;\n  position: relative;\n}\n\n.search input {\n  background: #222;\n  border-radius: 5px;\n  height: 22px;\n  width: 185px;\n}\n\n.search input {\n  text-indent: 10px;\n}\n\n.search .fa-search {\n  position: absolute;\n  right: 11px;\n  top: 10px;\n}\n\ninput {\n  background-color: transparent;\n  border: 1px solid #555;\n  color: #fff;\n}\n\ninput,\n.texture canvas {\n  -webkit-transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n  transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n}\n\ninput[type=text],\ninput[type=number],\ninput.string,\ninput.number {\n  min-height: 14px;\n  outline: none;\n}\n\ninput.number {\n  background-color: transparent !important;\n  border: 0;\n  color: #20b1fb !important;\n  cursor: col-resize;\n  font-size: 12px;\n  padding: 2px;\n}\n\ninput.string:focus,\ninput.number:focus {\n  border: 1px solid #20b1fb;\n  color: #fff;\n  cursor: auto;\n}\n\n#left-sidebar {\n  background: #2b2b2b;\n  bottom: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  position: fixed;\n  top: 0;\n  width: 200px;\n}\n\n#sidebar {\n  background: #2b2b2b;\n  width: 330px;\n}\n\n#sidebar * {\n  vertical-align: middle;\n}\n\ninput,\ntextarea,\nselect {\n  background: #222;\n  border: 1px solid transparent;\n  color: #888;\n}\n\n.row {\n  margin-bottom: 10px;\n  min-height: 20px;\n}\n\ninput[type=color] {\n  background-color: #333;\n  border: 1px solid #111;\n  cursor: pointer;\n}\n\n.texture canvas {\n  border: 1px solid #222;\n}\n\ninput[type=color] {\n  cursor: pointer;\n  height: 16px;\n  padding: 0;\n  width: 64px;\n}\n\n/* Note: these vendor-prefixed selectors cannot be grouped! */\n\ninput[type=color]::-webkit-color-swatch {\n  border: 0;  /* To remove the gray border. */\n}\n\ninput[type=color]::-webkit-color-swatch-wrapper {\n  padding: 0;  /* To remove the inner padding. */\n}\n\ninput[type=color]::-moz-color-swatch {\n  border: 0;\n}\n\ninput[type=color]::-moz-focus-inner {\n  border: 0;  /* To remove the inner border (specific to Firefox). */\n  padding: 0;\n}\n\n.components {\n  background-color: #323232;\n  color: #bcbcbc;\n  height: 100%;\n  overflow: auto;\n  position: fixed;\n  width: 330px;\n}\n\ndiv.vec2,\ndiv.vec3 {\n  display: inline;\n}\n\n.vec2 input.number,\n.vec3 input.number {\n  width: 46px;\n}\n\n.collapsible-header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.component-title span {\n  float: left;\n  max-width: 110px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n\n.collapsible .static {\n  background-color: #323232;\n  border-bottom: 1px solid #262626;\n  border-top: 1px solid #262626;\n  color: #fff;\n  height: 16px;\n  padding: 10px;\n  vertical-align: middle;\n}\n\n.collapsible .menu {\n  text-align: right;\n}\n\n.collapsible .menu::after {\n  color: #bbb;\n  content: '\\2807';\n  font-size: 12px;\n  padding: 5px;\n  text-align: right;\n}\n\n.collapsible .static .collapse-button {\n  border-left: 5px solid transparent;\n  border-right: 5px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 10px;\n  margin-top: 2px;\n  width: 0;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #bbb;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #bbb;\n}\n\n.collapsible .content {\n  background-color: #2b2b2b;\n  padding: 10px;\n}\n\n.components .row {\n  margin-bottom: 10px;\n  min-height: 20px;\n}\n\n.components * {\n  vertical-align: middle;\n}\n\n.components .row .text {\n  cursor: default;\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  vertical-align: middle;\n  width: 120px;\n}\n\n.components .row .map_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n\n.hidden {\n  visibility: hidden;\n}\n\n.texture canvas + input {\n  margin-left: 5px;\n}\n\n.texture .fa {\n  padding-right: 5px;\n}\n\n.scenegraph-bottom {\n  background-color: #323232;\n  border-top: 1px solid #111;\n  bottom: 10;\n  height: 40px;\n  left: 0;\n  z-index: 100;\n}\n\na.button {\n  color: #bcbcbc;\n  font-size: 16px;\n  margin-left: 10px;\n  text-decoration: none;\n}\n\na.button:hover {\n  color: #1faaf2;\n}\n\n.scenegraph-bottom a {\n  float: right;\n  margin: 10px;\n}\n\n.modal {\n  background-color: rgb(0, 0, 0);\n  background-color: rgba(0, 0, 0, 0.4);\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  padding-top: 100px;\n  position: fixed;\n  top: 0;\n  width: 100%;\n  z-index: 9999;\n}\n\n.modal-content {\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s;\n  -webkit-animation-name: animatetop;\n          animation-name: animatetop;\n  background-color: #232323;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n  margin: auto;\n  padding: 0;\n  position: relative;\n  width: 889px;\n}\n\n@-webkit-keyframes animatetop {\n  from {\n    opacity: 0;\n    top: -300px;\n  }\n\n  to {\n    opacity: 1;\n    top: 0;\n  }\n}\n\n@keyframes animatetop {\n  from {\n    opacity: 0;\n    top: -300px;\n  }\n\n  to {\n    opacity: 1;\n    top: 0;\n  }\n}\n\n.close {\n  color: white;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n}\n\n.close:hover,\n.close:focus {\n  color: #08f;\n  cursor: pointer;\n  text-decoration: none;\n}\n\n.modal-header {\n  color: white;\n  padding: 2px 16px;\n}\n\n.modal-body {\n  overflow: auto;\n  padding: 16px;\n}\n\n.modal-footer {\n  color: white;\n  padding: 2px 16px;\n}\n\n/* Gallery */\n\n.gallery {\n  margin: 0 auto;\n  overflow: auto;\n  padding: 0;\n}\n\n.gallery li {\n  box-shadow: 3px 3px 8px -2px rgba(0, 0, 0, 0.63);\n  cursor: pointer;\n  display: inline-block;\n  float: left;\n  margin: 8px;\n  overflow: hidden;\n  width: 155px;\n}\n\n.gallery li:hover {\n  box-shadow: 0 0 4px 3px rgba(29, 138, 190, 0.63);\n}\n\n.gallery li .detail {\n  background-color: #323232;\n  min-height: 60px;\n  padding: 10px;\n}\n\n.gallery li:hover .detail {\n  background-color: #444;\n}\n\n.gallery li .detail span {\n  color: #bbb !important;\n}\n\n.gallery li .detail span.title {\n  color: #eee !important;\n  font-weight: bold;\n}\n\n.preview {\n  float: right;\n  padding: 10px;\n  width: 200px;\n}\n\n.new_asset_options {\n  float: left;\n  width: 600px;\n}\n\n.modal button {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  border-radius: 0;\n  box-shadow: none;\n  cursor: pointer;\n  display: inline-block;\n  font-size: 12px;\n  line-height: 1.8;\n  margin: 0 10px 0 0;\n  padding: 5px 10px;\n}\n\n.modal button:focus {\n  outline: none;\n}\n\n.modal button {\n  background-color: #1eaaf1;\n  border: none;\n  color: #fff;\n}\n\n.modal button:hover,\n.modal button.hover {\n  background-color: #346392;\n  text-shadow: -1px 1px #27496d;\n}\n\n.modal button:active,\n.modal button.active {\n  background-color: #27496d;\n  text-shadow: -1px 1px #193047;\n}\n\n.newimage {\n  background-color: #323232;\n  overflow: auto;\n  padding: 10px;\n}\n\n.hide {\n  display: none;\n}\n\nspan.value {\n  color: #fff;\n  display: inline-block;\n}\n\nspan.mixinlist {\n  color: #888 !important;\n  display: inline-block;\n}\n\nspan.mixinlist ul {\n  background-color: #222;\n  list-style-type: none;\n  margin: 5px 0 0;\n  padding: 5px;\n}\n\nspan.mixinlist ul li {\n  font-size: 11px;\n  margin-bottom: 3px;\n}\n\nspan.mixinlist ul li:last-child {\n  margin-bottom: 0;\n}\n\nspan.mixin {\n  display: inline-block;\n  width: 100px;\n}\n\n.mixinlist {\n  margin-left: 120px;\n}\n\nspan.subcomponent {\n  color: #999;\n  float: none !important;\n  margin-left: 10px;\n  vertical-align: top !important;\n}\n\n.collapsible .static {\n  cursor: pointer;\n}\n\n.a-canvas.state-dragging {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n\ncode,\npre,\ninput,\ntextarea,\nselect {\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.Select,\n.wf-active code,\n.wf-active pre,\n.wf-active input,\n.wf-active textarea,\n.wf-active select {\n  font-family: Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.tagName {\n  font-weight: 500;\n}\n\n.sidebar-title {\n  background-color: #444;\n  color: #aaa;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  font-size: 12px;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 6px 10px;\n  position: relative;\n  text-align: center;\n}\n\n.toolbar {\n  background-color: #262626;\n  color: #333;\n  height: 32px;\n  position: relative;\n}\n\n.toolbar * {\n  margin-left: 0;\n  padding: 8px;\n  vertical-align: middle;\n}\n\n.toolbar a.button {\n  margin: 0 6px 0 0;\n}\n\n.toolbar .active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.toolbar .active:hover {\n  color: #fff !important;\n}\n\n.local-transform {\n  padding-left: 10px;\n}\n\n.local-transform label {\n  color: #aaa;\n  padding-left: 5px;\n}\n\n.local-transform a.button {\n  padding-top: 0;\n}\n\n.outliner {\n  background: #2b2b2b;\n  color: #868686;\n  cursor: default;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n  font-size: 12px;\n  height: calc(100% - 98px);\n  outline: none;\n  overflow-y: auto;\n  padding: 0;\n  position: fixed;\n  top: 98px;\n  width: 200px;\n}\n\n.outliner .option {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 4px;\n  white-space: nowrap;\n}\n\n.outliner .option.active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.outliner .option .component:hover {\n  color: #1faaf2;\n}\n\n.outliner .option.active .component:hover {\n  color: #1888c1;\n}\n\n.outliner .option .icons {\n  display: none;\n  margin: 0 3px 0 10px;\n}\n\n.outliner .option .icons .button {\n  color: #fff;\n  font-size: 12px;\n}\n\n.outliner .option.active .icons {\n  display: inline;\n}\n\n.outliner .fa {\n  color: #aaa;\n}\n\n.outliner .active .fa {\n  color: #fff;\n}\n\na.flat-button {\n  background-color: #262626;\n  color: #bcbcbc;\n  font-size: 11px;\n  margin-left: 10px;\n  padding: 5px;\n  text-decoration: none;\n}\n\na.flat-button:hover {\n  color: #1faaf2;\n}\n\n.component-title {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n\na.help-link {\n  opacity: 0.4;\n}\n\na.help-link:hover {\n  opacity: 1;\n}\n\n#right-panels {\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  position: fixed;\n  right: 0;\n  top: 0;\n}\n\n#aframe-inspector-panels {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n/* This is a temporaly hack, we should style the editor instead of overwriting\n   the a-scene to fix the \"display: block\" issue. */\n\n.aframe-inspector-opened a-scene {\n  display: inline !important;\n}\n\n.aframe-inspector-opened a-scene .a-canvas {\n  background-color: #191919;\n  position: fixed;\n  z-index: 9999;\n  zoom: reset;\n}\n\nspan.entity-name {\n  color: #fff;\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n  font-size: 16px;\n}\n\n.add-component {\n  width: 200px;\n}\n\n.Select-control {\n  background-color: #222 !important;\n  border: none;\n  border-radius: 0;\n  color: #1faaf2;\n}\n\n.Select-menu-outer {\n  border: none;\n}\n\n.Select-menu-outer .is-focused {\n  background-color: #1faaf2 !important;\n  color: #fff;\n}\n\n.Select-option {\n  background-color: #222 !important;\n}\n\n.select-widget {\n  display: inline-block;\n  width: 157px;\n}\n\n.Select-placeholder,\n.Select--single > .Select-control .Select-value {\n  color: #1faaf2 !important;\n}\n\n.Select-value-label {\n  color: #1faaf2 !important;\n}\n\n.row .Select-control {\n  font-size: 11px;\n  height: 24px;\n}\n\n.row .Select-placeholder,\n.row .Select--single > .Select-control .Select-value {\n  line-height: 19px;\n}\n\n.row .Select-input {\n  height: 22px;\n}\n\n.row input[type=text],\n.row input[type=number],\n.row input.string,\n.row input.number {\n  /*background: #222;*/\n  border: 1px solid transparent;\n  color: #1faaf2;\n  min-height: 20px;\n  padding-left: 5px;\n  padding-right: 5px;\n}\n\n/* shortcuts help */\n\n.help-lists {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.help-list {\n  list-style: none;\n  margin: 0;\n  padding: 0 0 10px;\n  width: 350px;\n}\n\n.help-list li {\n  margin-right: 40px;\n}\n\n.help-key-unit {\n  line-height: 1.8;\n  margin-right: 2em;\n  padding: 5px 0;\n}\n\n.help-key {\n  bottom: 2px;\n  margin-right: 4px;\n  min-width: 60px;\n  position: relative;\n}\n\n.help-key span {\n  background-color: #2e2e2e;\n  background-repeat: repeat-x;\n  border: 1px solid #666;\n  border-radius: 3px;\n  box-shadow: 0 0 5px #000;\n  color: #999;\n  display: inline-block;\n  font-size: 12px;\n  padding: 0 8px;\n  text-align: center;\n}\n\n.help-key-def {\n  color: #bbb;\n  display: inline-block;\n  margin-left: 1em;\n}\n\n.add-component {\n  text-align: left;\n}\n\n.add-component .option {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.add-component .option span {\n  color: #1faaf2;\n}\n\n.Select-menu-outer .is-focused span {\n  color: #fff;\n}\n\n.add-component-container {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: #2b2b2b;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  padding: 10px;\n}\n\n.aregistry-button {\n  font-size: 12px;\n  margin-left: 10px;\n  padding: 8px;\n}\n\n.aregistry-button:hover {\n  background-color: #1faaf2;\n}\n\n.aregistry-button img {\n  height: 20px;\n  width: 20px;\n}\n\n.components .row .color_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(268);
+	var content = __webpack_require__(269);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(203)(content, {});
@@ -35468,7 +35735,7 @@
 	}
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(202)();
@@ -35476,67 +35743,137 @@
 
 
 	// module
-	exports.push([module.id, "    /* Remove the navbar's default margin-bottom and rounded borders */ \n    .navbar {\n      padding: 10px;\n      margin-bottom: 0;\n      border-radius: 0;\n    } \n    .img-icon{\n      padding: 0 5px;\n    } \n    .img-icon img{\n        width: 20px;\n      } \n    .empty{\n        height: 375px;\n      } \n    .search{\n      background:#3e5078;\n      opacity: .9;\n      padding-top: 15px;\n    } \n    .search-input{\n      border-radius: 20px;\n      border: 0;\n      background: #2a3956;\n      padding: 5px;\n      width: 60%;\n      margin: auto;\n    } \n    .search-input input{\n      background: none;\n      border:0;\n      width: 80%;\n      margin-left: 10px;\n    } \n    .upload{\n      background: white;\n      border-radius: 20px;\n      color: #18273e;\n      padding: 5px 10px;\n      font-weight: bold;\n      font-size: 12px;\n      margin-right:10px;\n    } \n    .scene-container{\n      padding-top: 20px;\n    } \n    .create-scene{\n      position: relative;\n      padding-left: 0;\n      padding-bottom: 10px;\n    } \n    .create-scene img{\n        width: 100px;\n    } \n    .buttonName{\n      position: absolute;\n      top:25px;\n      left:10px;\n      color: black;\n      width: 100%;\n      font-weight: bold;\n    } \n    .scene-btn{\n      position: absolute;\n      width:100%;\n      color: black;\n      height: 50%;\n      background: none;\n      border: none;\n      font-size: 12px;\n      font-weight: bold;\n    } \n    .slider-button{\n      padding-top: 7px;\n    } \n    .slider-button div{\n      padding:0;\n    } \n    .slider-button .glyphicon{\n      color:#7a859c;\n    } \n    .slider-button hr{\n      border-top:3px solid #7a859c;\n      margin-top:10px; \n    } \n    .name-scene-para{\n      color: white;\n      position: absolute;\n      width: 100%;\n      top: 2px;\n      font-size: 10px;\n      font-weight: bold;\n      left: 10px;\n    } \n    .name-scene-input{\n      position: absolute;\n      color:white;\n      top: 30px;\n      width: 60%;\n      height: 40px;\n      left: 20px;\n      background: none;\n      border: none;\n      font-size: 12px;\n      overflow: hidden;\n    } \n    .btn-option{\n      position: absolute;\n      width: 100%;\n      top: 60px;\n      right:-15px;\n    } \n    .canvas-white img{\n      width:20px;\n    } \n    .del-btn img{\n      width: 12px;\n    } \n    /* footer */ \n    footer {\n      background-color: #18273e;\n      color: white;\n      //padding: 15px;\n      width: 100%;\n      height:50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    } \n    .viewer{\n      padding-top: 15px;\n    } \n    .nav-tabs{\n      position: absolute;\n      top: -10px;\n      width: 90%;\n      margin: auto;\n      left: 41%;\n    } \n    .nav-tabs .img-icon{\n      margin: 10px;\n      padding-top: 13px;\n      border-top:3px solid #fff; \n    } \n    .nav-tabs .active{\n      border-top:3px solid #04a0f8; \n    } \n    footer .img-icon img{\n      width: 30px;\n    } \n    input:focus, button:focus, textarea:focus{\n      outline: none;\n    } \n    ul li{\n      display: inline;\n    } \n    #ToolOptions{\n\t    position: absolute;\n\t    bottom: 0px;\n\t    width: 100%;\n\t    height: 161px;\n\t    background-color: #18273e;\n    \tz-index:9999;\n\t    bottom: 50px;\n    } \n    #Photo360 {\n\t\tbackground-image: url(" + __webpack_require__(269) + ");\n\t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n  } \n    #Photo360:hover {\n\t   background-image: url(" + __webpack_require__(270) + ");\n  } \n    #Photo360 .text,#Photo360:hover .uploadText,#Video360 .text,#Video360:hover .uploadText{\n\t\tdisplay:block;\n  } \n    #Photo360:hover .text,#Photo360 .uploadText,#Video360:hover .text,#Video360 .uploadText{\n\t\tdisplay:none;\n  } \n    #Video360{\n  \t\tbackground-image: url(" + __webpack_require__(271) + ");\n  \t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n  \t} \n    #Video360:hover{\n  \t\tbackground-image: url(" + __webpack_require__(270) + ");\n  \t} \n    .number{\n      position: absolute;\n      top: 5px;\n      right: 0;\n      background: #fff;\n      border-radius: 100%;\n      height: 18px;\n      color: #000;\n      width: 18px;\n      font-size: 12px;\n      font-weight: bold;\n    } \n    .active-btn{\n      position: absolute;\n      top:5px;\n      left: 20px;\n      padding:2px;\n      background: #fff;\n      color: #000;\n      border-radius: 10px;\n      font-size: 8px;\n      font-weight: bold;\n    } \n    .crosshair {\n  cursor: crosshair !important; \n} \n    .scene-create{\n      margin: 35px;\n    } \n    .fadeout-retina{\n      background: url(" + __webpack_require__(272) + ");\n      color: #000;\n    } \n    .startingoff{\n      background: url(" + __webpack_require__(273) + ");\n    } \n    .animate{\n      background: url(" + __webpack_require__(274) + ");\n    } \n    .objects{\n      background: url(" + __webpack_require__(275) + "); \n    } \n    .animate-card{\n      background: url(" + __webpack_require__(276) + ");     \n    } \n    .himalay{\n      background: url(" + __webpack_require__(277) + ");\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 135px;\n      border-radius: 6px;\n    } \n    .card-image{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 171.33px;\n      border-radius: 6px;\n      padding: 1px 10px;\n    } \n    .pd-all{\n      padding: 30px 0;\n    } \n    .save-btn{\n      background: #fff;\n      color: #000;\n      padding: 10px;\n      border-radius: 20px;\n    } \n    .middle-text{\n      padding: 10px;\n    } \n    .edit-pic{\n      padding-top: 85px;\n    } \n    .himalay img{\n      width: 15%;\n      margin: 5px;\n    } \n    .himalay img:last-child{\n      width: 11%;\n    } \n    .pic-info{\n      background: #fff;\n      color:#000;\n      border-bottom-right-radius: 6px;\n      border-bottom-left-radius: 6px;\n    } \n    .pic-heading{\n      margin-bottom: 0;\n      padding-top: 10px;\n    } \n    .pic-detail{\n      font-size: 12px;\n      padding-bottom: 10px;\n    } \n    .mainPage{\n  background: #333;\n    color: white;\n } \n    ::-webkit-input-placeholder { /* WebKit browsers */\n    color:    #fff !important;\n} \n    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */\n    color:    #fff;\n} \n    ::-moz-placeholder { /* Mozilla Firefox 19+ */\n    color:    #fff;\n} \n    :-ms-input-placeholder { /* Internet Explorer 10+ */\n    color:    #fff;\n} \n    @media (max-width: 530px) {\n  .search-input{\n    width: 100%;\n  }\n  h6{\n    left: 0;\n  }\n  .upload{\n    margin-right: 0;\n    font-size: 11px;\n  }\n  .glyphicon-remove{\n    font-size: 9px;\n  }\n  .search-input input{\n    width: 79%;\n  }\n  .steps{\n    font-size: 12.5px;\n    font-weight: bold;\n  }\n} \n    @media (min-width: 992px) and (max-width: 1199px){\n  .create-scene{\n    margin-right: 3%;\n  }\n  .sl-btn{\n    right: -10px;\n  }\n  h6{\n    top:16px;\n    left:20px;\n  }\n} \n    @media (min-width: 768px) and (max-width: 991px) {\n  h6{\n    left:-14px;\n  }\n  .sl-btn{\n    right:50px;\n  }\n  .card-image{\n    margin-bottom: 20px;\n  }\n  .himalay{\n    margin-bottom: 70px;\n  }\n} \n    @media (max-width: 767px) {\n .steps {\n   text-align: center;\n }\n .card-image{\n    margin-bottom: 20px;\n  }\n  .himalay{\n    margin-bottom: 70px;\n  }\n  \n} \n    #inspectorEye{\n    position: fixed;\n    bottom: 36px;\n    background: none;\n} \n    .a-body{\n  \n    background: #333;\n}", ""]);
+	exports.push([module.id, "    /* Remove the navbar's default margin-bottom and rounded borders */\n\n\t\tbody{\n\t\t\tfont-family: 'Karla', sans-serif;\n\t\t}\n\n\t\t.navbar {\n      padding: 10px;\n      margin-bottom: 0;\n      border-radius: 0;\n    }\n\n\t\t.img-icon{\n      padding: 0 5px;\n    }\n\n\t\t.img-icon img{\n      width: 20px;\n    }\n\n\t\t.empty{\n      //height: 375px;\n    }\n\n\t\t.search{\n      background: #372e33;\n      opacity: .8;\n      padding-top: 15px;\n    }\n\n\t\t.search-input{\n      border-radius: 20px;\n      border: 0;\n      background: #2c2930;\n      padding: 5px;\n      width: 60%;\n      margin: auto;\n    }\n\n\t\t.search-input input{\n      background: #2c2930 !important;\n      border:0;\n      width: 80%;\n      margin-left: 10px;\n    }\n\n\t\t.upload{\n      background: white;\n      border-radius: 20px;\n      color: #18273e;\n      padding: 5px 10px;\n      font-weight: bold;\n      font-size: 12px;\n      margin-right:10px;\n    }\n\n\t\t.scene-container{\n      padding-top: 20px;\n      bottom: 20px;\n    }\n\n\t\t.create-scene{\n      position: relative;\n      padding-left: 0;\n      padding-right:0; \n      padding-bottom: 10px;\n      margin-right: 10px;\n    }\n\n\t\t.create-scene > img{\n      width: 100%;\n      height: 13vh;\n      border-radius: 4px;\n    }\n\n\t\t/*h6{\n      position: absolute;\n      top:25px;\n      left:10px;\n      color: white;\n      width: 100%;\n      font-weight: bold;\n    }*/\n\n\t\t.buttonName{\n      position: absolute;\n      top:25px;\n      text-align: center;\n      //left:10px;\n      color: black;\n      width: 100%;\n      font-weight: bold;\n    }\n\n\t\t.scene-btn{\n      position: absolute;\n      width:100%;\n      color: black;\n      height: 50%;\n      background: none;\n      border: none;\n      font-size: 12px;\n      font-weight: bold;\n      left:0;\n    }\n\n\t\t.slider-button{\n      padding-top: 7px;\n    }\n\n\t\t.slider-button div{\n      padding:0;\n    }\n\n\t\t.slider-button .glyphicon{\n      color:#7a859c;\n    }\n\n\t\t.slider-button hr{\n      border-top:3px solid #7a859c;\n      margin-top:10px;\n    }\n\n\t\t.name-scene-para{\n      color: white;\n      position: absolute;\n      width: 100%;\n      top: 5px;\n      font-size: 10px;\n      font-weight: bold;\n      left: 10px;\n      text-align: center;\n    }\n\n\t\t.name-scene-input{\n      position: absolute;\n      color:white;\n      top: 30px;\n      width: 60%;\n      height: 40px;\n      left: 20px;\n      background: none;\n      border: none;\n      font-size: 12px;\n      overflow: hidden;\n      resize:none;\n    }\n\n\t\t.btn-option{\n      position: absolute;\n      width: 100%;\n      text-align: right;\n      bottom: 10px;\n      //top: 60px;\n      //right:-15px;\n    }\n\n\t\t.canvas-white img{\n      width:20px;\n    }\n\n\t\t.canvas-white, .del-btn{\n      padding: 5px;\n    }\n\n\t\t.del-btn img{\n      width: 12px;\n    }\n\n\t\t/* footer */\n\n\t\tfooter{\n      background-color: #272526;\n      color: white;\n      width: 100%;\n      height: 50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    }\n\n\t\t/*footer {\n      background-color: #18273e;\n      color: white;\n      //padding: 15px;\n      width: 100%;\n      height:50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    }*/\n\n\t\t.viewer{\n      padding-top: 15px;\n    }\n\n\t\t.nav-tabs{\n      position: absolute;\n      top: -10px;\n      width: 90%;\n      margin: auto;\n      left: 37%;\n    }\n\n\t\t.nav-tabs .img-icon{\n      margin: 10px;\n      padding-top: 13px;\n      border-top:3px solid #fff;\n    }\n\n\t\t.nav-tabs .active{\n      border-top:3px solid #04a0f8;\n    }\n\n\t\tfooter .img-icon img{\n      width: 30px;\n    }\n\n\t\tinput:focus, button:focus, textarea:focus{\n      outline: none;\n    }\n\n\t\tul li{\n      display: inline;\n    }\n\n\t\t#ToolOptions{\n\t    position: absolute;\n\t    bottom: 0px;\n\t    width: 100%;\n\t    height: 25vh;\n\t    background: #372e33;\n      opacity: .9;\n    \tz-index:9999;\n\t    bottom: 50px;\n    }\n\n\t\t#Photo360 {\n\t\tbackground-image: url(" + __webpack_require__(270) + ");\n\t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n    background-repeat: no-repeat;\n  }\n\n\t\t#Photo360:hover {\n\t   background-image: url(" + __webpack_require__(271) + ");\n     background-repeat: no-repeat;\n  }\n\n\t\t#Photo360>.text,#Photo360:hover>.uploadText,#Video360>.text,#Video360:hover >.uploadText{\n\t\tdisplay:block;\n  }\n\n\t\t#Photo360:hover>.text,#Photo360 >.uploadText,#Video360:hover> .text,#Video360> .uploadText{\n\t\tdisplay:none;\n  }\n\n\t\t#Video360{\n  \t\tbackground-image: url(" + __webpack_require__(272) + ");\n  \t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n    background-repeat: no-repeat;\n  \t}\n\n\t\t#Video360:hover{\n  \t\tbackground-image: url(" + __webpack_require__(271) + ");\n      background-repeat: no-repeat;\n  \t}\n\n\t\t.number{\n      position: absolute;\n      top: 5px;\n      right: 5px;\n      background: #fff;\n      border-radius: 100%;\n      height: 15px;\n      color: #000;\n      width: 15px;\n      font-size: 11px;\n      font-weight: bold;\n    }\n\n\t\t.active-btn{\n      position: absolute;\n      top:5px;\n      left: 5px;\n      padding:2px;\n      background: #fff;\n      color: #000;\n      border-radius: 10px;\n      font-size: 8px;\n      font-weight: bold;\n    }\n\n\t\t.crosshair {\n      cursor: crosshair !important;\n    }\n\n\t\t.scene-create{\n      margin: 35px;\n    }\n\n\t\t.fadeout-retina{\n      background: url(" + __webpack_require__(273) + ");\n      color: #000;\n    }\n\n\t\t.startingoff{\n      background: url(" + __webpack_require__(274) + ");\n    }\n\n\t\t.animate{\n      background: url(" + __webpack_require__(275) + ");\n    }\n\n\t\t.objects{\n      background: url(" + __webpack_require__(276) + ");\n    }\n\n\t\t.animate-card{\n      background: url(" + __webpack_require__(277) + ");\n    }\n\n\t\t.himalay{\n      background: url(" + __webpack_require__(278) + ");\n    }\n\n\t\t.water{\n      background: url(" + __webpack_require__(279) + ");\n    }\n\n\t\t.eagle{\n      background: url(" + __webpack_require__(280) + ");\n    }\n\n\t\t.musuem{\n      background: url(" + __webpack_require__(281) + ");\n    }\n\n\t\t.roller{\n      background: url(" + __webpack_require__(282) + ");\n    }\n\n\t\t.rainbow{\n      background: url(" + __webpack_require__(283) + ");\n    }\n\n\t\t.static-bg{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 135px;\n      border-radius: 6px;\n    }\n\n\t\t.card-image{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 171.33px;\n      border-radius: 6px;\n      padding: 1px 10px;\n    }\n\n\t\t.pd-all{\n      padding: 30px 0;\n    }\n\n\t\t.save-btn{\n      background: #fff;\n      color: #000;\n      padding: 10px;\n      border-radius: 20px;\n    }\n\n\t\t.middle-text{\n      padding: 10px;\n    }\n\n\t\t.edit-pic{\n      padding-top: 85px;\n    }\n\n\t\t.static-bg img{\n      width: 15%;\n      margin: 5px;\n    }\n\n\t\t.static-bg img:last-child{\n      width: 11%;\n    }\n\n\t\t.pic-info{\n      background: #fff;\n      color:#000;\n      border-bottom-right-radius: 6px;\n      border-bottom-left-radius: 6px;\n    }\n\n\t\t.pic-heading{\n      margin-bottom: 0;\n      padding-top: 10px;\n    }\n\n\t\t.pic-detail{\n      font-size: 12px;\n      padding-bottom: 10px;\n    }\n\n\t\t.mainPage{\n  background: #333;\n  color: white;\n  padding: 50px 0 100px 0;\n  position: relative;\n  min-height:100vh;\n }\n\n\t\t::-webkit-input-placeholder { /* WebKit browsers */\n    color:    #fff !important;\n}\n\n\t\t:-moz-placeholder { /* Mozilla Firefox 4 to 18 */\n    color:    #fff;\n}\n\n\t\t::-moz-placeholder { /* Mozilla Firefox 19+ */\n    color:    #fff;\n}\n\n\t\t:-ms-input-placeholder { /* Internet Explorer 10+ */\n    color:    #fff;\n}\n\n\t\t@media (max-width: 530px) {\n  .search-input{\n    width: 100%;\n  }\n  h6{\n    left: 0;\n  }\n  .upload{\n    margin-right: 0;\n    font-size: 11px;\n  }\n  .glyphicon-remove{\n    font-size: 9px;\n  }\n  .search-input input{\n    width: 79%;\n  }\n  .steps{\n    font-size: 12.5px;\n    font-weight: bold;\n  }\n}\n\n\t\t@media (min-width: 992px) and (max-width: 1199px){\n  .create-scene{\n    margin-right: 3%;\n  }\n  .sl-btn{\n    right: -10px;\n  }\n  h6{\n    top:16px;\n    left:20px;\n  }\n}\n\n\t\t@media (min-width: 768px) and (max-width: 991px) {\n  h6{\n    left:-14px;\n  }\n  .sl-btn{\n    right:50px;\n  }\n  .card-image{\n    margin-bottom: 20px;\n  }\n  .static-bg{\n    margin-bottom: 70px;\n  }\n  .mainPage{\n    overflow-y: scroll;\n    height: 100vh;\n  }\n  .nav-tabs{\n    left:25%;\n  }\n  .create-scene{\n    width: 150px;\n  }\n  .scene-container{\n    width: 100%;\n    overflow-x:scroll;\n  }\n  .scroll-container{\n    width:100vh;\n    overflow: hidden !important;\n  }\n}\n\n\t\t@media (max-width: 767px) {\n .steps {\n   text-align: center;\n }\n .card-image{\n    height:150px;\n    margin-bottom: 20px;\n  }\n  .pd-all{\n    padding: 10px 0;\n  }\n  .static-bg{\n    margin-bottom: 70px;\n  }\n\n  .mainPage{\n    overflow-y: scroll;\n    height: 100vh;\n  }\n\n  .footer-mobile{\n    text-align: left;\n  }\n  .nav-tabs{\n    left:10%;\n  }\n  .create-scene{\n    width: 90px;\n  }\n  .canvas-white img{\n    width:15px;\n  }\n  .del-btn img{\n    width: 9px;\n  }\n  .scene-btn{\n    font-size: 9px;\n  }  \n  .scene-container{\n    width: 100%;\n    overflow-x:scroll;\n  }\n  .scroll-container{\n    width:100vh;\n    overflow: hidden !important;\n  }\n  #ToolOptions{\n    height: 30vh;\n   }\n}\n\n\t\t#inspectorEye{\n    position: fixed;\n    bottom: 36px;\n    background: none;\n\n}\n\n\t\t.a-body{\n\n    background: #333;\n}\n\n\t\t.text-tool{\n  border-right:2px solid #272526;\n}\n\n\t\t.small-text-icon img{\n  width: 53%;\n\tmargin-left: 4px;\n  padding-bottom:12px;\n}\n\n\t\t.text-icon img{\n  width: 106%;\n  padding-bottom:12px;\n}\n\n\t\t.heading-text {\n  background: rgb(39, 37, 38);\n  border: none;\n  width: 100%;\n  border-radius: 4px;\n  height: 85px;\n  margin: 0px;\n  resize: none;\n  padding: 10px;\n}\n\n\t\t.text-rotate img {\n  width: 50px;\n}\n\n\t\t.divide-line{\n  height: 90px;\n  border-left: 2px solid #272526;\n  margin-left: 3%;\n}\n\n\t\t.dropdown, .pick-color{\n  background: #fff;\n  z-index: 1000;\n  padding: 5px;\n  color: #000;\n  width: 100%;\n  border-radius: 20px;\n  color: #000;\n  border:none;\n  margin-bottom: 5px;\n}\n\n\t\t.picker-heading{\n  margin-bottom: 0;\n}\n\n\t\t.tool-option img{\n\twidth: 10%;\n  margin-bottom: 10px;\n}\n\n\t\t.pick-color{\n  background: #ee686e;\n}\n\n\t\t.Text3d{\n\tmargin-left: 20px;\n}\n\n\t\t.anotherbuttonName{\n\tposition: absolute;\n\ttop: 34px;\n  left: -6px;\n\tcolor: white;\n\twidth: 100%;\n\tfont-weight: bold;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "f1d1cccd1c282d965be3df896ce2e90d.png";
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "a5990f6eb60f7b046ec6a4653a377081.png";
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "c9bf3b73e083e03c8a07407ccbc19cee.png";
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "29040af7da4a6a3f568008e260c7665e.png";
 
 /***/ },
-/* 273 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "67cf49c19f4ad5ae0b4180ec1c314121.png";
 
 /***/ },
-/* 274 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "aab92a2e18643cd0c9c80e4c32aff17f.png";
 
 /***/ },
-/* 275 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "88267ae0db23af65628c06d9ee8b0d40.png";
 
 /***/ },
-/* 276 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "5d74213e1aae4482755dfd3fbd3c729c.png";
 
 /***/ },
-/* 277 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "16d970f65c5d5fc68f5e52c0f9740cce.jpg";
 
 /***/ },
-/* 278 */
+/* 279 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "4c16cd2d53238b96bda35240c5b4724c.jpg";
+
+/***/ },
+/* 280 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "e73f3c360fce6fc52cfc443fc9302e91.jpg";
+
+/***/ },
+/* 281 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "af1b97413334ba200409b1ab69c25817.jpg";
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "0d2a93b9d56e511972698efc67e08e2e.jpg";
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "74ca9c4a2abd45c94c32b96fd06c2dfe.jpg";
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(285);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(203)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./range.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/postcss-loader/index.js!./range.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(202)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "input[type=range] {\n  -webkit-appearance: none;\n  width: 88%;\n  margin: 3.55px 0;\n}\ninput[type=range]:focus {\n  outline: none;\n}\ninput[type=range]::-webkit-slider-runnable-track {\n  width: 100%;\n  height: 4.9px;\n  cursor: pointer;\n  box-shadow: 0px 0px 0.6px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);\n  background: #ffffff;\n  border-radius: 1.3px;\n  border: 0.2px solid rgba(1, 1, 1, 0.06);\n}\ninput[type=range]::-webkit-slider-thumb {\n  box-shadow: 0px 0px 0px #000031, 0px 0px 0px #00004b;\n  border: 0.2px solid rgba(0, 0, 30, 0.1);\n  height: 12px;\n  width: 12px;\n  border-radius: 14px;\n  background: #ffffff;\n  cursor: pointer;\n  -webkit-appearance: none;\n  margin-top: -3.75px;\n}\ninput[type=range]:focus::-webkit-slider-runnable-track {\n  background: #ffffff;\n}\ninput[type=range]::-moz-range-track {\n  width: 100%;\n  height: 4.9px;\n  cursor: pointer;\n  box-shadow: 0px 0px 0.6px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);\n  background: #ffffff;\n  border-radius: 1.3px;\n  border: 0.2px solid rgba(1, 1, 1, 0.06);\n}\ninput[type=range]::-moz-range-thumb {\n  box-shadow: 0px 0px 0px #000031, 0px 0px 0px #00004b;\n  border: 0.2px solid rgba(0, 0, 30, 0.1);\n  height: 12px;\n  width: 12px;\n  border-radius: 14px;\n  background: #ffffff;\n  cursor: pointer;\n}\ninput[type=range]::-ms-track {\n  width: 100%;\n  height: 4.9px;\n  cursor: pointer;\n  background: transparent;\n  border-color: transparent;\n  color: transparent;\n}\ninput[type=range]::-ms-fill-lower {\n  background: #f2f2f2;\n  border: 0.2px solid rgba(1, 1, 1, 0.06);\n  border-radius: 2.6px;\n  box-shadow: 0px 0px 0.6px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);\n}\ninput[type=range]::-ms-fill-upper {\n  background: #ffffff;\n  border: 0.2px solid rgba(1, 1, 1, 0.06);\n  border-radius: 2.6px;\n  box-shadow: 0px 0px 0.6px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);\n}\ninput[type=range]::-ms-thumb {\n  box-shadow: 0px 0px 0px #000031, 0px 0px 0px #00004b;\n  border: 0.2px solid rgba(0, 0, 30, 0.1);\n  height: 12px;\n  width: 12px;\n  border-radius: 14px;\n  background: #ffffff;\n  cursor: pointer;\n  height: 4.9px;\n}\ninput[type=range]:focus::-ms-fill-lower {\n  background: #ffffff;\n}\ninput[type=range]:focus::-ms-fill-upper {\n  background: #ffffff;\n}\n.opacitySlider{\n\tmargin-top: 8px;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 286 */
 /***/ function(module, exports) {
 
 	'use strict';
