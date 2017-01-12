@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Equalizer Ride WebVR Virtual Reality Experience A-Frame</title>
+<meta name="author" content="Donovan Kraeker">
+<meta name="description" content="Equalizer Ride WebVR virtual reality example website experience using A-Frame designed by Donovan Kraeker">
+<script src="aframe.min.js"></script>
+</head>
+<body>  
+ <a-assets>
+  <a-mixin id="floor" geometry="primitive: plane; height: 10000; width: 10000"  position="0 3 -5" rotation="-90 0 0" material="shader: flat; src: url(images/cubes.jpg); repeat: 200 200"></a-mixin>
+  <a-mixin id="mix" material="shader: flat; side: double; src: url(images/mixer.jpg); repeat: 8 1" geometry="primitive: cylinder; height: 400" position="0 198 -5"></a-mixin>
+  <a-mixin id="music" sound="src: sounds/marble.mp3; autoplay: true; loop: true"></a-mixin>
+  <a-mixin id="curve"radius="3000" position="0 180 -10" theta-length="360" segments-radial="360" height="4" rotation="90 0 0" opacity="0"></a-mixin>
+ </a-assets>
+ 
+ <a-scene>
+ <!-- Hang On! -->
+ <a-entity look-controls geometry="primitive: plane; height: 10; width: 50" position="3000 40 -50" material="shader: standard; transparent: true; side: both; src: url(images/logo.png)">
+  <a-animation attribute="position" from"3000 40 -40" to="0 40 0" repeat="indefinite" ease="linear" begin="10000" dur="1"></a-animation>
+ </a-entity>
+ 
+<a-curvedimage mixin="curve">
+ <a-animation attribute="rotation" from="0 0 0" to="0 359 0" repeat="indefinite" ease="linear" begin="3000" dur="90000"></a-animation>
+  <a-entity camera position="3000 -150 0" look-controls="enabled: true" rotation="0 0 0" cursor-visible="enabled: false" wasd-controls="enabled: true; acceleration: 1000;">    
+  </a-entity>
+</a-curvedimage>
+
+<a-entity mixin="floor"></a-entity>
+<a-entity mixin="music"></a-entity>
+<a-entity mixin="mix" geometry="radius: 2900"></a-entity>
+<a-entity mixin="mix" geometry="radius: 3100"></a-entity>
+
+  <!-- Lighting and Background -->
+  <a-sky color="#000" radius="5000"></a-sky>
+ </a-scene>  
+<script>
+document.querySelector('#sbutton').addEventListener('click', 
+function () {
+document.querySelector('#ride').emit('start-button');
+setTimeout(function(){
+document.querySelector('#cursor').setAttribute('visible', 'false');
+}, 500);
+});
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-56782327-23', 'auto');
+  ga('send', 'pageview');
+
+</script>
+ </body>
+</html>

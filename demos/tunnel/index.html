@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Tunnel Ride WebVR Virtual Reality Experience A-Frame</title>
+<meta name="author" content="Donovan Kraeker"><meta name="description" content="Tunnel Ride WebVR virtual reality example website experience using A-Frame designed by Donovan Kraeker">
+<script src="aframe.min.js"></script>
+</head>
+<body>
+ <a-scene>
+ <!-- Hang On -->
+ 
+ <a-entity geometry="primitive: plane; height: 5; width: 10" position="0 0 -5" material="shader: standard; transparent: true; src: url(images/sign.png)"></a-entity>
+ <a-entity id="sbutton" geometry="primitive: plane; height: 0.52; width: 2" position="3.4 -1.8 -4.9" material="shader: flat; src: url(images/start-button.png)"></a-entity>
+
+<!-- Tunnels -->
+<a-entity geometry="primitive: cylinder; height: 500; radius: 20: radius-top: 20; radius-bottom: 25; open-ended: true" position="0 0 -250" rotation="-90 0 0" material="shader: flat; side: double; src: url(images/stars.jpg); repeat: 1 1"></a-entity>
+<a-entity geometry="primitive: plane; height: 50; width: 50" position="0 0 -499" material="shader: flat; side: double; src: url(images/blue-end2.png)"></a-entity>
+<a-entity geometry="primitive: cylinder; height: 1000; radius: 20; open-ended: true" position="0 0 -1000" rotation="-90 0 0" material="shader: flat; side: double; transparent: true; src: url(images/purp.jpg); repeat: 1 5"></a-entity>
+<a-entity geometry="primitive: plane; height: 50; width: 50" position="0 0 -1500" material="shader: flat; transparent: true; side: double; src: url(images/purp-end.png)"></a-entity>
+<a-entity geometry="primitive: cylinder; height: 1000; radius: 20; open-ended: true" position="0 0 -2000" rotation="-90 0 0" material="shader: flat; side: double; transparent: true; src: url(images/tri.jpg); repeat: 1 5"></a-entity>
+<a-entity geometry="primitive: plane; height: 50; width: 50" position="0 0 -2500" material="shader: flat; transparent: true; side: double; src: url(images/white-end.png)"></a-entity>
+<a-entity geometry="primitive: cylinder; height: 2000; radius: 20; open-ended: true" position="0 0 -3500" rotation="-90 0 0" material="shader: flat; side: double; transparent: true; src: url(images/blue-line.png); repeat: 1 40"></a-entity>
+<a-entity geometry="primitive: cylinder; height: 1000; radius: 20; open-ended: true" position="0 0 -5000" rotation="-90 0 0" material="shader: flat; side: double; transparent: true; src: url(images/tron-ground.png); repeat: 1 10"></a-entity>
+<a-entity geometry="primitive: plane; height: 50; width: 50" position="0 0 -5500" material="shader: flat; transparent: true; side: double; src: url(images/blue-end.png)"></a-entity>
+<a-entity geometry="primitive: cylinder; height: 1000; radius: 20; open-ended: true" position="0 0 -6000" rotation="-90 0 0" material="shader: flat; side: double; transparent: true; src: url(images/matrix.jpg); repeat: 1 5"></a-entity>
+<a-entity geometry="primitive: plane; height: 50; width: 50" position="0 0 -6500" material="shader: flat; transparent: true; side: double; src: url(images/green-end.png)"></a-entity>
+<a-entity geometry="primitive: cylinder; height: 1000; radius: 20; open-ended: true" position="0 0 -7000" rotation="-90 0 0" material="shader: flat; side: double; transparent: true; src: url(images/strings.jpg); repeat: 1 1"></a-entity>
+<a-entity geometry="primitive: plane; height: 50; width: 50" position="0 0 -7500" rotation="0 0.3 0" material="shader: flat; transparent: true; side: double; src: url(images/the-end.jpg)"></a-entity>
+
+<!-- Camera -->
+ <a-entity position="0 0 0" camera look-controls="enabled: true" cursor-visible="enabled: false" wasd-controls="enabled: false; acceleration: 1000">
+  <a-animation id="ride" attribute="position" from="0 0 0" to="0 2 -7500" repeat="indefinite" ease="linear" begin="start-button" dur="110000"></a-animation>
+   <a-entity id="cursor" cursor="fuse: true;  maxDistance: 10; timeout: 100" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03" material="color: red" opacity="0.5" position="0 0 -2">  
+    <a-animation begin="click" easing="ease-in" attribute="scale" fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="500"></a-animation>
+    <a-animation begin="fusing" easing="ease-in" attribute="scale" fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="3000"></a-animation>   
+   </a-entity>  
+  </a-entity>
+  
+      <!-- Lighting and background -->
+      <a-sky color="#000" radius="10000"></a-sky>
+    </a-scene>
+
+<script>
+document.querySelector('#sbutton').addEventListener('click', 
+function () {
+document.querySelector('#ride').emit('start-button');
+setTimeout(function(){
+document.querySelector('#cursor').setAttribute('visible', 'false');
+}, 500);
+});
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-56782327-23', 'auto');
+  ga('send', 'pageview');
+
+</script>
+ </body>
+</html>
