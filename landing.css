@@ -214,6 +214,8 @@ input:focus ~ .highlight, textarea:focus ~ .highlight {
   color: #ee5050;
   border:none;
   font-weight: 700;
+  width: 20%;
+  margin: auto;
 }
 .submit:hover{
   background: #565565;

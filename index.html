@@ -10,7 +10,8 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="font.css">
+  <script src="landing.js"></script>
+  <link rel="stylesheet" type="text/css" href="fonts.css">
   <link rel="stylesheet" type="text/css" href="landing.css">
 </head>
 <style>
@@ -120,11 +121,11 @@ body {
   <div class="container">
     <p class="big-text"><strong>Don’t be shy, talk to us</strong></p>
     <h3 class="margin">hello@scapic.com</h3>
-    <form class="contact-detail">
+    <form class="contact-detail" id="target" method="post">
       <div class="row">
         <div class="col-xs-12 col-sm-6">
           <div class="group">
-            <input type="text" required>
+            <input type="text" name="name" id="name" required/>
             <span class="highlight"></span>
             <span class="bar"></span>
             <label>NAME</label>
@@ -132,7 +133,7 @@ body {
         </div>
         <div class="col-xs-12 col-sm-6 text-left">
           <div class="group">
-            <input type="email" required>
+            <input type="email" name="email" id="email" required/>
             <span class="highlight"></span>
             <span class="bar"></span>
             <label>EMAIL</label>
@@ -140,14 +141,15 @@ body {
         </div>
         <div class="col-xs-12">
           <div class="group">
-            <textarea></textarea>
+            <textarea name="message" id="message" required></textarea>
             <span class="highlight"></span>
             <span class="bar"></span>
             <label>HOW CAN WE HELP?</label>
           </div>
         </div>
       </div>
-       <a href="mailto:hello@specto.co" class="submit"  target="_top">SEND</a>
+      <input type="submit" class="submit" name="submit" id="submit" value="SEND">
+       <!-- <a href="mailto:hello@specto.co" class="submit"  target="_top">SEND</a> -->
     </form>
   </div>
 </div>
