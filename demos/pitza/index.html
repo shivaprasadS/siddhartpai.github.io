@@ -1,0 +1,46 @@
+
+<meta name="theme-color" content="#ffffff">
+   <meta charset="utf-8">
+   <title>Hello, Pizza!</title>
+   <meta name="description" content="Pizza' • A-Frame">
+   <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
+ </head>
+ <body>
+
+
+    <a-scene fog="type: linear; near: 2; far: 25; color: white">
+    <a-entity light="type: hemisphere; color: #FFF; groundColor: #000; intensity: 1.1"></a-entity>
+	<a-plane rotation= "-90 0 0" position= "0 -.2 0" color="#94a550" height="100" width="100"></a-plane>
+    <a-sky src="yellow"></a-sky>
+
+<a-collada-model scale= "1.2 2.0 1.2" rotation= " 0 70 0" src="trees.dae" position="0 .2 0" rotation="0 180 0" > </a-collada-model>  
+
+<a-entity position="0 0 -2" rotation="0 0 0">
+           <a-animation
+                attribute="rotation"
+                to="0 -360 0"
+                dur="4000"
+                fill="forwards"
+                ease-in-out-cubic
+                repeat="indefinite">
+           </a-animation>
+              <a-collada-model scale= ".3 .3 .3" rotation= " 1 -80 -5" src="otherpizza.dae" position="0 1.2 0" sound="src: Mashed Potatoes.wav; autoplay: true; volume : .1 ">
+     </a-entity>
+
+     
+      
+  <a-entity position= "30 10 30" rotation= "0 0 0"> 
+     <a-light 
+
+             color= "orange"
+             intensity= ".4">
+
+    </a-light>
+ </a-entity>
+
+
+
+
+   </a-scene>
+ </body>
+</html>
