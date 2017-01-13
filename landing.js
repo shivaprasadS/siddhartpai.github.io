@@ -11,6 +11,8 @@ $(function() {
 	        	message:message
 	        }
         }
+        var submit = $(this).find(":submit").attr('value','SENT');
+        setTimeout(function() { $(submit).attr('value','SEND') }, 10000);
         $.ajax({
 			    type: 'POST',
 			    url: 'https://hidden-oasis-33636.herokuapp.com/api/v1/contacts',
