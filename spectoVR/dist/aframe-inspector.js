@@ -91,11 +91,11 @@
 
 	var _experiences2 = _interopRequireDefault(_experiences);
 
-	__webpack_require__(266);
+	__webpack_require__(267);
 
-	__webpack_require__(268);
+	__webpack_require__(269);
 
-	__webpack_require__(284);
+	__webpack_require__(285);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -105,7 +105,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(286);
+	__webpack_require__(287);
 	var INSPECTOR = __webpack_require__(204);
 
 	var Events = __webpack_require__(186);
@@ -146,7 +146,8 @@
 	      }
 	    };
 
-	    _this.startExperience = function () {
+	    _this.startExperience = function (experience) {
+	      _this.setState({ experience: experience });
 	      _this.setState({ startExperience: true });
 	    };
 
@@ -165,7 +166,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            { id: 'aframe-inspector-panels', className: _this.state.inspectorEnabled ? '' : 'hidden' },
-	            _react2.default.createElement(_SpectoToolBar2.default, null)
+	            _react2.default.createElement(_SpectoToolBar2.default, { experience: _this.state.experience })
 	          )
 	        );
 	      }
@@ -182,7 +183,8 @@
 	      sceneEl: document.querySelector('a-scene'),
 	      entity: null,
 	      isModalTexturesOpen: false,
-	      startExperience: false
+	      startExperience: false,
+	      experience: null
 	    };
 	    return _this;
 	  }
@@ -272,6 +274,8 @@
 	    _reactDom2.default.render(_react2.default.createElement(Main, null), div);
 	  });
 	  AFRAME.INSPECTOR = INSPECTOR;
+
+	  console.log('A-Frame Inspector Version:', ("0.4.2"), '(' + ("13-01-2017") + ' Commit: ' + ("f4011454ca302a2e4424f94da38ede66c1616dd9\n").substr(0, 7) + ')');
 	})();
 
 /***/ },
@@ -25521,6 +25525,7 @@
 	    this.opened = true;
 	    Events.emit('inspectormodechanged', true);
 	    this.sceneEl.pause();
+	    this.sceneEl.exitVR();
 	    if (this.sceneEl.hasAttribute('embedded')) {
 	      // Remove embedded styles, but keep track of it.
 	      this.sceneEl.removeAttribute('embedded');
@@ -31710,7 +31715,7 @@
 
 	    _this2.loadExperience = function (experience) {
 	      var _this = _this2;
-	      $(experience.scenes).each(function () {
+	      if (experience) $(experience.scenes).each(function () {
 	        _this.preloadImages(this.html_content);
 	      });
 	      _this2.setState({ experience: experience });
@@ -31769,18 +31774,15 @@
 	    };
 
 	    _this2.state = {
-	      option: undefined,
+	      option: 'canvas',
 	      selectedTool: null,
 	      inspectorEnabled: true,
 	      optionHistory: [],
-	      experience: {
-	        id: 5,
-	        name: 'experienceA',
-	        scenes: []
-	      },
+	      experience: props.experience,
 	      currentScene: '',
 	      preloadedImages: []
 	    };
+	    _this2.state.experience.scenes = [];
 	    return _this2;
 	  }
 
@@ -31962,7 +31964,10 @@
 			var _this = _possibleConstructorReturn(this, (ToolOptions.__proto__ || Object.getPrototypeOf(ToolOptions)).call(this, props));
 
 			_this.renderHistory = function () {
-				return _this.props.optionHistory.join(' > ');
+				var history = _this.props.optionHistory.map(function (val, index) {
+					return Tools[val].name;
+				});
+				return history.join(' > ');
 			};
 
 			_this.state = {
@@ -34281,9 +34286,13 @@
 	exports.loadScene = loadScene;
 	var Events = __webpack_require__(186);
 
-	function changeSky(skyImage) {
+	function changeSky(skyImage, base64) {
 		document.querySelector('a-sky').removeAttribute('color');
-		document.querySelector('a-sky').setAttribute('src', skyImage);
+		if (base64) {
+			document.querySelector('a-sky').setAttribute('src', 'url(' + skyImage + ')');
+		} else {
+			document.querySelector('a-sky').setAttribute('src', skyImage);
+		}
 		Events.emit('skyChanged', { sky: skyImage });
 	}
 	function clearScene() {
@@ -34296,8 +34305,12 @@
 		var sky = document.querySelector('a-sky');
 		var entities = document.querySelectorAll('a-entity');
 		var assets = document.querySelector('a-assets');
-		$(assets).empty();
-		sky.parentNode.removeChild(sky);
+		if (assets.length) {
+			$(assets).empty();
+		}
+		if (sky) {
+			sky.parentNode.removeChild(sky);
+		}
 		$(entities).each(function () {
 			if (!(this.id === 'cameraWrapper' || this.attributes[0].nodeName === 'camera' || this.id === 'cursor' || this.id === 'camera')) {
 				//use better logic.
@@ -34367,7 +34380,7 @@
 		document.querySelector('a-scene').append(assetElement);
 	}
 	function loadScene(sceneHTML) {
-		flushScene();
+		clearScene();
 		var parser = new window.DOMParser();
 		var scene = parser.parseFromString(sceneHTML, 'text/html');
 		var assets = getAssets(scene);
@@ -34375,7 +34388,7 @@
 		var entities = getEntities(scene);
 		loadAssets(assets);
 		loadEntities(entities);
-		loadSky(sky);
+		changeSky(sky.sky.getAttribute('src'));
 	}
 
 /***/ },
@@ -34412,10 +34425,8 @@
 
 			var _this = _possibleConstructorReturn(this, (SceneButton.__proto__ || Object.getPrototypeOf(SceneButton)).call(this, props));
 
-			_this.setSky = function (scene) {
-				if (_this.state.scene.id === scene.id) {
-					_this.setState({ isSkySet: true });
-				}
+			_this.setSky = function () {
+				// this.checkIfSceneIsInitialized()
 			};
 
 			_this.loadRealitySelector = function () {
@@ -34437,9 +34448,13 @@
 				console.log(_this.state.scene);
 			};
 
+			_this.handleError = function () {
+				_this.setState({ error: true });
+			};
+
 			_this.renderImage = function () {
 				if (_this.state.isSkySet) {
-					return React.createElement('img', { src: _this.state.backgroundImage });
+					return React.createElement('img', { src: _this.state.backgroundImage, onError: _this.handleError.bind(_this) });
 				} else {
 					return React.createElement('img', { src: '../assets/img/name-scene.png' });
 				}
@@ -34448,38 +34463,43 @@
 			_this.renderSceneButton = function (scene) {
 				var _this2 = this;
 
-				return React.createElement(
-					'div',
-					{ className: 'col-xs-2 col-sm-2 col-md-1 col-lg-1 text-left create-scene', onClick: function onClick() {
-							_this2.sceneButtonClicked();
-						} },
-					this.renderImage(),
-					React.createElement(
+				if (!this.state.error) {
+					return React.createElement(
 						'div',
-						{ className: 'buttonName', style: { color: 'white' } },
-						this.state.scene.name
-					),
-					React.createElement(
-						'ul',
-						{ className: 'btn-option' },
+						{ className: 'col-xs-2 col-sm-2 col-md-1 col-lg-1 text-left create-scene', onClick: function onClick() {
+								_this2.sceneButtonClicked();
+							} },
+						this.renderImage(),
 						React.createElement(
-							'li',
-							{ className: 'canvas-white' },
-							React.createElement('img', { src: '../assets/img/duplicate-scene-retina.png' })
+							'div',
+							{ className: 'buttonName', style: { color: 'white' } },
+							this.state.scene.name
 						),
 						React.createElement(
-							'li',
-							{ className: 'del-btn' },
-							React.createElement('img', { src: '../assets/img/delete-scene.png' })
+							'ul',
+							{ className: 'btn-option' },
+							React.createElement(
+								'li',
+								{ className: 'canvas-white' },
+								React.createElement('img', { src: '../assets/img/duplicate-scene-retina.png' })
+							),
+							React.createElement(
+								'li',
+								{ className: 'del-btn' },
+								React.createElement('img', { src: '../assets/img/delete-scene.png' })
+							)
 						)
-					)
-				);
+					);
+				} else {
+					return React.createElement('div', null);
+				}
 			};
 
 			_this.state = {
 				scene: props.scene,
 				backgroundImage: '',
-				isSkySet: false
+				isSkySet: false,
+				error: false
 			};
 
 			return _this;
@@ -34488,7 +34508,7 @@
 		_createClass(SceneButton, [{
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				Events.on('skyChanged', this.setSky.bind(this));
+				// Events.on('skyChanged',this.setSky.bind(this));
 				this.checkIfSceneIsInitialized();
 			}
 		}, {
@@ -34654,7 +34674,7 @@
 			_this.readImageFile = function (event) {
 				var fr = new FileReader();
 				fr.onload = function () {
-					(0, _SpectoAframeLib.changeSky)(fr.result);
+					(0, _SpectoAframeLib.changeSky)(fr.result, true);
 					(0, _spectoAPI.saveImage)(fr.result, _this.gotImageURL.bind(_this));
 				};
 				fr.readAsDataURL(event.target.files[0]);
@@ -35192,7 +35212,7 @@
 	          { className: 'col-md-2 text-tool' },
 	          React.createElement(
 	            'div',
-	            { className: 'col-xs-8 create-scene' },
+	            { className: 'col-xs-8 create-scene boxFilter' },
 	            React.createElement('img', { src: '../assets/img/textTool/box-filter.png' }),
 	            React.createElement(
 	              'div',
@@ -35302,6 +35322,12 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _CreateScapeButton = __webpack_require__(266);
+
+	var _CreateScapeButton2 = _interopRequireDefault(_CreateScapeButton);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -35337,29 +35363,13 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-
 	      return React.createElement(
 	        'div',
 	        { className: 'container-fluid text-center mainPage' },
 	        React.createElement(
 	          'div',
 	          { className: 'row scene-create' },
-	          React.createElement(
-	            'div',
-	            { className: 'col-xs-6 col-sm-4 col-md-2 createScape', onClick: function onClick() {
-	                _this2.callback();
-	              } },
-	            React.createElement(
-	              'div',
-	              { className: 'fadeout-retina card-image' },
-	              React.createElement(
-	                'h3',
-	                { className: 'pd-all' },
-	                'Create New Scape'
-	              )
-	            )
-	          ),
+	          React.createElement(_CreateScapeButton2.default, { callback: this.props.callback }),
 	          React.createElement(
 	            'div',
 	            { className: 'col-xs-6 col-sm-6 col-md-4' },
@@ -35672,10 +35682,121 @@
 /* 266 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _spectoAPI = __webpack_require__(248);
+
+	var _exporter = __webpack_require__(242);
+
+	var _SpectoAframeLib = __webpack_require__(256);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var React = __webpack_require__(2);
+	var Events = __webpack_require__(186);
+	var classNames = __webpack_require__(190);
+
+
+	var STATES = ["initial", "namescene"];
+
+	var CreateScapeButton = function (_React$Component) {
+		_inherits(CreateScapeButton, _React$Component);
+
+		function CreateScapeButton(props) {
+			_classCallCheck(this, CreateScapeButton);
+
+			var _this2 = _possibleConstructorReturn(this, (CreateScapeButton.__proto__ || Object.getPrototypeOf(CreateScapeButton)).call(this, props));
+
+			_this2.incrementState = function (state) {
+				_this2.setState({ currentState: state });
+			};
+
+			_this2.experienceCreated = function (experience) {
+				_this2.props.callback(experience);
+			};
+
+			_this2.keyup = function (event) {
+				var _this = _this2;
+				if (event.key === 'Enter' && !event.shiftKey) {
+					var experienceName = $('.name-experience-input').val().trim();
+					(0, _spectoAPI.createExperience)({ experience: { name: experienceName } }, _this.experienceCreated);
+				}
+			};
+
+			_this2.state = {
+				currentState: _this2.props.state ? _this2.props.state : STATES[0],
+				callback: _this2.props.callback
+			};
+			return _this2;
+		}
+
+		_createClass(CreateScapeButton, [{
+			key: 'render',
+			value: function render() {
+				var _this3 = this;
+
+				if (this.state.currentState === STATES[0]) {
+					return React.createElement(
+						'div',
+						{ className: 'col-xs-6 col-sm-4 col-md-2 createScape', onClick: function onClick() {
+								_this3.incrementState('namescene');
+							} },
+						React.createElement(
+							'div',
+							{ className: 'fadeout-retina card-image' },
+							React.createElement(
+								'h3',
+								{ className: 'pd-all' },
+								'Create New Scape'
+							)
+						)
+					);
+				} else if (this.state.currentState === STATES[1]) {
+					return React.createElement(
+						'div',
+						{ className: 'col-xs-6 col-sm-4 col-md-2 createScape' },
+						React.createElement(
+							'div',
+							{ className: 'fadeout-retina card-image' },
+							React.createElement(
+								'div',
+								{ className: 'input-wrapper' },
+								React.createElement(
+									'h5',
+									null,
+									'Name Your Experience'
+								),
+								React.createElement('input', { type: 'text', className: 'name-experience-input', placeholder: 'Type Here', onKeyUp: this.keyup.bind(this) })
+							)
+						)
+					);
+				}
+			}
+		}]);
+
+		return CreateScapeButton;
+	}(React.Component);
+
+	exports.default = CreateScapeButton;
+
+/***/ },
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(267);
+	var content = __webpack_require__(268);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(203)(content, {});
@@ -35695,7 +35816,7 @@
 	}
 
 /***/ },
-/* 267 */
+/* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(202)();
@@ -35703,19 +35824,19 @@
 
 
 	// module
-	exports.push([module.id, "body.aframe-inspector-opened {\n  color: #fff;\n  font-family: 'Karla', sans-serif;\n  font-size: 12px;\n  margin: 0;\n  overflow: hidden;\n}\n\n.toggle-edit {\n  background-color: #ed3160;\n  color: #fff;\n  font-family: 'Karla', sans-serif;\n  font-size: 12px;\n  left: 3px;\n  margin: 0;\n  padding: 6px 10px;\n  position: fixed;\n  text-align: center;\n  text-decoration: none;\n  top: 3px;\n  width: 174px;\n  z-index: 99999;\n}\n\n.toggle-edit:hover {\n  background-color: rgb(228, 43, 90);\n}\n\nhr {\n  border: 0;\n  border-top: 1px solid #ccc;\n}\n\na {\n  cursor: pointer;\n}\n\nbutton {\n  position: relative;\n}\n\ncode {\n  font-family: Consolas, Andale Mono, Monaco, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;\n}\n\ntextarea {\n  -moz-tab-size: 4;\n    -o-tab-size: 4;\n       tab-size: 4;\n  white-space: pre;\n  word-wrap: normal;\n}\n\ntextarea.success {\n  border-color: #8b8 !important;\n}\n\ntextarea.fail {\n  background-color: rgba(255, 0, 0, 0.05);\n  border-color: #f00 !important;\n}\n\ntextarea,\ninput {\n  outline: none; /* osx */\n}\n\n#left-sidebar,\n#right-panels {\n  z-index: 9999;\n}\n\n#sidebar,\n#left-sidebar,\n.panel {\n  cursor: default;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.collapsible .static {\n  margin: 0;\n}\n\n.collapsible .static .collapse-button {\n  border: 6px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 6px;\n  width: 0;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #1faaf2;\n  margin-top: 2px;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #1faaf2;\n  margin-top: 6px;\n}\n\n.collapsible.collapsed .content {\n  display: none;\n}\n\n.scenegraph {\n  border-top: 1px solid #111;\n  padding-top: 32px;\n}\n\n.scenegraph .search {\n  padding: 5px;\n}\n\n.scenegraph-toolbar {\n  background-color: #333;\n  position: fixed;\n  top: 32px;\n}\n\n.scenegraph-actions {\n  padding: 9px 0 5px;\n}\n\n.search {\n  color: #aaa;\n  font-size: 16px;\n  position: relative;\n}\n\n.search input {\n  background: #222;\n  border-radius: 5px;\n  height: 22px;\n  width: 185px;\n}\n\n.search input {\n  text-indent: 10px;\n}\n\n.search .fa-search {\n  position: absolute;\n  right: 11px;\n  top: 10px;\n}\n\ninput {\n  background-color: transparent;\n  border: 1px solid #555;\n  color: #fff;\n}\n\ninput,\n.texture canvas {\n  -webkit-transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n  transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n}\n\ninput[type=text],\ninput[type=number],\ninput.string,\ninput.number {\n  min-height: 14px;\n  outline: none;\n}\n\ninput.number {\n  background-color: transparent !important;\n  border: 0;\n  color: #20b1fb !important;\n  cursor: col-resize;\n  font-size: 12px;\n  padding: 2px;\n}\n\ninput.string:focus,\ninput.number:focus {\n  border: 1px solid #20b1fb;\n  color: #fff;\n  cursor: auto;\n}\n\n#left-sidebar {\n  background: #2b2b2b;\n  bottom: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  position: fixed;\n  top: 0;\n  width: 200px;\n}\n\n#sidebar {\n  background: #2b2b2b;\n  width: 330px;\n}\n\n#sidebar * {\n  vertical-align: middle;\n}\n\ninput,\ntextarea,\nselect {\n  background: #222;\n  border: 1px solid transparent;\n  color: #888;\n}\n\n.row {\n  margin-bottom: 10px;\n  min-height: 20px;\n}\n\ninput[type=color] {\n  background-color: #333;\n  border: 1px solid #111;\n  cursor: pointer;\n}\n\n.texture canvas {\n  border: 1px solid #222;\n}\n\ninput[type=color] {\n  cursor: pointer;\n  height: 16px;\n  padding: 0;\n  width: 64px;\n}\n\n/* Note: these vendor-prefixed selectors cannot be grouped! */\n\ninput[type=color]::-webkit-color-swatch {\n  border: 0;  /* To remove the gray border. */\n}\n\ninput[type=color]::-webkit-color-swatch-wrapper {\n  padding: 0;  /* To remove the inner padding. */\n}\n\ninput[type=color]::-moz-color-swatch {\n  border: 0;\n}\n\ninput[type=color]::-moz-focus-inner {\n  border: 0;  /* To remove the inner border (specific to Firefox). */\n  padding: 0;\n}\n\n.components {\n  background-color: #323232;\n  color: #bcbcbc;\n  height: 100%;\n  overflow: auto;\n  position: fixed;\n  width: 330px;\n}\n\ndiv.vec2,\ndiv.vec3 {\n  display: inline;\n}\n\n.vec2 input.number,\n.vec3 input.number {\n  width: 46px;\n}\n\n.collapsible-header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.component-title span {\n  float: left;\n  max-width: 110px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n\n.collapsible .static {\n  background-color: #323232;\n  border-bottom: 1px solid #262626;\n  border-top: 1px solid #262626;\n  color: #fff;\n  height: 16px;\n  padding: 10px;\n  vertical-align: middle;\n}\n\n.collapsible .menu {\n  text-align: right;\n}\n\n.collapsible .menu::after {\n  color: #bbb;\n  content: '\\2807';\n  font-size: 12px;\n  padding: 5px;\n  text-align: right;\n}\n\n.collapsible .static .collapse-button {\n  border-left: 5px solid transparent;\n  border-right: 5px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 10px;\n  margin-top: 2px;\n  width: 0;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #bbb;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #bbb;\n}\n\n.collapsible .content {\n  background-color: #2b2b2b;\n  padding: 10px;\n}\n\n.components .row {\n  margin-bottom: 10px;\n  min-height: 20px;\n}\n\n.components * {\n  vertical-align: middle;\n}\n\n.components .row .text {\n  cursor: default;\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  vertical-align: middle;\n  width: 120px;\n}\n\n.components .row .map_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n\n.hidden {\n  visibility: hidden;\n}\n\n.texture canvas + input {\n  margin-left: 5px;\n}\n\n.texture .fa {\n  padding-right: 5px;\n}\n\n.scenegraph-bottom {\n  background-color: #323232;\n  border-top: 1px solid #111;\n  bottom: 10;\n  height: 40px;\n  left: 0;\n  z-index: 100;\n}\n\na.button {\n  color: #bcbcbc;\n  font-size: 16px;\n  margin-left: 10px;\n  text-decoration: none;\n}\n\na.button:hover {\n  color: #1faaf2;\n}\n\n.scenegraph-bottom a {\n  float: right;\n  margin: 10px;\n}\n\n.modal {\n  background-color: rgb(0, 0, 0);\n  background-color: rgba(0, 0, 0, 0.4);\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  padding-top: 100px;\n  position: fixed;\n  top: 0;\n  width: 100%;\n  z-index: 9999;\n}\n\n.modal-content {\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s;\n  -webkit-animation-name: animatetop;\n          animation-name: animatetop;\n  background-color: #232323;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n  margin: auto;\n  padding: 0;\n  position: relative;\n  width: 889px;\n}\n\n@-webkit-keyframes animatetop {\n  from {\n    opacity: 0;\n    top: -300px;\n  }\n\n  to {\n    opacity: 1;\n    top: 0;\n  }\n}\n\n@keyframes animatetop {\n  from {\n    opacity: 0;\n    top: -300px;\n  }\n\n  to {\n    opacity: 1;\n    top: 0;\n  }\n}\n\n.close {\n  color: white;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n}\n\n.close:hover,\n.close:focus {\n  color: #08f;\n  cursor: pointer;\n  text-decoration: none;\n}\n\n.modal-header {\n  color: white;\n  padding: 2px 16px;\n}\n\n.modal-body {\n  overflow: auto;\n  padding: 16px;\n}\n\n.modal-footer {\n  color: white;\n  padding: 2px 16px;\n}\n\n/* Gallery */\n\n.gallery {\n  margin: 0 auto;\n  overflow: auto;\n  padding: 0;\n}\n\n.gallery li {\n  box-shadow: 3px 3px 8px -2px rgba(0, 0, 0, 0.63);\n  cursor: pointer;\n  display: inline-block;\n  float: left;\n  margin: 8px;\n  overflow: hidden;\n  width: 155px;\n}\n\n.gallery li:hover {\n  box-shadow: 0 0 4px 3px rgba(29, 138, 190, 0.63);\n}\n\n.gallery li .detail {\n  background-color: #323232;\n  min-height: 60px;\n  padding: 10px;\n}\n\n.gallery li:hover .detail {\n  background-color: #444;\n}\n\n.gallery li .detail span {\n  color: #bbb !important;\n}\n\n.gallery li .detail span.title {\n  color: #eee !important;\n  font-weight: bold;\n}\n\n.preview {\n  float: right;\n  padding: 10px;\n  width: 200px;\n}\n\n.new_asset_options {\n  float: left;\n  width: 600px;\n}\n\n.modal button {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  border-radius: 0;\n  box-shadow: none;\n  cursor: pointer;\n  display: inline-block;\n  font-size: 12px;\n  line-height: 1.8;\n  margin: 0 10px 0 0;\n  padding: 5px 10px;\n}\n\n.modal button:focus {\n  outline: none;\n}\n\n.modal button {\n  background-color: #1eaaf1;\n  border: none;\n  color: #fff;\n}\n\n.modal button:hover,\n.modal button.hover {\n  background-color: #346392;\n  text-shadow: -1px 1px #27496d;\n}\n\n.modal button:active,\n.modal button.active {\n  background-color: #27496d;\n  text-shadow: -1px 1px #193047;\n}\n\n.newimage {\n  background-color: #323232;\n  overflow: auto;\n  padding: 10px;\n}\n\n.hide {\n  display: none;\n}\n\nspan.value {\n  color: #fff;\n  display: inline-block;\n}\n\nspan.mixinlist {\n  color: #888 !important;\n  display: inline-block;\n}\n\nspan.mixinlist ul {\n  background-color: #222;\n  list-style-type: none;\n  margin: 5px 0 0;\n  padding: 5px;\n}\n\nspan.mixinlist ul li {\n  font-size: 11px;\n  margin-bottom: 3px;\n}\n\nspan.mixinlist ul li:last-child {\n  margin-bottom: 0;\n}\n\nspan.mixin {\n  display: inline-block;\n  width: 100px;\n}\n\n.mixinlist {\n  margin-left: 120px;\n}\n\nspan.subcomponent {\n  color: #999;\n  float: none !important;\n  margin-left: 10px;\n  vertical-align: top !important;\n}\n\n.collapsible .static {\n  cursor: pointer;\n}\n\n.a-canvas.state-dragging {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n\ncode,\npre,\ninput,\ntextarea,\nselect {\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.Select,\n.wf-active code,\n.wf-active pre,\n.wf-active input,\n.wf-active textarea,\n.wf-active select {\n  font-family: Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.tagName {\n  font-weight: 500;\n}\n\n.sidebar-title {\n  background-color: #444;\n  color: #aaa;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  font-size: 12px;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 6px 10px;\n  position: relative;\n  text-align: center;\n}\n\n.toolbar {\n  background-color: #262626;\n  color: #333;\n  height: 32px;\n  position: relative;\n}\n\n.toolbar * {\n  margin-left: 0;\n  padding: 8px;\n  vertical-align: middle;\n}\n\n.toolbar a.button {\n  margin: 0 6px 0 0;\n}\n\n.toolbar .active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.toolbar .active:hover {\n  color: #fff !important;\n}\n\n.local-transform {\n  padding-left: 10px;\n}\n\n.local-transform label {\n  color: #aaa;\n  padding-left: 5px;\n}\n\n.local-transform a.button {\n  padding-top: 0;\n}\n\n.outliner {\n  background: #2b2b2b;\n  color: #868686;\n  cursor: default;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n  font-size: 12px;\n  height: calc(100% - 98px);\n  outline: none;\n  overflow-y: auto;\n  padding: 0;\n  position: fixed;\n  top: 98px;\n  width: 200px;\n}\n\n.outliner .option {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 4px;\n  white-space: nowrap;\n}\n\n.outliner .option.active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.outliner .option .component:hover {\n  color: #1faaf2;\n}\n\n.outliner .option.active .component:hover {\n  color: #1888c1;\n}\n\n.outliner .option .icons {\n  display: none;\n  margin: 0 3px 0 10px;\n}\n\n.outliner .option .icons .button {\n  color: #fff;\n  font-size: 12px;\n}\n\n.outliner .option.active .icons {\n  display: inline;\n}\n\n.outliner .fa {\n  color: #aaa;\n}\n\n.outliner .active .fa {\n  color: #fff;\n}\n\na.flat-button {\n  background-color: #262626;\n  color: #bcbcbc;\n  font-size: 11px;\n  margin-left: 10px;\n  padding: 5px;\n  text-decoration: none;\n}\n\na.flat-button:hover {\n  color: #1faaf2;\n}\n\n.component-title {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n\na.help-link {\n  opacity: 0.4;\n}\n\na.help-link:hover {\n  opacity: 1;\n}\n\n#right-panels {\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  position: fixed;\n  right: 0;\n  top: 0;\n}\n\n#aframe-inspector-panels {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n/* This is a temporaly hack, we should style the editor instead of overwriting\n   the a-scene to fix the \"display: block\" issue. */\n\n.aframe-inspector-opened a-scene {\n  display: inline !important;\n}\n\n.aframe-inspector-opened a-scene .a-canvas {\n  background-color: #191919;\n  position: fixed;\n  z-index: 9999;\n  zoom: reset;\n}\n\nspan.entity-name {\n  color: #fff;\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n  font-size: 16px;\n}\n\n.add-component {\n  width: 200px;\n}\n\n.Select-control {\n  background-color: #222 !important;\n  border: none;\n  border-radius: 0;\n  color: #1faaf2;\n}\n\n.Select-menu-outer {\n  border: none;\n}\n\n.Select-menu-outer .is-focused {\n  background-color: #1faaf2 !important;\n  color: #fff;\n}\n\n.Select-option {\n  background-color: #222 !important;\n}\n\n.select-widget {\n  display: inline-block;\n  width: 157px;\n}\n\n.Select-placeholder,\n.Select--single > .Select-control .Select-value {\n  color: #1faaf2 !important;\n}\n\n.Select-value-label {\n  color: #1faaf2 !important;\n}\n\n.row .Select-control {\n  font-size: 11px;\n  height: 24px;\n}\n\n.row .Select-placeholder,\n.row .Select--single > .Select-control .Select-value {\n  line-height: 19px;\n}\n\n.row .Select-input {\n  height: 22px;\n}\n\n.row input[type=text],\n.row input[type=number],\n.row input.string,\n.row input.number {\n  /*background: #222;*/\n  border: 1px solid transparent;\n  color: #1faaf2;\n  min-height: 20px;\n  padding-left: 5px;\n  padding-right: 5px;\n}\n\n/* shortcuts help */\n\n.help-lists {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.help-list {\n  list-style: none;\n  margin: 0;\n  padding: 0 0 10px;\n  width: 350px;\n}\n\n.help-list li {\n  margin-right: 40px;\n}\n\n.help-key-unit {\n  line-height: 1.8;\n  margin-right: 2em;\n  padding: 5px 0;\n}\n\n.help-key {\n  bottom: 2px;\n  margin-right: 4px;\n  min-width: 60px;\n  position: relative;\n}\n\n.help-key span {\n  background-color: #2e2e2e;\n  background-repeat: repeat-x;\n  border: 1px solid #666;\n  border-radius: 3px;\n  box-shadow: 0 0 5px #000;\n  color: #999;\n  display: inline-block;\n  font-size: 12px;\n  padding: 0 8px;\n  text-align: center;\n}\n\n.help-key-def {\n  color: #bbb;\n  display: inline-block;\n  margin-left: 1em;\n}\n\n.add-component {\n  text-align: left;\n}\n\n.add-component .option {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.add-component .option span {\n  color: #1faaf2;\n}\n\n.Select-menu-outer .is-focused span {\n  color: #fff;\n}\n\n.add-component-container {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: #2b2b2b;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  padding: 10px;\n}\n\n.aregistry-button {\n  font-size: 12px;\n  margin-left: 10px;\n  padding: 8px;\n}\n\n.aregistry-button:hover {\n  background-color: #1faaf2;\n}\n\n.aregistry-button img {\n  height: 20px;\n  width: 20px;\n}\n\n.components .row .color_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n", ""]);
+	exports.push([module.id, "body.aframe-inspector-opened {\n  color: #fff;\n  font-family: 'Karla', sans-serif;\n  font-size: 12px;\n  margin: 0;\n  overflow: hidden;\n}\n\n.toggle-edit {\n  background-color: #ed3160;\n  color: #fff;\n  font-family: 'Karla', sans-serif;\n  font-size: 12px;\n  left: 3px;\n  margin: 0;\n  padding: 6px 10px;\n  position: fixed;\n  text-align: center;\n  text-decoration: none;\n  top: 3px;\n  width: 174px;\n  z-index: 99999;\n}\n\n.toggle-edit:hover {\n  background-color: rgb(228, 43, 90);\n}\n\nhr {\n  border: 0;\n  border-top: 1px solid #ccc;\n}\n\na {\n  cursor: pointer;\n}\n\nbutton {\n  position: relative;\n}\n\ncode {\n  font-family: Consolas, Andale Mono, Monaco, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;\n}\n\ntextarea {\n  -moz-tab-size: 4;\n    -o-tab-size: 4;\n       tab-size: 4;\n  white-space: pre;\n  word-wrap: normal;\n}\n\ntextarea.success {\n  border-color: #8b8 !important;\n}\n\ntextarea.fail {\n  background-color: rgba(255, 0, 0, 0.05);\n  border-color: #f00 !important;\n}\n\ntextarea,\ninput {\n  outline: none; /* osx */\n}\n\n#left-sidebar,\n#right-panels {\n  z-index: 9999;\n}\n\n#sidebar,\n#left-sidebar,\n.panel {\n  cursor: default;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n\n.collapsible .static {\n  margin: 0;\n}\n\n.collapsible .static .collapse-button {\n  border: 6px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 6px;\n  width: 0;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #1faaf2;\n  margin-top: 2px;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #1faaf2;\n  margin-top: 6px;\n}\n\n.collapsible.collapsed .content {\n  display: none;\n}\n\n.scenegraph {\n  border-top: 1px solid #111;\n  padding-top: 32px;\n}\n\n.scenegraph .search {\n  padding: 5px;\n}\n\n.scenegraph-toolbar {\n  background-color: #333;\n  position: fixed;\n  top: 32px;\n}\n\n.scenegraph-actions {\n  padding: 9px 0 5px;\n}\n\n.search {\n  color: #aaa;\n  font-size: 16px;\n  position: relative;\n}\n\n.search input {\n  background: #222;\n  border-radius: 5px;\n  height: 22px;\n  width: 185px;\n}\n\n.search input {\n  text-indent: 10px;\n}\n\n.search .fa-search {\n  position: absolute;\n  right: 11px;\n  top: 10px;\n}\n\ninput {\n  background-color: transparent;\n  border: 1px solid #555;\n  color: #fff;\n}\n\ninput,\n.texture canvas {\n  -webkit-transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n  transition: 0.1s background-color ease-in-out, 0.1s border-color ease-in-out, 0.1s color ease-in-out;\n}\n\ninput[type=text],\ninput[type=number],\ninput.string,\ninput.number {\n  min-height: 14px;\n  outline: none;\n}\n\ninput.number {\n  background-color: transparent !important;\n  border: 0;\n  color: #20b1fb !important;\n  cursor: col-resize;\n  font-size: 12px;\n  padding: 2px;\n}\n\ninput.string:focus,\ninput.number:focus {\n  border: 1px solid #20b1fb;\n  color: #fff;\n  cursor: auto;\n}\n\n#left-sidebar {\n  background: #2b2b2b;\n  bottom: 0;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  position: fixed;\n  top: 0;\n  width: 200px;\n}\n\n#sidebar {\n  background: #2b2b2b;\n  width: 330px;\n}\n\n#sidebar * {\n  vertical-align: middle;\n}\n\ninput,\ntextarea,\nselect {\n  background: #222;\n  border: 1px solid transparent;\n  color: #888;\n}\n\n.row {\n  margin-bottom: 10px;\n  min-height: 20px;\n}\n\ninput[type=color] {\n  background-color: #333;\n  border: 1px solid #111;\n  cursor: pointer;\n}\n\n.texture canvas {\n  border: 1px solid #222;\n}\n\ninput[type=color] {\n  cursor: pointer;\n  height: 16px;\n  padding: 0;\n  width: 64px;\n}\n\n/* Note: these vendor-prefixed selectors cannot be grouped! */\n\ninput[type=color]::-webkit-color-swatch {\n  border: 0;  /* To remove the gray border. */\n}\n\ninput[type=color]::-webkit-color-swatch-wrapper {\n  padding: 0;  /* To remove the inner padding. */\n}\n\ninput[type=color]::-moz-color-swatch {\n  border: 0;\n}\n\ninput[type=color]::-moz-focus-inner {\n  border: 0;  /* To remove the inner border (specific to Firefox). */\n  padding: 0;\n}\n\n.components {\n  background-color: #323232;\n  color: #bcbcbc;\n  height: 100%;\n  overflow: auto;\n  position: fixed;\n  width: 330px;\n}\n\ndiv.vec2,\ndiv.vec3 {\n  display: inline;\n}\n\n.vec2 input.number,\n.vec3 input.number {\n  width: 46px;\n}\n\n.collapsible-header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.component-title span {\n  float: left;\n  max-width: 110px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  text-transform: uppercase;\n  white-space: nowrap;\n}\n\n.collapsible .static {\n  background-color: #323232;\n  border-bottom: 1px solid #262626;\n  border-top: 1px solid #262626;\n  color: #fff;\n  height: 16px;\n  padding: 10px;\n  vertical-align: middle;\n}\n\n.collapsible .menu {\n  text-align: right;\n}\n\n.collapsible .menu::after {\n  color: #bbb;\n  content: '\\2807';\n  font-size: 12px;\n  padding: 5px;\n  text-align: right;\n}\n\n.collapsible .static .collapse-button {\n  border-left: 5px solid transparent;\n  border-right: 5px solid transparent;\n  float: left;\n  height: 0;\n  margin-right: 10px;\n  margin-top: 2px;\n  width: 0;\n}\n\n.collapsible.collapsed .static .collapse-button {\n  border-left-color: #bbb;\n}\n\n.collapsible:not(.collapsed) .static .collapse-button {\n  border-top-color: #bbb;\n}\n\n.collapsible .content {\n  background-color: #2b2b2b;\n  padding: 10px;\n}\n\n.components .row {\n  margin-bottom: 10px;\n  min-height: 20px;\n}\n\n.components * {\n  vertical-align: middle;\n}\n\n.components .row .text {\n  cursor: default;\n  display: inline-block;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  vertical-align: middle;\n  width: 120px;\n}\n\n.components .row .map_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n\n.hidden {\n  visibility: hidden;\n}\n\n.texture canvas + input {\n  margin-left: 5px;\n}\n\n.texture .fa {\n  padding-right: 5px;\n}\n\n.scenegraph-bottom {\n  background-color: #323232;\n  border-top: 1px solid #111;\n  bottom: 10;\n  height: 40px;\n  left: 0;\n  z-index: 100;\n}\n\na.button {\n  color: #bcbcbc;\n  font-size: 16px;\n  margin-left: 10px;\n  text-decoration: none;\n}\n\na.button:hover {\n  color: #1faaf2;\n}\n\n.scenegraph-bottom a {\n  float: right;\n  margin: 10px;\n}\n\n.modal {\n  background-color: rgb(0, 0, 0);\n  background-color: rgba(0, 0, 0, 0.4);\n  height: 100%;\n  left: 0;\n  overflow: auto;\n  padding-top: 100px;\n  position: fixed;\n  top: 0;\n  width: 100%;\n  z-index: 9999;\n}\n\n.modal-content {\n  -webkit-animation-duration: 0.2s;\n          animation-duration: 0.2s;\n  -webkit-animation-name: animatetop;\n          animation-name: animatetop;\n  background-color: #232323;\n  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);\n  margin: auto;\n  padding: 0;\n  position: relative;\n  width: 889px;\n}\n\n@-webkit-keyframes animatetop {\n  from {\n    opacity: 0;\n    top: -300px;\n  }\n\n  to {\n    opacity: 1;\n    top: 0;\n  }\n}\n\n@keyframes animatetop {\n  from {\n    opacity: 0;\n    top: -300px;\n  }\n\n  to {\n    opacity: 1;\n    top: 0;\n  }\n}\n\n.close {\n  color: white;\n  float: right;\n  font-size: 28px;\n  font-weight: bold;\n}\n\n.close:hover,\n.close:focus {\n  color: #08f;\n  cursor: pointer;\n  text-decoration: none;\n}\n\n.modal-header {\n  color: white;\n  padding: 2px 16px;\n}\n\n.modal-body {\n  overflow: auto;\n  padding: 16px;\n}\n\n.modal-footer {\n  color: white;\n  padding: 2px 16px;\n}\n\n/* Gallery */\n\n.gallery {\n  margin: 0 auto;\n  overflow: auto;\n  padding: 0;\n}\n\n.gallery li {\n  box-shadow: 3px 3px 8px -2px rgba(0, 0, 0, 0.63);\n  cursor: pointer;\n  display: inline-block;\n  float: left;\n  margin: 8px;\n  overflow: hidden;\n  width: 155px;\n}\n\n.gallery li:hover {\n  box-shadow: 0 0 4px 3px rgba(29, 138, 190, 0.63);\n}\n\n.gallery li .detail {\n  background-color: #323232;\n  min-height: 60px;\n  padding: 10px;\n}\n\n.gallery li:hover .detail {\n  background-color: #444;\n}\n\n.gallery li .detail span {\n  color: #bbb !important;\n}\n\n.gallery li .detail span.title {\n  color: #eee !important;\n  font-weight: bold;\n}\n\n.preview {\n  float: right;\n  padding: 10px;\n  width: 200px;\n}\n\n.new_asset_options {\n  float: left;\n  width: 600px;\n}\n\n.modal button {\n  -webkit-appearance: none;\n     -moz-appearance: none;\n          appearance: none;\n  border-radius: 0;\n  box-shadow: none;\n  cursor: pointer;\n  display: inline-block;\n  font-size: 12px;\n  line-height: 1.8;\n  margin: 0 10px 0 0;\n  padding: 5px 10px;\n}\n\n.modal button:focus {\n  outline: none;\n}\n\n.modal button {\n  background-color: #1eaaf1;\n  border: none;\n  color: #fff;\n}\n\n.modal button:hover,\n.modal button.hover {\n  background-color: #346392;\n  text-shadow: -1px 1px #27496d;\n}\n\n.modal button:active,\n.modal button.active {\n  background-color: #27496d;\n  text-shadow: -1px 1px #193047;\n}\n\n.newimage {\n  background-color: #323232;\n  overflow: auto;\n  padding: 10px;\n}\n\n.hide {\n  display: none;\n}\n\nspan.value {\n  color: #fff;\n  display: inline-block;\n}\n\nspan.mixinlist {\n  color: #888 !important;\n  display: inline-block;\n}\n\nspan.mixinlist ul {\n  background-color: #222;\n  list-style-type: none;\n  margin: 5px 0 0;\n  padding: 5px;\n}\n\nspan.mixinlist ul li {\n  font-size: 11px;\n  margin-bottom: 3px;\n}\n\nspan.mixinlist ul li:last-child {\n  margin-bottom: 0;\n}\n\nspan.mixin {\n  display: inline-block;\n  width: 100px;\n}\n\n.mixinlist {\n  margin-left: 120px;\n}\n\nspan.subcomponent {\n  color: #999;\n  float: none !important;\n  margin-left: 10px;\n  vertical-align: top !important;\n}\n\n.collapsible .static {\n  cursor: pointer;\n}\n\n.a-canvas.state-dragging {\n  cursor: -webkit-grabbing;\n  cursor: grabbing;\n}\n\ncode,\npre,\ninput,\ntextarea,\nselect {\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.Select,\n.wf-active code,\n.wf-active pre,\n.wf-active input,\n.wf-active textarea,\n.wf-active select {\n  font-family: Roboto Mono, Consolas, Andale Mono, Monaco, Courier New, monospace;\n}\n\n.tagName {\n  font-weight: 500;\n}\n\n.sidebar-title {\n  background-color: #444;\n  color: #aaa;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  font-size: 12px;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 6px 10px;\n  position: relative;\n  text-align: center;\n}\n\n.toolbar {\n  background-color: #262626;\n  color: #333;\n  height: 32px;\n  position: relative;\n}\n\n.toolbar * {\n  margin-left: 0;\n  padding: 8px;\n  vertical-align: middle;\n}\n\n.toolbar a.button {\n  margin: 0 6px 0 0;\n}\n\n.toolbar .active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.toolbar .active:hover {\n  color: #fff !important;\n}\n\n.local-transform {\n  padding-left: 10px;\n}\n\n.local-transform label {\n  color: #aaa;\n  padding-left: 5px;\n}\n\n.local-transform a.button {\n  padding-top: 0;\n}\n\n.outliner {\n  background: #2b2b2b;\n  color: #868686;\n  cursor: default;\n  -webkit-box-flex: 1;\n      -ms-flex: 1 1 auto;\n          flex: 1 1 auto;\n  font-size: 12px;\n  height: calc(100% - 98px);\n  outline: none;\n  overflow-y: auto;\n  padding: 0;\n  position: fixed;\n  top: 98px;\n  width: 200px;\n}\n\n.outliner .option {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  padding: 4px;\n  white-space: nowrap;\n}\n\n.outliner .option.active {\n  background-color: #1faaf2;\n  color: #fff;\n}\n\n.outliner .option .component:hover {\n  color: #1faaf2;\n}\n\n.outliner .option.active .component:hover {\n  color: #1888c1;\n}\n\n.outliner .option .icons {\n  display: none;\n  margin: 0 3px 0 10px;\n}\n\n.outliner .option .icons .button {\n  color: #fff;\n  font-size: 12px;\n}\n\n.outliner .option.active .icons {\n  display: inline;\n}\n\n.outliner .fa {\n  color: #aaa;\n}\n\n.outliner .active .fa {\n  color: #fff;\n}\n\na.flat-button {\n  background-color: #262626;\n  color: #bcbcbc;\n  font-size: 11px;\n  margin-left: 10px;\n  padding: 5px;\n  text-decoration: none;\n}\n\na.flat-button:hover {\n  color: #1faaf2;\n}\n\n.component-title {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n}\n\na.help-link {\n  opacity: 0.4;\n}\n\na.help-link:hover {\n  opacity: 1;\n}\n\n#right-panels {\n  -webkit-box-align: stretch;\n      -ms-flex-align: stretch;\n          align-items: stretch;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  position: fixed;\n  right: 0;\n  top: 0;\n}\n\n#aframe-inspector-panels {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n/* This is a temporaly hack, we should style the editor instead of overwriting\n   the a-scene to fix the \"display: block\" issue. */\n\n.aframe-inspector-opened a-scene {\n  display: inline !important;\n}\n\n.aframe-inspector-opened a-scene .a-canvas {\n  background-color: #191919;\n  position: fixed;\n  z-index: 9999;\n  zoom: 1;\n}\n\nspan.entity-name {\n  color: #fff;\n  font-family: Consolas, Andale Mono, Monaco, Courier New, monospace;\n  font-size: 16px;\n}\n\n.add-component {\n  width: 200px;\n}\n\n.Select-control {\n  background-color: #222 !important;\n  border: none;\n  border-radius: 0;\n  color: #1faaf2;\n}\n\n.Select-menu-outer {\n  border: none;\n}\n\n.Select-menu-outer .is-focused {\n  background-color: #1faaf2 !important;\n  color: #fff;\n}\n\n.Select-option {\n  background-color: #222 !important;\n}\n\n.select-widget {\n  display: inline-block;\n  width: 157px;\n}\n\n.Select-placeholder,\n.Select--single > .Select-control .Select-value {\n  color: #1faaf2 !important;\n}\n\n.Select-value-label {\n  color: #1faaf2 !important;\n}\n\n.row .Select-control {\n  font-size: 11px;\n  height: 24px;\n}\n\n.row .Select-placeholder,\n.row .Select--single > .Select-control .Select-value {\n  line-height: 19px;\n}\n\n.row .Select-input {\n  height: 22px;\n}\n\n.row input[type=text],\n.row input[type=number],\n.row input.string,\n.row input.number {\n  background-color: #222;\n  border: 1px solid transparent;\n  color: #1faaf2;\n  min-height: 20px;\n  padding-left: 5px;\n  padding-right: 5px;\n}\n\n/* shortcuts help */\n\n.help-lists {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-pack: distribute;\n      justify-content: space-around;\n}\n\n.help-list {\n  list-style: none;\n  margin: 0;\n  padding: 0 0 10px;\n  width: 350px;\n}\n\n.help-list li {\n  margin-right: 40px;\n}\n\n.help-key-unit {\n  line-height: 1.8;\n  margin-right: 2em;\n  padding: 5px 0;\n}\n\n.help-key {\n  bottom: 2px;\n  margin-right: 4px;\n  min-width: 60px;\n  position: relative;\n}\n\n.help-key span {\n  background-color: #2e2e2e;\n  background-repeat: repeat-x;\n  border: 1px solid #666;\n  border-radius: 3px;\n  box-shadow: 0 0 5px #000;\n  color: #999;\n  display: inline-block;\n  font-size: 12px;\n  padding: 0 8px;\n  text-align: center;\n}\n\n.help-key-def {\n  color: #bbb;\n  display: inline-block;\n  margin-left: 1em;\n}\n\n.add-component {\n  text-align: left;\n}\n\n.add-component .option {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n}\n\n.add-component .option span {\n  color: #1faaf2;\n}\n\n.Select-menu-outer .is-focused span {\n  color: #fff;\n}\n\n.add-component-container {\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  background-color: #2b2b2b;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  padding: 10px;\n}\n\n.aregistry-button {\n  font-size: 12px;\n  margin-left: 10px;\n  padding: 8px;\n}\n\n.aregistry-button:hover {\n  background-color: #1faaf2;\n}\n\n.aregistry-button img {\n  height: 20px;\n  width: 20px;\n}\n\n.components .row .color_value {\n  margin: 0 0 0 5px;\n  width: 68px;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 268 */
+/* 269 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(269);
+	var content = __webpack_require__(270);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(203)(content, {});
@@ -35735,7 +35856,7 @@
 	}
 
 /***/ },
-/* 269 */
+/* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(202)();
@@ -35743,103 +35864,103 @@
 
 
 	// module
-	exports.push([module.id, "    /* Remove the navbar's default margin-bottom and rounded borders */\n\n\t\tbody{\n\t\t\tfont-family: 'Karla', sans-serif;\n\t\t}\n\n\t\t.navbar {\n      padding: 10px;\n      margin-bottom: 0;\n      border-radius: 0;\n    }\n\n\t\t.img-icon{\n      padding: 0 5px;\n    }\n\n\t\t.img-icon img{\n      width: 20px;\n    }\n\n\t\t.empty{\n      //height: 375px;\n    }\n\n\t\t.search{\n      background: #372e33;\n      opacity: .8;\n      padding-top: 15px;\n    }\n\n\t\t.search-input{\n      border-radius: 20px;\n      border: 0;\n      background: #2c2930;\n      padding: 5px;\n      width: 60%;\n      margin: auto;\n    }\n\n\t\t.search-input input{\n      background: #2c2930 !important;\n      border:0;\n      width: 80%;\n      margin-left: 10px;\n    }\n\n\t\t.upload{\n      background: white;\n      border-radius: 20px;\n      color: #18273e;\n      padding: 5px 10px;\n      font-weight: bold;\n      font-size: 12px;\n      margin-right:10px;\n    }\n\n\t\t.scene-container{\n      padding-top: 20px;\n      bottom: 20px;\n    }\n\n\t\t.create-scene{\n      position: relative;\n      padding-left: 0;\n      padding-right:0; \n      padding-bottom: 10px;\n      margin-right: 10px;\n    }\n\n\t\t.create-scene > img{\n      width: 100%;\n      height: 13vh;\n      border-radius: 4px;\n    }\n\n\t\t/*h6{\n      position: absolute;\n      top:25px;\n      left:10px;\n      color: white;\n      width: 100%;\n      font-weight: bold;\n    }*/\n\n\t\t.buttonName{\n      position: absolute;\n      top:25px;\n      text-align: center;\n      //left:10px;\n      color: black;\n      width: 100%;\n      font-weight: bold;\n    }\n\n\t\t.scene-btn{\n      position: absolute;\n      width:100%;\n      color: black;\n      height: 50%;\n      background: none;\n      border: none;\n      font-size: 12px;\n      font-weight: bold;\n      left:0;\n    }\n\n\t\t.slider-button{\n      padding-top: 7px;\n    }\n\n\t\t.slider-button div{\n      padding:0;\n    }\n\n\t\t.slider-button .glyphicon{\n      color:#7a859c;\n    }\n\n\t\t.slider-button hr{\n      border-top:3px solid #7a859c;\n      margin-top:10px;\n    }\n\n\t\t.name-scene-para{\n      color: white;\n      position: absolute;\n      width: 100%;\n      top: 5px;\n      font-size: 10px;\n      font-weight: bold;\n      left: 10px;\n      text-align: center;\n    }\n\n\t\t.name-scene-input{\n      position: absolute;\n      color:white;\n      top: 30px;\n      width: 60%;\n      height: 40px;\n      left: 20px;\n      background: none;\n      border: none;\n      font-size: 12px;\n      overflow: hidden;\n      resize:none;\n    }\n\n\t\t.btn-option{\n      position: absolute;\n      width: 100%;\n      text-align: right;\n      bottom: 10px;\n      //top: 60px;\n      //right:-15px;\n    }\n\n\t\t.canvas-white img{\n      width:20px;\n    }\n\n\t\t.canvas-white, .del-btn{\n      padding: 5px;\n    }\n\n\t\t.del-btn img{\n      width: 12px;\n    }\n\n\t\t/* footer */\n\n\t\tfooter{\n      background-color: #272526;\n      color: white;\n      width: 100%;\n      height: 50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    }\n\n\t\t/*footer {\n      background-color: #18273e;\n      color: white;\n      //padding: 15px;\n      width: 100%;\n      height:50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    }*/\n\n\t\t.viewer{\n      padding-top: 15px;\n    }\n\n\t\t.nav-tabs{\n      position: absolute;\n      top: -10px;\n      width: 90%;\n      margin: auto;\n      left: 37%;\n    }\n\n\t\t.nav-tabs .img-icon{\n      margin: 10px;\n      padding-top: 13px;\n      border-top:3px solid #fff;\n    }\n\n\t\t.nav-tabs .active{\n      border-top:3px solid #04a0f8;\n    }\n\n\t\tfooter .img-icon img{\n      width: 30px;\n    }\n\n\t\tinput:focus, button:focus, textarea:focus{\n      outline: none;\n    }\n\n\t\tul li{\n      display: inline;\n    }\n\n\t\t#ToolOptions{\n\t    position: absolute;\n\t    bottom: 0px;\n\t    width: 100%;\n\t    height: 25vh;\n\t    background: #372e33;\n      opacity: .9;\n    \tz-index:9999;\n\t    bottom: 50px;\n    }\n\n\t\t#Photo360 {\n\t\tbackground-image: url(" + __webpack_require__(270) + ");\n\t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n    background-repeat: no-repeat;\n  }\n\n\t\t#Photo360:hover {\n\t   background-image: url(" + __webpack_require__(271) + ");\n     background-repeat: no-repeat;\n  }\n\n\t\t#Photo360>.text,#Photo360:hover>.uploadText,#Video360>.text,#Video360:hover >.uploadText{\n\t\tdisplay:block;\n  }\n\n\t\t#Photo360:hover>.text,#Photo360 >.uploadText,#Video360:hover> .text,#Video360> .uploadText{\n\t\tdisplay:none;\n  }\n\n\t\t#Video360{\n  \t\tbackground-image: url(" + __webpack_require__(272) + ");\n  \t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n    background-repeat: no-repeat;\n  \t}\n\n\t\t#Video360:hover{\n  \t\tbackground-image: url(" + __webpack_require__(271) + ");\n      background-repeat: no-repeat;\n  \t}\n\n\t\t.number{\n      position: absolute;\n      top: 5px;\n      right: 5px;\n      background: #fff;\n      border-radius: 100%;\n      height: 15px;\n      color: #000;\n      width: 15px;\n      font-size: 11px;\n      font-weight: bold;\n    }\n\n\t\t.active-btn{\n      position: absolute;\n      top:5px;\n      left: 5px;\n      padding:2px;\n      background: #fff;\n      color: #000;\n      border-radius: 10px;\n      font-size: 8px;\n      font-weight: bold;\n    }\n\n\t\t.crosshair {\n      cursor: crosshair !important;\n    }\n\n\t\t.scene-create{\n      margin: 35px;\n    }\n\n\t\t.fadeout-retina{\n      background: url(" + __webpack_require__(273) + ");\n      color: #000;\n    }\n\n\t\t.startingoff{\n      background: url(" + __webpack_require__(274) + ");\n    }\n\n\t\t.animate{\n      background: url(" + __webpack_require__(275) + ");\n    }\n\n\t\t.objects{\n      background: url(" + __webpack_require__(276) + ");\n    }\n\n\t\t.animate-card{\n      background: url(" + __webpack_require__(277) + ");\n    }\n\n\t\t.himalay{\n      background: url(" + __webpack_require__(278) + ");\n    }\n\n\t\t.water{\n      background: url(" + __webpack_require__(279) + ");\n    }\n\n\t\t.eagle{\n      background: url(" + __webpack_require__(280) + ");\n    }\n\n\t\t.musuem{\n      background: url(" + __webpack_require__(281) + ");\n    }\n\n\t\t.roller{\n      background: url(" + __webpack_require__(282) + ");\n    }\n\n\t\t.rainbow{\n      background: url(" + __webpack_require__(283) + ");\n    }\n\n\t\t.static-bg{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 135px;\n      border-radius: 6px;\n    }\n\n\t\t.card-image{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 171.33px;\n      border-radius: 6px;\n      padding: 1px 10px;\n    }\n\n\t\t.pd-all{\n      padding: 30px 0;\n    }\n\n\t\t.save-btn{\n      background: #fff;\n      color: #000;\n      padding: 10px;\n      border-radius: 20px;\n    }\n\n\t\t.middle-text{\n      padding: 10px;\n    }\n\n\t\t.edit-pic{\n      padding-top: 85px;\n    }\n\n\t\t.static-bg img{\n      width: 15%;\n      margin: 5px;\n    }\n\n\t\t.static-bg img:last-child{\n      width: 11%;\n    }\n\n\t\t.pic-info{\n      background: #fff;\n      color:#000;\n      border-bottom-right-radius: 6px;\n      border-bottom-left-radius: 6px;\n    }\n\n\t\t.pic-heading{\n      margin-bottom: 0;\n      padding-top: 10px;\n    }\n\n\t\t.pic-detail{\n      font-size: 12px;\n      padding-bottom: 10px;\n    }\n\n\t\t.mainPage{\n  background: #333;\n  color: white;\n  padding: 50px 0 100px 0;\n  position: relative;\n  min-height:100vh;\n }\n\n\t\t::-webkit-input-placeholder { /* WebKit browsers */\n    color:    #fff !important;\n}\n\n\t\t:-moz-placeholder { /* Mozilla Firefox 4 to 18 */\n    color:    #fff;\n}\n\n\t\t::-moz-placeholder { /* Mozilla Firefox 19+ */\n    color:    #fff;\n}\n\n\t\t:-ms-input-placeholder { /* Internet Explorer 10+ */\n    color:    #fff;\n}\n\n\t\t@media (max-width: 530px) {\n  .search-input{\n    width: 100%;\n  }\n  h6{\n    left: 0;\n  }\n  .upload{\n    margin-right: 0;\n    font-size: 11px;\n  }\n  .glyphicon-remove{\n    font-size: 9px;\n  }\n  .search-input input{\n    width: 79%;\n  }\n  .steps{\n    font-size: 12.5px;\n    font-weight: bold;\n  }\n}\n\n\t\t@media (min-width: 992px) and (max-width: 1199px){\n  .create-scene{\n    margin-right: 3%;\n  }\n  .sl-btn{\n    right: -10px;\n  }\n  h6{\n    top:16px;\n    left:20px;\n  }\n}\n\n\t\t@media (min-width: 768px) and (max-width: 991px) {\n  h6{\n    left:-14px;\n  }\n  .sl-btn{\n    right:50px;\n  }\n  .card-image{\n    margin-bottom: 20px;\n  }\n  .static-bg{\n    margin-bottom: 70px;\n  }\n  .mainPage{\n    overflow-y: scroll;\n    height: 100vh;\n  }\n  .nav-tabs{\n    left:25%;\n  }\n  .create-scene{\n    width: 150px;\n  }\n  .scene-container{\n    width: 100%;\n    overflow-x:scroll;\n  }\n  .scroll-container{\n    width:100vh;\n    overflow: hidden !important;\n  }\n}\n\n\t\t@media (max-width: 767px) {\n .steps {\n   text-align: center;\n }\n .card-image{\n    height:150px;\n    margin-bottom: 20px;\n  }\n  .pd-all{\n    padding: 10px 0;\n  }\n  .static-bg{\n    margin-bottom: 70px;\n  }\n\n  .mainPage{\n    overflow-y: scroll;\n    height: 100vh;\n  }\n\n  .footer-mobile{\n    text-align: left;\n  }\n  .nav-tabs{\n    left:10%;\n  }\n  .create-scene{\n    width: 90px;\n  }\n  .canvas-white img{\n    width:15px;\n  }\n  .del-btn img{\n    width: 9px;\n  }\n  .scene-btn{\n    font-size: 9px;\n  }  \n  .scene-container{\n    width: 100%;\n    overflow-x:scroll;\n  }\n  .scroll-container{\n    width:100vh;\n    overflow: hidden !important;\n  }\n  #ToolOptions{\n    height: 30vh;\n   }\n}\n\n\t\t#inspectorEye{\n    position: fixed;\n    bottom: 36px;\n    background: none;\n\n}\n\n\t\t.a-body{\n\n    background: #333;\n}\n\n\t\t.text-tool{\n  border-right:2px solid #272526;\n}\n\n\t\t.small-text-icon img{\n  width: 53%;\n\tmargin-left: 4px;\n  padding-bottom:12px;\n}\n\n\t\t.text-icon img{\n  width: 106%;\n  padding-bottom:12px;\n}\n\n\t\t.heading-text {\n  background: rgb(39, 37, 38);\n  border: none;\n  width: 100%;\n  border-radius: 4px;\n  height: 85px;\n  margin: 0px;\n  resize: none;\n  padding: 10px;\n}\n\n\t\t.text-rotate img {\n  width: 50px;\n}\n\n\t\t.divide-line{\n  height: 90px;\n  border-left: 2px solid #272526;\n  margin-left: 3%;\n}\n\n\t\t.dropdown, .pick-color{\n  background: #fff;\n  z-index: 1000;\n  padding: 5px;\n  color: #000;\n  width: 100%;\n  border-radius: 20px;\n  color: #000;\n  border:none;\n  margin-bottom: 5px;\n}\n\n\t\t.picker-heading{\n  margin-bottom: 0;\n}\n\n\t\t.tool-option img{\n\twidth: 10%;\n  margin-bottom: 10px;\n}\n\n\t\t.pick-color{\n  background: #ee686e;\n}\n\n\t\t.Text3d{\n\tmargin-left: 20px;\n}\n\n\t\t.anotherbuttonName{\n\tposition: absolute;\n\ttop: 34px;\n  left: -6px;\n\tcolor: white;\n\twidth: 100%;\n\tfont-weight: bold;\n}\n", ""]);
+	exports.push([module.id, "    /* Remove the navbar's default margin-bottom and rounded borders */\n\n\t\tbody{\n\t\t\tfont-family: 'Karla', sans-serif;\n\t\t}\n\n\t\t.navbar {\n      padding: 10px;\n      margin-bottom: 0;\n      border-radius: 0;\n    }\n\n\t\t.img-icon{\n      padding: 0 5px;\n    }\n\n\t\t.img-icon img{\n      width: 20px;\n    }\n\n\t\t.empty{\n      //height: 375px;\n    }\n\n\t\t.search{\n      background: #372e33;\n      opacity: .8;\n      padding-top: 15px;\n    }\n\n\t\t.search-input{\n      border-radius: 20px;\n      border: 0;\n      background: #2c2930;\n      padding: 5px;\n      width: 60%;\n      margin: auto;\n    }\n\n\t\t.search-input input{\n      background: #2c2930 !important;\n      border:0;\n      width: 80%;\n      margin-left: 10px;\n    }\n\n\t\t.upload{\n      background: white;\n      border-radius: 20px;\n      color: #18273e;\n      padding: 5px 10px;\n      font-weight: bold;\n      font-size: 12px;\n      margin-right:10px;\n    }\n\n\t\t.scene-container{\n      padding-top: 20px;\n      bottom: 20px;\n    }\n\n\t\t.create-scene{\n      position: relative;\n      padding-left: 0;\n      padding-right:0; \n      padding-bottom: 10px;\n      margin-right: 10px;\n    }\n\n\t\t.create-scene > img{\n      width: 100%;\n      height: 13vh;\n      border-radius: 4px;\n    }\n\n\t\t/*h6{\n      position: absolute;\n      top:25px;\n      left:10px;\n      color: white;\n      width: 100%;\n      font-weight: bold;\n    }*/\n\n\t\t.buttonName{\n      position: absolute;\n      top:25px;\n      text-align: center;\n      //left:10px;\n      color: black;\n      width: 100%;\n      font-weight: bold;\n    }\n\n\t\t.scene-btn{\n      position: absolute;\n      width:100%;\n      color: black;\n      height: 50%;\n      background: none;\n      border: none;\n      font-size: 12px;\n      font-weight: bold;\n      left:0;\n    }\n\n\t\t.slider-button{\n      padding-top: 7px;\n    }\n\n\t\t.slider-button div{\n      padding:0;\n    }\n\n\t\t.slider-button .glyphicon{\n      color:#7a859c;\n    }\n\n\t\t.slider-button hr{\n      border-top:3px solid #7a859c;\n      margin-top:10px;\n    }\n\n\t\t.name-scene-para{\n      color: white;\n      position: absolute;\n      width: 100%;\n      top: 5px;\n      font-size: 10px;\n      font-weight: bold;\n      left: 10px;\n      text-align: center;\n    }\n\n\t\t.name-scene-input{\n      position: absolute;\n      color:white;\n      top: 30px;\n      width: 60%;\n      height: 40px;\n      left: 20px;\n      background: none;\n      border: none;\n      font-size: 12px;\n      overflow: hidden;\n      resize:none;\n    }\n\n\t\t.btn-option{\n      position: absolute;\n      width: 100%;\n      text-align: right;\n      bottom: 10px;\n      //top: 60px;\n      //right:-15px;\n    }\n\n\t\t.canvas-white img{\n      width:20px;\n    }\n\n\t\t.canvas-white, .del-btn{\n      padding: 5px;\n    }\n\n\t\t.del-btn img{\n      width: 12px;\n    }\n\n\t\t/* footer */\n\n\t\tfooter{\n      background-color: #272526;\n      color: white;\n      width: 100%;\n      height: 50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    }\n\n\t\t/*footer {\n      background-color: #18273e;\n      color: white;\n      //padding: 15px;\n      width: 100%;\n      height:50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    }*/\n\n\t\t.viewer{\n      padding-top: 15px;\n    }\n\n\t\t.nav-tabs{\n      position: absolute;\n      top: -10px;\n      width: 90%;\n      margin: auto;\n      left: 37%;\n    }\n\n\t\t.nav-tabs .img-icon{\n      margin: 10px;\n      padding-top: 13px;\n      border-top:3px solid #fff;\n    }\n\n\t\t.nav-tabs .active{\n      border-top:3px solid #04a0f8;\n    }\n\n\t\tfooter .img-icon img{\n      width: 30px;\n    }\n\n\t\tinput:focus, button:focus, textarea:focus{\n      outline: none;\n    }\n\n\t\tul li{\n      display: inline;\n    }\n\n\t\t#ToolOptions{\n\t    position: absolute;\n\t    bottom: 0px;\n\t    width: 100%;\n\t    height: 25vh;\n\t    background: #372e33;\n      opacity: .9;\n    \tz-index:9999;\n\t    bottom: 50px;\n    }\n\n\t\t#Photo360 {\n\t\tbackground-image: url(" + __webpack_require__(271) + ");\n\t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n    background-repeat: no-repeat;\n  }\n\n\t\t#Photo360:hover {\n\t   background-image: url(" + __webpack_require__(272) + ");\n     background-repeat: no-repeat;\n  }\n\n\t\t#Photo360>.text,#Photo360:hover>.uploadText,#Video360>.text,#Video360:hover >.uploadText{\n\t\tdisplay:block;\n  }\n\n\t\t#Photo360:hover>.text,#Photo360 >.uploadText,#Video360:hover> .text,#Video360> .uploadText{\n\t\tdisplay:none;\n  }\n\n\t\t#Video360{\n  \t\tbackground-image: url(" + __webpack_require__(273) + ");\n  \t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n    background-repeat: no-repeat;\n  \t}\n\n\t\t#Video360:hover{\n  \t\tbackground-image: url(" + __webpack_require__(272) + ");\n      background-repeat: no-repeat;\n  \t}\n\n\t\t.number{\n      position: absolute;\n      top: 5px;\n      right: 5px;\n      background: #fff;\n      border-radius: 100%;\n      height: 15px;\n      color: #000;\n      width: 15px;\n      font-size: 11px;\n      font-weight: bold;\n    }\n\n\t\t.active-btn{\n      position: absolute;\n      top:5px;\n      left: 5px;\n      padding:2px;\n      background: #fff;\n      color: #000;\n      border-radius: 10px;\n      font-size: 8px;\n      font-weight: bold;\n    }\n\n\t\t.crosshair {\n      cursor: crosshair !important;\n    }\n\n\t\t.scene-create{\n      margin: 35px;\n    }\n\n\t\t.fadeout-retina{\n      background: url(" + __webpack_require__(274) + ");\n      color: #000;\n    }\n\n\t\t.startingoff{\n      background: url(" + __webpack_require__(275) + ");\n    }\n\n\t\t.animate{\n      background: url(" + __webpack_require__(276) + ");\n    }\n\n\t\t.objects{\n      background: url(" + __webpack_require__(277) + ");\n    }\n\n\t\t.animate-card{\n      background: url(" + __webpack_require__(278) + ");\n    }\n\n\t\t.himalay{\n      background: url(" + __webpack_require__(279) + ");\n    }\n\n\t\t.water{\n      background: url(" + __webpack_require__(280) + ");\n    }\n\n\t\t.eagle{\n      background: url(" + __webpack_require__(281) + ");\n    }\n\n\t\t.musuem{\n      background: url(" + __webpack_require__(282) + ");\n    }\n\n\t\t.roller{\n      background: url(" + __webpack_require__(283) + ");\n    }\n\n\t\t.rainbow{\n      background: url(" + __webpack_require__(284) + ");\n    }\n\n\t\t.static-bg{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 135px;\n      border-radius: 6px;\n    }\n\n\t\t.card-image{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 171.33px;\n      border-radius: 6px;\n      padding: 1px 10px;\n    }\n\n\t\t.pd-all{\n      padding: 30px 0;\n    }\n\n\t\t.save-btn{\n      background: #fff;\n      color: #000;\n      padding: 10px;\n      border-radius: 20px;\n    }\n\n\t\t.middle-text{\n      padding: 10px;\n    }\n\n\t\t.edit-pic{\n      padding-top: 85px;\n    }\n\n\t\t.static-bg img{\n      width: 15%;\n      margin: 5px;\n    }\n\n\t\t.static-bg img:last-child{\n      width: 11%;\n    }\n\n\t\t.pic-info{\n      background: #fff;\n      color:#000;\n      border-bottom-right-radius: 6px;\n      border-bottom-left-radius: 6px;\n    }\n\n\t\t.pic-heading{\n      margin-bottom: 0;\n      padding-top: 10px;\n    }\n\n\t\t.pic-detail{\n      font-size: 12px;\n      padding-bottom: 10px;\n    }\n\n\t\t.mainPage{\n  background: #333;\n  color: white;\n  padding: 50px 0 100px 0;\n  position: relative;\n  min-height:100vh;\n }\n\n\t\t::-webkit-input-placeholder { /* WebKit browsers */\n    color:    #fff ;\n}\n\n\t\t:-moz-placeholder { /* Mozilla Firefox 4 to 18 */\n    color:    #fff;\n}\n\n\t\t::-moz-placeholder { /* Mozilla Firefox 19+ */\n    color:    #fff;\n}\n\n\t\t:-ms-input-placeholder { /* Internet Explorer 10+ */\n    color:    #fff;\n}\n\n\t\t@media (max-width: 530px) {\n  .search-input{\n    width: 100%;\n  }\n  h6{\n    left: 0;\n  }\n  .upload{\n    margin-right: 0;\n    font-size: 11px;\n  }\n  .glyphicon-remove{\n    font-size: 9px;\n  }\n  .search-input input{\n    width: 79%;\n  }\n  .steps{\n    font-size: 12.5px;\n    font-weight: bold;\n  }\n}\n\n\t\t@media (min-width: 992px) and (max-width: 1199px){\n  .create-scene{\n    margin-right: 3%;\n  }\n  .sl-btn{\n    right: -10px;\n  }\n  h6{\n    top:16px;\n    left:20px;\n  }\n}\n\n\t\t@media (min-width: 768px) and (max-width: 991px) {\n  h6{\n    left:-14px;\n  }\n  .sl-btn{\n    right:50px;\n  }\n  .card-image{\n    margin-bottom: 20px;\n  }\n  .static-bg{\n    margin-bottom: 70px;\n  }\n  .mainPage{\n    overflow-y: scroll;\n    height: 100vh;\n  }\n  .nav-tabs{\n    left:25%;\n  }\n  .create-scene{\n    width: 150px;\n  }\n  .scene-container{\n    width: 100%;\n    overflow-x:scroll;\n  }\n  .scroll-container{\n    width:100vh;\n    overflow: hidden !important;\n  }\n}\n\n\t\t@media (max-width: 767px) {\n .steps {\n   text-align: center;\n }\n .card-image{\n    height:150px;\n    margin-bottom: 20px;\n  }\n  .pd-all{\n    padding: 10px 0;\n  }\n  .static-bg{\n    margin-bottom: 70px;\n  }\n\n  .mainPage{\n    overflow-y: scroll;\n    height: 100vh;\n  }\n\n  .footer-mobile{\n    text-align: left;\n  }\n  .nav-tabs{\n    left:10%;\n  }\n  .create-scene{\n    width: 90px;\n  }\n  .canvas-white img{\n    width:15px;\n  }\n  .del-btn img{\n    width: 9px;\n  }\n  .scene-btn{\n    font-size: 9px;\n  }  \n  .scene-container{\n    width: 100%;\n    overflow-x:scroll;\n  }\n  .scroll-container{\n    width:100vh;\n    overflow: hidden !important;\n  }\n  #ToolOptions{\n    height: 30vh;\n   }\n}\n\n\t\t#inspectorEye{\n    position: fixed;\n    bottom: 36px;\n    background: none;\n\n\n}\n\n\t\t.a-body{\n\n    background: #333;\n}\n\n\t\t.text-tool{\n  border-right:2px solid #272526;\n}\n\n\t\t.small-text-icon img{\n  width: 53%;\n\tmargin-left: 4px;\n  padding-bottom:12px;\n}\n\n\t\t.text-icon img{\n  width: 106%;\n  padding-bottom:12px;\n}\n\n\t\t.heading-text {\n  background: rgb(39, 37, 38);\n  border: none;\n  width: 100%;\n  border-radius: 4px;\n  height: 85px;\n  margin: 0px;\n  resize: none;\n  padding: 10px;\n}\n\n\t\t.text-rotate img {\n  width: 50px;\n}\n\n\t\t.divide-line{\n  height: 90px;\n  border-left: 2px solid #272526;\n  margin-left: 3%;\n}\n\n\t\t.dropdown, .pick-color{\n  background: #fff;\n  z-index: 1000;\n  padding: 5px;\n  color: #000;\n  width: 100%;\n  border-radius: 20px;\n  color: #000;\n  border:none;\n  margin-bottom: 5px;\n}\n\n\t\t.picker-heading{\n  margin-bottom: 0;\n}\n\n\t\t.tool-option img{\n\twidth: 10%;\n  margin-bottom: 10px;\n}\n\n\t\t.pick-color{\n  background: #ee686e;\n}\n\n\t\t.Text3d{\n\tmargin-left: 20px;\n}\n\n\t\t.anotherbuttonName{\n\tposition: absolute;\n\ttop: 34px;\n  left: -6px;\n\tcolor: white;\n\twidth: 100%;\n\tfont-weight: bold;\n}\n\n\t\t.input-wrapper {\n  height: auto;\n  margin: 20% 0;\n  vertical-align: middle;\n}\n\n\t\tinput.name-experience-input {\n  margin-top: 10px; \n  background-color: transparent !important;\n  border-bottom: 1px solid red !important;; \n  color: #000 !important;\n}\n\n\t\tinput.name-experience-input::-webkit-input-placeholder { \n  color: #000;\n}\n\n\t\tinput.name-experience-input::-moz-placeholder {\n  color: #000;\n  opacity: 1;\n}\n\n\t\tinput.name-experience-input:-ms-input-placeholder {\n  color: #000;\n}\n\n\t\tinput.name-experience-input:-moz-input-placeholder { /* WebKit browsers */\n  color: #000;\n}\n\n\t\t.boxFilter{\n  margin-right: none !important;\n}\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 270 */
+/* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "f1d1cccd1c282d965be3df896ce2e90d.png";
 
 /***/ },
-/* 271 */
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "a5990f6eb60f7b046ec6a4653a377081.png";
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "c9bf3b73e083e03c8a07407ccbc19cee.png";
 
 /***/ },
-/* 273 */
+/* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "29040af7da4a6a3f568008e260c7665e.png";
 
 /***/ },
-/* 274 */
+/* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "67cf49c19f4ad5ae0b4180ec1c314121.png";
 
 /***/ },
-/* 275 */
+/* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "aab92a2e18643cd0c9c80e4c32aff17f.png";
 
 /***/ },
-/* 276 */
+/* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "88267ae0db23af65628c06d9ee8b0d40.png";
 
 /***/ },
-/* 277 */
+/* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "5d74213e1aae4482755dfd3fbd3c729c.png";
 
 /***/ },
-/* 278 */
+/* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "16d970f65c5d5fc68f5e52c0f9740cce.jpg";
 
 /***/ },
-/* 279 */
+/* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "4c16cd2d53238b96bda35240c5b4724c.jpg";
 
 /***/ },
-/* 280 */
+/* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "e73f3c360fce6fc52cfc443fc9302e91.jpg";
 
 /***/ },
-/* 281 */
+/* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "af1b97413334ba200409b1ab69c25817.jpg";
 
 /***/ },
-/* 282 */
+/* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "0d2a93b9d56e511972698efc67e08e2e.jpg";
 
 /***/ },
-/* 283 */
+/* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "74ca9c4a2abd45c94c32b96fd06c2dfe.jpg";
 
 /***/ },
-/* 284 */
+/* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(285);
+	var content = __webpack_require__(286);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(203)(content, {});
@@ -35859,7 +35980,7 @@
 	}
 
 /***/ },
-/* 285 */
+/* 286 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(202)();
@@ -35873,7 +35994,7 @@
 
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports) {
 
 	'use strict';
