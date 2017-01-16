@@ -11,16 +11,23 @@ $(function() {
 	        	message:message
 	        }
         }
-        var submit = $(this).find(":submit").attr('value','SENT');
-        setTimeout(function() { $(submit).attr('value','SEND') }, 10000);
+        textchange();
+        var submit = $(this).find(":submit").attr('value','SENDING...');
         $.ajax({
 			    type: 'POST',
 			    url: 'https://hidden-oasis-33636.herokuapp.com/api/v1/contacts',
 			    data: formdata,
 			    success: function(){
-			      console.log("Email sent");
+			      textchange();
 			    }
 			})
+        function textchange(){
+            setTimeout(function() { 
+                $(submit).attr('value','SENT');
+                $(submit).css({ background: "#ee5050",color:"#fff"}); 
+                $("#target")[0].reset();
+            }, 5000);
+        }
     });
 });
 
