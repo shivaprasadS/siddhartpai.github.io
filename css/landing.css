@@ -1,0 +1,610 @@
+@font-face {
+  font-family: "GothamRounded-Book";
+  src: url("../Fonts/GothamRoundedBold/fonts/GothamRoundedBook.eot");
+  /* IE9 Compat Modes */
+  src: url("../Fonts/GothamRoundedBold/fonts/GothamRoundedBook.eot?#iefix") format("embedded-opentype"), url("../Fonts/GothamRoundedBold/fonts/GothamRoundedBook.otf") format("opentype"), url("../Fonts/GothamRoundedBold/fonts/GothamRoundedBook.svg") format("svg"), url("../Fonts/GothamRoundedBold/fonts/GothamRoundedBook.ttf") format("truetype"), url("../Fonts/GothamRoundedBold/fonts/GothamRoundedBook.woff") format("woff"), url("../Fonts/GothamRoundedBold/fonts/GothamRoundedBook.woff2") format("woff2");
+  /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: "GothamRounded-Bold";
+  src: url("../Fonts/GothamBook/GothamRoundedBold.eot");
+  /* IE9 Compat Modes */
+  src: url("../Fonts/GothamBook/GothamRoundedBold.eot?#iefix") format("embedded-opentype"), url("../Fonts/GothamBook/GothamRoundedBold.otf") format("opentype"), url("../Fonts/GothamBook/GothamRoundedBold.svg") format("svg"), url("../Fonts/GothamBook/GothamRoundedBold.ttf") format("truetype"), url("../Fonts/GothamBook/GothamRoundedBold.woff") format("woff"), url("../Fonts/GothamBook/GothamRoundedBold.woff2") format("woff2");
+  /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal; }
+body {
+  overflow-x: hidden; }
+
+.nav-scapic {
+  background-color: #ee5e5f;
+  border-bottom: none;
+  padding-top: 16px;
+  padding-bottom: 10px; }
+  .nav-scapic .navbar-collapse {
+    background-color: #ee5e5f;
+    box-shadow: none; }
+  .nav-scapic .navbar-toggle .icon-bar {
+    background: #fff; }
+  .nav-scapic .navbar-toggle:hover {
+    background: transparent !important; }
+  .nav-scapic .navbar-toggle .icon-bar {
+    width: 22px;
+    transition: all 0.2s; }
+  .nav-scapic .navbar-toggle .top-bar {
+    transform: rotate(45deg);
+    transform-origin: 10% 10%; }
+  .nav-scapic .navbar-toggle .middle-bar {
+    opacity: 0; }
+  .nav-scapic .navbar-toggle .bottom-bar {
+    transform: rotate(-45deg);
+    transform-origin: 10% 90%; }
+  .nav-scapic .navbar-toggle.collapsed .top-bar {
+    transform: rotate(0); }
+  .nav-scapic .navbar-toggle.collapsed .middle-bar {
+    opacity: 1; }
+  .nav-scapic .navbar-toggle.collapsed .bottom-bar {
+    transform: rotate(0); }
+  .nav-scapic .navbar-brand {
+    font-family: "GothamRounded-Bold";
+    font-size: 40px;
+    color: #fff; }
+  .nav-scapic .nav-content li a {
+    font-family: "GothamRounded-Bold";
+    padding-bottom: 0;
+    padding-top: 0;
+    font-size: 21px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    text-align: right;
+    color: #ffffff;
+    letter-spacing: 1.2px; }
+    .nav-scapic .nav-content li a span {
+      display: block;
+      font-family: "GothamRounded-Book";
+      font-size: 14px; }
+      @media only screen and (max-width: 768px) {
+        .nav-scapic .nav-content li a span {
+          display: inline-block; } }
+    .nav-scapic .nav-content li a:hover, .nav-scapic .nav-content li a:focus {
+      background-color: transparent; }
+    @media only screen and (max-width: 768px) {
+      .nav-scapic .nav-content li a {
+        text-align: left;
+        margin-top: 5px;
+        margin-bottom: 5px; } }
+
+.main-container {
+  padding-top: 161px;
+  background-color: #ee5e5f;
+  color: #fff;
+  text-align: center; }
+  .main-container h1 {
+    font-family: "GothamRounded-Bold";
+    font-size: 54px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    text-align: center;
+    position: relative;
+    z-index: 1; }
+  .main-container h4 {
+    font-family: "GothamRounded-Book";
+    font-size: 42px;
+    font-weight: normal;
+    line-height: 1.39;
+    padding-bottom: 93px;
+    position: relative;
+    z-index: 1; }
+  .main-container .main-image {
+    padding-left: 0;
+    padding-right: 0; }
+    .main-container .main-image img {
+      width: 100%;
+      margin-bottom: -4px; }
+      @media only screen and (max-width: 768px) {
+        .main-container .main-image img {
+          width: 100%;
+          margin-bottom: -4px; } }
+
+.parallax {
+  position: fixed; }
+
+.skyline {
+  top: 240px;
+  margin-top: 27rem;
+  left: 0%;
+  width: 9%; }
+  @media only screen and (max-width: 480px) {
+    .skyline {
+      width: 25%; } }
+
+.blimp {
+  bottom: 0;
+  /* margin-top: -55rem; */
+  left: 24%;
+  width: 20%; }
+  @media only screen and (max-width: 480px) {
+    .blimp {
+      width: 30%;
+      margin-bottom: 117px;
+      left: 28%; } }
+
+.gherkin {
+  top: -50px;
+  left: 40%;
+  z-index: 10;
+  width: 14%;
+  margin-top: -70px;
+  position: absolute;
+  z-index: 1051; }
+  @media only screen and (max-width: 768px) {
+    .gherkin {
+      top: 0;
+      margin-top: 0;
+      width: 30%;
+      left: 20%; } }
+  @media only screen and (max-width: 480px) {
+    .gherkin {
+      left: 50%; } }
+
+.bull {
+  top: 360px;
+  left: 56%; }
+
+.dino {
+  top: 109px;
+  left: 91%;
+  width: 12%; }
+  @media only screen and (max-width: 480px) {
+    .dino {
+      width: 25%; } }
+
+/**
+ * Demo aesthetics
+ */
+@-webkit-keyframes silde_to_top {
+  0% {
+    top: 100%;
+    opacity: 0; }
+  10% {
+    opacity: 0.1; }
+  20% {
+    opacity: 0.2; }
+  30% {
+    opacity: 0.3; }
+  40% {
+    opacity: 0.4; }
+  50% {
+    opacity: 0.5; }
+  60% {
+    opacity: 0.6; }
+  100% {
+    top: 0%;
+    opacity: 1; } }
+@-webkit-keyframes silde_to_left {
+  0% {
+    top: 50%;
+    opacity: 0; }
+  10% {
+    opacity: 0.1; }
+  20% {
+    opacity: 0.2; }
+  30% {
+    opacity: 0.3; }
+  40% {
+    opacity: 0.4; }
+  50% {
+    opacity: 0.5; }
+  60% {
+    opacity: 0.6; }
+  100% {
+    top: 0%;
+    opacity: 1; } }
+@-webkit-keyframes silde_to_bottom {
+  0% {
+    bottom: 100%;
+    opacity: 0; }
+  10% {
+    opacity: 0.1; }
+  20% {
+    opacity: 0.2; }
+  30% {
+    opacity: 0.3; }
+  40% {
+    opacity: 0.4; }
+  50% {
+    opacity: 0.5; }
+  60% {
+    opacity: 0.6; }
+  100% {
+    bottom: 20px;
+    opacity: 1; } }
+.test2 {
+  -webkit-animation-name: silde_to_bottom;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-direction: normal;
+  -webkit-animation-delay: 0;
+  -webkit-animation-play-state: running;
+  -webkit-animation-fill-mode: forwards; }
+
+.test3 {
+  -webkit-animation-name: silde_to_left;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-direction: normal;
+  -webkit-animation-delay: 0;
+  -webkit-animation-play-state: running;
+  -webkit-animation-fill-mode: forwards; }
+
+.test {
+  -webkit-animation-name: silde_to_top;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: ease;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-direction: normal;
+  -webkit-animation-delay: 0;
+  -webkit-animation-play-state: running;
+  -webkit-animation-fill-mode: forwards; }
+
+.become-container, .everwhere-container {
+  padding-top: 90px;
+  background-color: #fff;
+  background-color: #fff;
+  z-index: 20;
+  position: relative;
+  padding-bottom: 40px; }
+  .become-container .img-container, .everwhere-container .img-container {
+    padding-left: 0; }
+    @media only screen and (max-width: 768px) {
+      .become-container .img-container, .everwhere-container .img-container {
+        padding-left: 15px; } }
+    .become-container .img-container .img-relative, .everwhere-container .img-container .img-relative {
+      width: 40%;
+      margin: auto;
+      position: relative;
+      bottom: 0; }
+    .become-container .img-container img, .everwhere-container .img-container img {
+      position: relative;
+      bottom: -82px; }
+      @media only screen and (max-width: 768px) {
+        .become-container .img-container img, .everwhere-container .img-container img {
+          bottom: 0; } }
+    .become-container .img-container ul li .meet, .everwhere-container .img-container ul li .meet {
+      font-family: "GothamRounded-Book";
+      font-size: 18px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.56;
+      letter-spacing: normal;
+      text-align: left;
+      color: #ee5e5f;
+      margin-bottom: 0px; }
+    .become-container .img-container ul li .header, .everwhere-container .img-container ul li .header {
+      font-family: "GothamRounded-Bold";
+      font-size: 40px;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.14;
+      letter-spacing: normal;
+      color: #ee5e5f;
+      margin-bottom: 20px; }
+  .become-container .text-container h2, .everwhere-container .text-container h2 {
+    font-family: "GothamRounded-Bold";
+    font-size: 40px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    color: #ee5e5f;
+    margin-bottom: 20px; }
+  .become-container .text-container p, .everwhere-container .text-container p {
+    font-family: "GothamRounded-Book";
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.56;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ee5e5f;
+    margin-bottom: 24px;
+    width: 350px; }
+    @media only screen and (max-width: 768px) {
+      .become-container .text-container p, .everwhere-container .text-container p {
+        width: 100%; } }
+  .become-container .text-container ul, .everwhere-container .text-container ul {
+    padding-top: 30px;
+    list-style: none;
+    padding-left: 0;
+    font-family: "GothamRounded-Bold";
+    font-size: 20.5px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    color: #ee5e5f; }
+    .become-container .text-container ul li, .everwhere-container .text-container ul li {
+      margin-bottom: 10px; }
+
+.creation-container {
+  padding-top: 80px;
+  padding-bottom: 80px;
+  color: #fff;
+  background-image: linear-gradient(315deg, #774d9f, #ee5e5f);
+  position: relative;
+  z-index: 20;
+  text-align: center; }
+  .creation-container .main-image {
+    width: 50px;
+    margin: auto; }
+  .creation-container h2 {
+    font-family: "GothamRounded-Bold";
+    font-size: 50px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 50px; }
+  .creation-container .box-left, .creation-container .box-right {
+    text-align: left; }
+    @media only screen and (max-width: 768px) {
+      .creation-container .box-left, .creation-container .box-right {
+        text-align: center; } }
+    .creation-container .box-left img, .creation-container .box-right img {
+      width: 30px; }
+    .creation-container .box-left h4, .creation-container .box-right h4 {
+      font-family: "GothamRounded-Bold";
+      font-size: 20px;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.14;
+      letter-spacing: normal;
+      color: #ffffff;
+      margin-bottom: 3px; }
+    .creation-container .box-left p, .creation-container .box-right p {
+      font-family: "GothamRounded-Book";
+      font-size: 16px;
+      font-weight: normal;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.4;
+      letter-spacing: normal;
+      color: #ffffff;
+      margin-bottom: 30px; }
+  .creation-container .box-right {
+    text-align: right; }
+    @media only screen and (max-width: 768px) {
+      .creation-container .box-right {
+        text-align: center; } }
+  .creation-container .box-center img {
+    width: 50%; }
+    @media only screen and (max-width: 768px) {
+      .creation-container .box-center img {
+        margin-bottom: 80px; } }
+
+.everwhere-container {
+  padding-bottom: 20px; }
+  .everwhere-container h2 {
+    margin-top: 0; }
+  .everwhere-container p {
+    width: 90% !important; }
+    @media only screen and (max-width: 768px) {
+      .everwhere-container p {
+        text-align: center;
+        width: 100% !important; } }
+  @media only screen and (max-width: 768px) {
+    .everwhere-container {
+      text-align: center; } }
+  .everwhere-container .img-container img {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: 20px; }
+  .everwhere-container .img-container h2 {
+    font-family: "GothamRounded-Bold";
+    font-size: 24px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    color: #ee5e5f; }
+  @media only screen and (max-width: 768px) {
+    .everwhere-container .img-container .text-right {
+      text-align: center; } }
+
+.update-email {
+  background-color: #ee5e5f;
+  background-size: cover;
+  padding-top: 195px;
+  padding-bottom: 150px; }
+  @media only screen and (max-width: 768px) {
+    .update-email {
+      margin-bottom: 40px; } }
+  .update-email h2 {
+    z-index: 20;
+    font-family: "GothamRounded-Bold";
+    font-size: 48px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    color: #fff;
+    margin-bottom: 0; }
+    .update-email h2 span {
+      margin-right: 10px; }
+  .update-email p {
+    font-family: "GothamRounded-Book";
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.4;
+    letter-spacing: normal;
+    color: #ffffff;
+    margin-bottom: 30px;
+    padding-left: 60px; }
+  .update-email input {
+    width: 100%;
+    border: none;
+    border-bottom: solid 2px #ffffff;
+    height: 50px;
+    background-color: transparent; }
+    .update-email input:focus {
+      outline: none; }
+    @media only screen and (max-width: 768px) {
+      .update-email input {
+        margin-bottom: 40px; } }
+  .update-email ::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    font-family: "GothamRounded-Bold";
+    font-size: 16px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    color: rgba(232, 230, 230, 0.28); }
+  .update-email ::-moz-placeholder {
+    /* Firefox 19+ */
+    font-family: "GothamRounded-Bold";
+    font-size: 16px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    color: rgba(232, 230, 230, 0.28); }
+  .update-email :-ms-input-placeholder {
+    /* IE 10+ */
+    font-family: "GothamRounded-Bold";
+    font-size: 16px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    color: rgba(232, 230, 230, 0.28); }
+  .update-email :-moz-placeholder {
+    /* Firefox 18- */
+    font-family: "GothamRounded-Bold";
+    font-size: 16px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    color: rgba(232, 230, 230, 0.28); }
+  .update-email .button-container a {
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 12px;
+    font-size: 18px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    text-align: center;
+    color: #211442;
+    font-family: "GothamRounded-Bold";
+    display: block;
+    background-color: #fff;
+    border-radius: 53px; }
+
+.conatct-container {
+  position: relative;
+  background-color: #fff;
+  position: relative;
+  text-align: center;
+  padding-top: 113px; }
+  .conatct-container h2 {
+    z-index: 20;
+    font-family: "GothamRounded-Bold";
+    font-size: 48px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    color: #ee5e5f;
+    margin-bottom: 0; }
+    .conatct-container h2 span {
+      margin-right: 10px; }
+  .conatct-container p {
+    font-family: "GothamRounded-Book";
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.4;
+    letter-spacing: normal;
+    color: #ee5e5f;
+    margin-bottom: 30px; }
+  .conatct-container input {
+    border: none;
+    border-bottom: solid 2px #d5555b;
+    height: 50px;
+    background-color: transparent;
+    width: 100%;
+    margin-bottom: 60px; }
+    .conatct-container input:focus {
+      outline: none; }
+  .conatct-container ::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    font-family: "GothamRounded-Bold";
+    font-size: 16px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    color: rgba(238, 94, 95, 0.5); }
+  .conatct-container ::-moz-placeholder {
+    /* Firefox 19+ */
+    font-family: "GothamRounded-Bold";
+    font-size: 16px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    color: rgba(238, 94, 95, 0.5); }
+  .conatct-container :-ms-input-placeholder {
+    /* IE 10+ */
+    font-family: "GothamRounded-Bold";
+    font-size: 16px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    color: rgba(238, 94, 95, 0.5); }
+  .conatct-container :-moz-placeholder {
+    /* Firefox 18- */
+    font-family: "GothamRounded-Bold";
+    font-size: 16px;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.14;
+    letter-spacing: normal;
+    color: rgba(238, 94, 95, 0.5); }
+  .conatct-container .button-container {
+    text-align: center; }
+    .conatct-container .button-container a {
+      width: 180px;
+      padding-top: 15px;
+      padding-bottom: 12px;
+      font-size: 18px;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.14;
+      letter-spacing: normal;
+      text-align: center;
+      color: #fff;
+      font-family: "GothamRounded-Bold";
+      background-color: #ee5e5f;
+      border-radius: 53px; }
+
+/*# sourceMappingURL=landing.css.map */

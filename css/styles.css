@@ -1,0 +1,43 @@
+.navheader{
+	background-color : #c9170b;
+}
+
+.navheaderlefttext{
+	color: #FFFFFF;
+}
+
+.imgscapediv1,.imghomescreendiv2{
+	width: 75px;
+	height: 75px;
+}
+
+.imghomescreendiv1{
+	width: 450px;
+	height: 250px;
+}
+
+.imghomescreendiv2{
+	
+}
+
+.imgcloud1,.imgCollabaration1,.imgdots1,.imgWorkEveruwhere1{
+	width: 35px;
+	height: 35px;
+	background-color: red;
+}
+
+.imgAllimages{
+	width: 150px;
+	height: 250px;
+	background-color: red;
+}
+
+.shapes{
+	width: 100px;
+	height: 100px;
+	background-color: blue;
+}
+
+.NotifyScapicLogo{
+	
+}
