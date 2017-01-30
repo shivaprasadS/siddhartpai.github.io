@@ -87,7 +87,7 @@
 
 	var _SpectoToolBar2 = _interopRequireDefault(_SpectoToolBar);
 
-	var _experiences = __webpack_require__(265);
+	var _experiences = __webpack_require__(266);
 
 	var _experiences2 = _interopRequireDefault(_experiences);
 
@@ -107,7 +107,6 @@
 
 	__webpack_require__(287);
 	var INSPECTOR = __webpack_require__(204);
-
 	var Events = __webpack_require__(186);
 
 	// Megahack to include font-awesome.
@@ -158,6 +157,7 @@
 	        { type: 'button', id: 'inspectorEye', className: 'btn', onClick: _this.toggleEdit },
 	        _react2.default.createElement('img', { src: '../../assets/img/viewer.png', alt: '' })
 	      );
+
 	      if (_this.state.startExperience) {
 	        return _react2.default.createElement(
 	          'div',
@@ -184,7 +184,7 @@
 	      entity: null,
 	      isModalTexturesOpen: false,
 	      startExperience: false,
-	      experience: null
+	      experience: 0
 	    };
 	    return _this;
 	  }
@@ -226,7 +226,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -275,7 +274,7 @@
 	  });
 	  AFRAME.INSPECTOR = INSPECTOR;
 
-	  console.log('A-Frame Inspector Version:', ("0.4.2"), '(' + ("13-01-2017") + ' Commit: ' + ("f4011454ca302a2e4424f94da38ede66c1616dd9\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', ("0.4.2"), '(' + ("30-01-2017") + ' Commit: ' + ("caed1b31ae7d452d52776a0ecab684e95d47c0e2\n").substr(0, 7) + ')');
 	})();
 
 /***/ },
@@ -31676,6 +31675,10 @@
 
 	var _spectoAPI = __webpack_require__(248);
 
+	var _ExperienceHeader = __webpack_require__(265);
+
+	var _ExperienceHeader2 = _interopRequireDefault(_ExperienceHeader);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31773,16 +31776,19 @@
 	        optionHistory: this.state.optionHistory });
 	    };
 
+	    _this2.experienceChange = function (newExperience) {
+	      _this2.setState({ experience: newExperience });
+	    };
+
 	    _this2.state = {
 	      option: 'canvas',
 	      selectedTool: null,
 	      inspectorEnabled: true,
 	      optionHistory: [],
-	      experience: props.experience,
+	      experience: props.experience.name ? props.experience : { name: '', scenes: [] },
 	      currentScene: '',
 	      preloadedImages: []
 	    };
-	    _this2.state.experience.scenes = [];
 	    return _this2;
 	  }
 
@@ -31808,6 +31814,7 @@
 	      return React.createElement(
 	        'div',
 	        null,
+	        React.createElement(_ExperienceHeader2.default, { experience: this.state.experience, callback: this.experienceChange.bind(this) }),
 	        this.renderTool(),
 	        React.createElement(
 	          'footer',
@@ -31924,7 +31931,6 @@
 	var Events = __webpack_require__(186);
 	var classNames = __webpack_require__(190);
 
-
 	var Tools = (_Tools = {
 		"canvas": {
 			name: 'Canvas'
@@ -32029,46 +32035,50 @@
 				if (this.props.option !== undefined) {
 					return React.createElement(
 						'div',
-						{ id: 'ToolOptions', className: 'container-fluid text-center' },
+						null,
 						React.createElement(
 							'div',
-							{ className: 'row search' },
+							{ id: 'ToolOptions', className: 'container-fluid text-center' },
 							React.createElement(
 								'div',
-								{ className: 'col-xs-12 col-sm-4 col-md-4 text-left' },
-								React.createElement(
-									'span',
-									null,
-									this.renderHistory()
-								)
-							),
-							React.createElement(
-								'div',
-								{ className: 'col-xs-8 col-sm-5 col-md-4' },
+								{ className: 'row search' },
 								React.createElement(
 									'div',
-									{ className: 'search-input' },
-									React.createElement('span', { className: 'glyphicon glyphicon-search' }),
-									React.createElement('input', { type: 'text', name: 'search', placeholder: 'Search..' })
+									{ className: 'col-xs-12 col-sm-4 col-md-4 text-left' },
+									React.createElement(
+										'span',
+										null,
+										this.renderHistory()
+									)
+								),
+								React.createElement(
+									'div',
+									{ className: 'col-xs-8 col-sm-5 col-md-4' },
+									React.createElement(
+										'div',
+										{ className: 'search-input' },
+										React.createElement('span', { className: 'glyphicon glyphicon-search' }),
+										React.createElement('input', { type: 'text', name: 'search', placeholder: 'Search..' })
+									)
+								),
+								React.createElement(
+									'div',
+									{ className: 'col-xs-4 col-sm-3 col-md-4 text-right' },
+									React.createElement(
+										'span',
+										{ className: 'upload' },
+										'UPLOAD'
+									),
+									React.createElement('span', { className: 'glyphicon glyphicon-remove', onClick: function onClick() {
+											_this2.closeButtonClicked();
+										} })
 								)
 							),
 							React.createElement(
 								'div',
-								{ className: 'col-xs-4 col-sm-3 col-md-4 text-right' },
-								React.createElement(
-									'span',
-									{ className: 'upload' },
-									'UPLOAD'
-								),
-								React.createElement('span', { className: 'glyphicon glyphicon-remove', onClick: function onClick() {
-										_this2.closeButtonClicked();
-									} })
+								{ className: 'renderedTool' },
+								this.renderTool()
 							)
-						),
-						React.createElement(
-							'div',
-							{ className: 'renderedTool' },
-							this.renderTool()
 						)
 					);
 				} else {
@@ -32128,16 +32138,18 @@
 
 			_this.renderSceneButtons = function () {
 				var scenes = [];
-				for (var i = 0; i < this.props.experience.scenes.length; ++i) {
-					scenes.push(this.renderSceneButton(this.props.experience.scenes[i]));
+				if (this.props.experience.id !== -1) {
+					for (var i = 0; i < this.props.experience.scenes.length; ++i) {
+						scenes.push(this.renderSceneButton(this.props.experience.scenes[i]));
+					}
 				}
 				return scenes;
 			};
 
 			_this.state = {
 				selectedOption: "",
-				scenes: _this.props.experience.scenes,
-				currentScene: _this.props.currentScene
+				experience: props.experience,
+				currentScene: props.currentScene
 			};
 			return _this;
 		}
@@ -34433,6 +34445,10 @@
 				Events.emit('changeToolOptions', 'RealitySelector');
 			};
 
+			_this.showVROptions = function () {
+				Events.emit('changeToolOptions', 'SelectBackground');
+			};
+
 			_this.setSceneAsCurrent = function () {
 				Events.emit('currentScene', _this.state.scene);
 			};
@@ -34443,7 +34459,8 @@
 				if (_this.checkIfSceneIsInitialized()) {
 					(0, _SpectoAframeLib.loadScene)(_this.state.scene.html_content);
 				} else {
-					_this.loadRealitySelector();
+					//this.loadRealitySelector();
+					_this.showVROptions();
 				}
 				console.log(_this.state.scene);
 			};
@@ -34454,7 +34471,7 @@
 
 			_this.renderImage = function () {
 				if (_this.state.isSkySet) {
-					return React.createElement('img', { src: _this.state.backgroundImage, onError: _this.handleError.bind(_this) });
+					return React.createElement('img', { src: _this.state.backgroundImage, onError: _this.handleError.bind(_this), crossorigin: 'anonymous' });
 				} else {
 					return React.createElement('img', { src: '../assets/img/name-scene.png' });
 				}
@@ -35317,16 +35334,179 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _CreateScapeButton = __webpack_require__(266);
+	var _spectoAPI = __webpack_require__(248);
 
-	var _CreateScapeButton2 = _interopRequireDefault(_CreateScapeButton);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var React = __webpack_require__(2);
+	var classNames = __webpack_require__(190);
+
+	var ExperienceHeader = function (_React$Component) {
+	    _inherits(ExperienceHeader, _React$Component);
+
+	    function ExperienceHeader(props) {
+	        _classCallCheck(this, ExperienceHeader);
+
+	        var _this2 = _possibleConstructorReturn(this, (ExperienceHeader.__proto__ || Object.getPrototypeOf(ExperienceHeader)).call(this, props));
+
+	        _this2.experienceCreated = function (newExperience) {
+	            (0, _spectoAPI.getExperience)(newExperience.id, _this2.callback.bind(_this2));
+	        };
+
+	        _this2.keyup = function (event) {
+	            var _this = _this2;
+	            if (event.key === 'Enter' && !event.shiftKey) {
+	                var experienceName = $('.experience-name').val().trim();
+	                if (experienceName !== '') {
+	                    var newExperience = {
+	                        id: _this2.props.experience.id,
+	                        name: experienceName,
+	                        scenes: _this2.props.experience.scenes
+	                    };
+	                    _this2.setState({ experience: newExperience });
+	                    if (!_this2.state.experienceRename) {
+	                        (0, _spectoAPI.createExperience)({ experience: { name: experienceName } }, _this2.experienceCreated.bind(_this2));
+	                    } else {
+	                        // TODO Implement API
+	                        console.log("Experience Updated");
+	                        _this2.setState({ experienceRename: false });
+	                        _this2.callback(newExperience);
+	                    }
+	                    _this2.inputOutofFocus();
+	                } else {
+	                    _this2.shakeTurnRed();
+	                }
+	            }
+	        };
+
+	        _this2.nameClicked = function () {
+	            _this2.setState({ experienceRename: true });
+	            _this2.inputFocus();
+	        };
+
+	        _this2.inputFocus = function () {
+	            $('.experience-name-wrapper').css('z-index', 10002);
+	            $('footer').fadeOut(300);
+	            $('#ToolOptions').animate({
+	                top: "+=350"
+	            }, 300);
+	            $('#overlay').fadeIn(300);
+	        };
+
+	        _this2.inputOutofFocus = function () {
+	            $('#overlay').fadeOut(300);
+	            $('#ToolOptions').animate({
+	                top: "-=350"
+	            }, 300);
+	            $('footer').fadeIn(300);
+	            $('.experience-name-wrapper').css('z-index', 5);
+	        };
+
+	        _this2.shakeTurnRed = function () {
+	            $('.experience-name').css('border-bottom', '1px solid #f00');
+	            $('.experience-name').css('color', '#f00');
+	            $('.experience-name-wrapper').css('position', 'relative');
+	            for (var iter = 0; iter < 5; iter++) {
+	                $('.experience-name-wrapper').animate({
+	                    left: iter % 2 == 0 ? 10 : -10
+	                }, 100);
+	            }
+	            $('.experience-name-wrapper').animate({ left: 0 }, 100);
+	        };
+
+	        _this2.checkIfNameSet = function () {
+	            if (_this2.state.experience.name === '') {
+	                _this2.shakeTurnRed();
+	            } else {
+	                _this2.inputOutofFocus();
+	                _this2.setState({ experienceRename: false });
+	            }
+	        };
+
+	        _this2.renderExperienceName = function () {
+	            if (_this2.state.experience.name === '') {
+	                return React.createElement(
+	                    'div',
+	                    { className: 'experience-name-wrapper' },
+	                    React.createElement('input', { className: 'experience-name', autoFocus: true, placeholder: 'Name Your Scape', onKeyUp: _this2.keyup.bind(_this2) })
+	                );
+	            } else if (!_this2.state.experienceRename) {
+	                return React.createElement(
+	                    'div',
+	                    { className: 'experience-name-wrapper', onClick: function onClick() {
+	                            _this2.nameClicked();
+	                        } },
+	                    _this2.state.experience.name
+	                );
+	            } else {
+	                return React.createElement(
+	                    'div',
+	                    { className: 'experience-name-wrapper' },
+	                    React.createElement('input', { className: 'experience-name', autoFocus: true, defaultValue: _this2.state.experience.name, onKeyUp: _this2.keyup.bind(_this2) })
+	                );
+	            }
+	        };
+
+	        _this2.state = {
+	            experience: props.experience,
+	            experienceRename: false
+	        };
+	        _this2.callback = _this2.props.callback;
+	        return _this2;
+	    }
+
+	    _createClass(ExperienceHeader, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            if (this.state.experience.name === '') {
+	                this.inputFocus();
+	            }
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this3 = this;
+
+	            return React.createElement(
+	                'div',
+	                { className: 'container-fluid experience-header' },
+	                React.createElement('div', { className: 'logo' }),
+	                React.createElement('div', { className: 'header-tools' }),
+	                this.renderExperienceName(),
+	                React.createElement('div', { id: 'overlay', onClick: function onClick() {
+	                        _this3.checkIfNameSet();
+	                    } })
+	            );
+	        }
+	    }]);
+
+	    return ExperienceHeader;
+	}(React.Component);
+
+	exports.default = ExperienceHeader;
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _spectoAPI = __webpack_require__(248);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -35339,455 +35519,228 @@
 	var classNames = __webpack_require__(190);
 
 	var Experience = function (_React$Component) {
-	  _inherits(Experience, _React$Component);
+	    _inherits(Experience, _React$Component);
 
-	  function Experience(props) {
-	    _classCallCheck(this, Experience);
+	    function Experience(props) {
+	        _classCallCheck(this, Experience);
 
-	    var _this = _possibleConstructorReturn(this, (Experience.__proto__ || Object.getPrototypeOf(Experience)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (Experience.__proto__ || Object.getPrototypeOf(Experience)).call(this, props));
 
-	    _this.callback = _this.props.callback;
-	    return _this;
-	  }
+	        _this.loadExperience = function (experience) {
+	            (0, _spectoAPI.getExperience)(experience.id, _this.callback.bind(_this));
+	        };
 
-	  _createClass(Experience, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      $('.a-canvas').hide();
+	        _this.renderExperience = function (experience) {
+	            return React.createElement(
+	                'div',
+	                { className: 'col-xs-6 col-sm-3 col-md-2', id: 'experience', onClick: function onClick() {
+	                        _this.loadExperience(experience);
+	                    } },
+	                React.createElement(
+	                    'div',
+	                    { className: 'himalay static-bg' },
+	                    React.createElement(
+	                        'div',
+	                        { className: 'edit-pic text-right' },
+	                        React.createElement('img', { src: '../../assets/img/duplicate-scene-retina.png' }),
+	                        React.createElement('img', { src: '../../assets/img/delete-scene.png' })
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'pic-info' },
+	                        React.createElement(
+	                            'p',
+	                            { className: 'pic-heading' },
+	                            React.createElement(
+	                                'strong',
+	                                null,
+	                                experience['name']
+	                            )
+	                        ),
+	                        React.createElement(
+	                            'p',
+	                            { className: 'pic-detail' },
+	                            'opened Dec28th 2016'
+	                        )
+	                    )
+	                )
+	            );
+	        };
+
+	        _this.renderExperiences = function () {
+	            var exp = [];
+	            for (var i = 0; i < _this.state.experiences.length; ++i) {
+	                exp.push(_this.renderExperience(_this.state.experiences[i]));
+	            }
+	            return exp;
+	        };
+
+	        _this.setExperiences = function (experiencesSet) {
+	            _this.setState({ experiences: experiencesSet });
+	        };
+
+	        _this.state = {
+	            experiences: []
+	        };
+	        _this.callback = _this.props.callback;
+	        (0, _spectoAPI.getExperiences)(_this.setExperiences.bind(_this));
+	        return _this;
 	    }
-	  }, {
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      $('.a-canvas').show();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return React.createElement(
-	        'div',
-	        { className: 'container-fluid text-center mainPage' },
-	        React.createElement(
-	          'div',
-	          { className: 'row scene-create' },
-	          React.createElement(_CreateScapeButton2.default, { callback: this.props.callback }),
-	          React.createElement(
-	            'div',
-	            { className: 'col-xs-6 col-sm-6 col-md-4' },
-	            React.createElement(
-	              'div',
-	              { className: 'startingoff card-image text-left' },
-	              React.createElement(
-	                'h6',
-	                null,
-	                'LEARN'
-	              ),
-	              React.createElement(
-	                'h5',
-	                null,
-	                'Starting off with Scapic'
-	              )
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'col-xs-6 col-sm-4 col-md-2' },
-	            React.createElement(
-	              'div',
-	              { className: 'animate card-image text-left' },
-	              React.createElement(
-	                'h6',
-	                null,
-	                'FEATURE'
-	              ),
-	              React.createElement(
-	                'h5',
-	                null,
-	                'Camera journey',
-	                React.createElement('br', null),
-	                'support added'
-	              )
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'col-xs-6 col-sm-4 col-md-2' },
-	            React.createElement(
-	              'div',
-	              { className: 'objects card-image text-left' },
-	              React.createElement(
-	                'h6',
-	                null,
-	                'FEATURE'
-	              ),
-	              React.createElement(
-	                'h5',
-	                null,
-	                'New Objects',
-	                React.createElement('br', null),
-	                'add to library'
-	              )
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'col-xs-6 col-sm-4 col-md-2' },
-	            React.createElement(
-	              'div',
-	              { className: 'animate-card card-image text-left' },
-	              React.createElement(
-	                'h6',
-	                null,
-	                'FEATURE'
-	              ),
-	              React.createElement(
-	                'h5',
-	                null,
-	                'Animate multiple',
-	                React.createElement('br', null),
-	                'objects as a set'
-	              )
-	            )
-	          )
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'row scene-create' },
-	          React.createElement('div', { className: 'hidden-xs col-sm-3' }),
-	          React.createElement(
-	            'div',
-	            { className: 'col-xs-4 col-sm-2 save-btn' },
-	            React.createElement(
-	              'strong',
-	              null,
-	              'SAVED SCAPES'
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'col-xs-4 col-sm-2 middle-text' },
-	            'COMMUNITY SCAPES'
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'col-xs-4 col-sm-2 middle-text' },
-	            'UPLOAD SCAPES'
-	          )
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'row scene-create' },
-	          React.createElement(
-	            'div',
-	            { className: 'col-xs-6 col-sm-3 col-md-2' },
-	            React.createElement(
-	              'div',
-	              { className: 'himalay static-bg' },
-	              React.createElement(
-	                'div',
-	                { className: 'edit-pic text-right' },
-	                React.createElement('img', { src: '../../assets/img/duplicate-scene-retina.png' }),
-	                React.createElement('img', { src: '../../assets/img/delete-scene.png' })
-	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'pic-info' },
-	                React.createElement(
-	                  'p',
-	                  { className: 'pic-heading' },
-	                  React.createElement(
-	                    'strong',
-	                    null,
-	                    'Himalayas Experience'
-	                  )
-	                ),
-	                React.createElement(
-	                  'p',
-	                  { className: 'pic-detail' },
-	                  'opened Dec28th 2016'
-	                )
-	              )
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'col-xs-6 col-sm-3 col-md-2' },
-	            React.createElement(
-	              'div',
-	              { className: 'water static-bg' },
-	              React.createElement(
-	                'div',
-	                { className: 'edit-pic text-right' },
-	                React.createElement('img', { src: '../../assets/img/duplicate-scene-retina.png' }),
-	                React.createElement('img', { src: '../../assets/img/delete-scene.png' })
-	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'pic-info' },
-	                React.createElement(
-	                  'p',
-	                  { className: 'pic-heading' },
-	                  React.createElement(
-	                    'strong',
-	                    null,
-	                    'Sall the Waters'
-	                  )
-	                ),
-	                React.createElement(
-	                  'p',
-	                  { className: 'pic-detail' },
-	                  'opened Dec25th 2016'
-	                )
-	              )
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'col-xs-6 col-sm-3 col-md-2' },
-	            React.createElement(
-	              'div',
-	              { className: 'eagle static-bg' },
-	              React.createElement(
-	                'div',
-	                { className: 'edit-pic text-right' },
-	                React.createElement('img', { src: '../../assets/img/duplicate-scene-retina.png' }),
-	                React.createElement('img', { src: '../../assets/img/delete-scene.png' })
-	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'pic-info' },
-	                React.createElement(
-	                  'p',
-	                  { className: 'pic-heading' },
-	                  React.createElement(
-	                    'strong',
-	                    null,
-	                    'Eagle Flight'
-	                  )
-	                ),
-	                React.createElement(
-	                  'p',
-	                  { className: 'pic-detail' },
-	                  'opened Nov4th 2016'
-	                )
-	              )
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'col-xs-6 col-sm-3 col-md-2' },
-	            React.createElement(
-	              'div',
-	              { className: 'musuem static-bg' },
-	              React.createElement(
-	                'div',
-	                { className: 'edit-pic text-right' },
-	                React.createElement('img', { src: '../../assets/img/duplicate-scene-retina.png' }),
-	                React.createElement('img', { src: '../../assets/img/delete-scene.png' })
-	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'pic-info' },
-	                React.createElement(
-	                  'p',
-	                  { className: 'pic-heading' },
-	                  React.createElement(
-	                    'strong',
-	                    null,
-	                    'A Visit to the Musuem'
-	                  )
-	                ),
-	                React.createElement(
-	                  'p',
-	                  { className: 'pic-detail' },
-	                  'opened Nov4th 2016'
-	                )
-	              )
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'col-xs-6 col-sm-3 col-md-2' },
-	            React.createElement(
-	              'div',
-	              { className: 'rainbow static-bg' },
-	              React.createElement(
-	                'div',
-	                { className: 'edit-pic text-right' },
-	                React.createElement('img', { src: '../../assets/img/duplicate-scene-retina.png' }),
-	                React.createElement('img', { src: '../../assets/img/delete-scene.png' })
-	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'pic-info' },
-	                React.createElement(
-	                  'p',
-	                  { className: 'pic-heading' },
-	                  React.createElement(
-	                    'strong',
-	                    null,
-	                    'Over the Rainbow'
-	                  )
-	                ),
-	                React.createElement(
-	                  'p',
-	                  { className: 'pic-detail' },
-	                  'opened Nov28th 2016'
-	                )
-	              )
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'col-xs-6 col-sm-3 col-md-2' },
-	            React.createElement(
-	              'div',
-	              { className: 'roller static-bg' },
-	              React.createElement(
-	                'div',
-	                { className: 'edit-pic text-right' },
-	                React.createElement('img', { src: '../../assets/img/duplicate-scene-retina.png' }),
-	                React.createElement('img', { src: '../../assets/img/delete-scene.png' })
-	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'pic-info' },
-	                React.createElement(
-	                  'p',
-	                  { className: 'pic-heading' },
-	                  React.createElement(
-	                    'strong',
-	                    null,
-	                    'The Roller Coaster'
-	                  )
-	                ),
-	                React.createElement(
-	                  'p',
-	                  { className: 'pic-detail' },
-	                  'opened Oct3rd 2016'
-	                )
-	              )
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
 
-	  return Experience;
+	    _createClass(Experience, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            $('.a-canvas').hide();
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {
+	            $('.a-canvas').show();
+	        }
+	        // TODO testing
+
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            return React.createElement(
+	                'div',
+	                { className: 'container-fluid text-center mainPage' },
+	                React.createElement(
+	                    'div',
+	                    { className: 'row scene-create' },
+	                    React.createElement(
+	                        'div',
+	                        { className: 'col-xs-6 col-sm-4 col-md-2 createScape', onClick: function onClick() {
+	                                _this2.callback({});
+	                            } },
+	                        React.createElement(
+	                            'div',
+	                            { className: 'fadeout-retina card-image' },
+	                            React.createElement(
+	                                'h3',
+	                                { className: 'pd-all' },
+	                                'Create New Scape'
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'col-xs-6 col-sm-6 col-md-4' },
+	                        React.createElement(
+	                            'div',
+	                            { className: 'startingoff card-image text-left' },
+	                            React.createElement(
+	                                'h6',
+	                                null,
+	                                'LEARN'
+	                            ),
+	                            React.createElement(
+	                                'h5',
+	                                null,
+	                                'Starting off with Scapic'
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'col-xs-6 col-sm-4 col-md-2' },
+	                        React.createElement(
+	                            'div',
+	                            { className: 'animate card-image text-left' },
+	                            React.createElement(
+	                                'h6',
+	                                null,
+	                                'FEATURE'
+	                            ),
+	                            React.createElement(
+	                                'h5',
+	                                null,
+	                                'Camera journey',
+	                                React.createElement('br', null),
+	                                'support added'
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'col-xs-6 col-sm-4 col-md-2' },
+	                        React.createElement(
+	                            'div',
+	                            { className: 'objects card-image text-left' },
+	                            React.createElement(
+	                                'h6',
+	                                null,
+	                                'FEATURE'
+	                            ),
+	                            React.createElement(
+	                                'h5',
+	                                null,
+	                                'New Objects',
+	                                React.createElement('br', null),
+	                                'add to library'
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'col-xs-6 col-sm-4 col-md-2' },
+	                        React.createElement(
+	                            'div',
+	                            { className: 'animate-card card-image text-left' },
+	                            React.createElement(
+	                                'h6',
+	                                null,
+	                                'FEATURE'
+	                            ),
+	                            React.createElement(
+	                                'h5',
+	                                null,
+	                                'Animate multiple',
+	                                React.createElement('br', null),
+	                                'objects as a set'
+	                            )
+	                        )
+	                    )
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'row scene-create' },
+	                    React.createElement('div', { className: 'hidden-xs col-sm-3' }),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'col-xs-4 col-sm-2 save-btn' },
+	                        React.createElement(
+	                            'strong',
+	                            null,
+	                            'SAVED SCAPES'
+	                        )
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'col-xs-4 col-sm-2 middle-text' },
+	                        'COMMUNITY SCAPES'
+	                    ),
+	                    React.createElement(
+	                        'div',
+	                        { className: 'col-xs-4 col-sm-2 middle-text' },
+	                        'UPLOAD SCAPES'
+	                    )
+	                ),
+	                React.createElement(
+	                    'div',
+	                    { className: 'row scene-create', id: 'experiences' },
+	                    this.renderExperiences()
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Experience;
 	}(React.Component);
 
 	exports.default = Experience;
-
-/***/ },
-/* 266 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _spectoAPI = __webpack_require__(248);
-
-	var _exporter = __webpack_require__(242);
-
-	var _SpectoAframeLib = __webpack_require__(256);
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var React = __webpack_require__(2);
-	var Events = __webpack_require__(186);
-	var classNames = __webpack_require__(190);
-
-
-	var STATES = ["initial", "namescene"];
-
-	var CreateScapeButton = function (_React$Component) {
-		_inherits(CreateScapeButton, _React$Component);
-
-		function CreateScapeButton(props) {
-			_classCallCheck(this, CreateScapeButton);
-
-			var _this2 = _possibleConstructorReturn(this, (CreateScapeButton.__proto__ || Object.getPrototypeOf(CreateScapeButton)).call(this, props));
-
-			_this2.incrementState = function (state) {
-				_this2.setState({ currentState: state });
-			};
-
-			_this2.experienceCreated = function (experience) {
-				_this2.props.callback(experience);
-			};
-
-			_this2.keyup = function (event) {
-				var _this = _this2;
-				if (event.key === 'Enter' && !event.shiftKey) {
-					var experienceName = $('.name-experience-input').val().trim();
-					(0, _spectoAPI.createExperience)({ experience: { name: experienceName } }, _this.experienceCreated);
-				}
-			};
-
-			_this2.state = {
-				currentState: _this2.props.state ? _this2.props.state : STATES[0],
-				callback: _this2.props.callback
-			};
-			return _this2;
-		}
-
-		_createClass(CreateScapeButton, [{
-			key: 'render',
-			value: function render() {
-				var _this3 = this;
-
-				if (this.state.currentState === STATES[0]) {
-					return React.createElement(
-						'div',
-						{ className: 'col-xs-6 col-sm-4 col-md-2 createScape', onClick: function onClick() {
-								_this3.incrementState('namescene');
-							} },
-						React.createElement(
-							'div',
-							{ className: 'fadeout-retina card-image' },
-							React.createElement(
-								'h3',
-								{ className: 'pd-all' },
-								'Create New Scape'
-							)
-						)
-					);
-				} else if (this.state.currentState === STATES[1]) {
-					return React.createElement(
-						'div',
-						{ className: 'col-xs-6 col-sm-4 col-md-2 createScape' },
-						React.createElement(
-							'div',
-							{ className: 'fadeout-retina card-image' },
-							React.createElement(
-								'div',
-								{ className: 'input-wrapper' },
-								React.createElement(
-									'h5',
-									null,
-									'Name Your Experience'
-								),
-								React.createElement('input', { type: 'text', className: 'name-experience-input', placeholder: 'Type Here', onKeyUp: this.keyup.bind(this) })
-							)
-						)
-					);
-				}
-			}
-		}]);
-
-		return CreateScapeButton;
-	}(React.Component);
-
-	exports.default = CreateScapeButton;
 
 /***/ },
 /* 267 */
@@ -35864,7 +35817,7 @@
 
 
 	// module
-	exports.push([module.id, "    /* Remove the navbar's default margin-bottom and rounded borders */\n\n\t\tbody{\n\t\t\tfont-family: 'Karla', sans-serif;\n\t\t}\n\n\t\t.navbar {\n      padding: 10px;\n      margin-bottom: 0;\n      border-radius: 0;\n    }\n\n\t\t.img-icon{\n      padding: 0 5px;\n    }\n\n\t\t.img-icon img{\n      width: 20px;\n    }\n\n\t\t.empty{\n      //height: 375px;\n    }\n\n\t\t.search{\n      background: #372e33;\n      opacity: .8;\n      padding-top: 15px;\n    }\n\n\t\t.search-input{\n      border-radius: 20px;\n      border: 0;\n      background: #2c2930;\n      padding: 5px;\n      width: 60%;\n      margin: auto;\n    }\n\n\t\t.search-input input{\n      background: #2c2930 !important;\n      border:0;\n      width: 80%;\n      margin-left: 10px;\n    }\n\n\t\t.upload{\n      background: white;\n      border-radius: 20px;\n      color: #18273e;\n      padding: 5px 10px;\n      font-weight: bold;\n      font-size: 12px;\n      margin-right:10px;\n    }\n\n\t\t.scene-container{\n      padding-top: 20px;\n      bottom: 20px;\n    }\n\n\t\t.create-scene{\n      position: relative;\n      padding-left: 0;\n      padding-right:0; \n      padding-bottom: 10px;\n      margin-right: 10px;\n    }\n\n\t\t.create-scene > img{\n      width: 100%;\n      height: 13vh;\n      border-radius: 4px;\n    }\n\n\t\t/*h6{\n      position: absolute;\n      top:25px;\n      left:10px;\n      color: white;\n      width: 100%;\n      font-weight: bold;\n    }*/\n\n\t\t.buttonName{\n      position: absolute;\n      top:25px;\n      text-align: center;\n      //left:10px;\n      color: black;\n      width: 100%;\n      font-weight: bold;\n    }\n\n\t\t.scene-btn{\n      position: absolute;\n      width:100%;\n      color: black;\n      height: 50%;\n      background: none;\n      border: none;\n      font-size: 12px;\n      font-weight: bold;\n      left:0;\n    }\n\n\t\t.slider-button{\n      padding-top: 7px;\n    }\n\n\t\t.slider-button div{\n      padding:0;\n    }\n\n\t\t.slider-button .glyphicon{\n      color:#7a859c;\n    }\n\n\t\t.slider-button hr{\n      border-top:3px solid #7a859c;\n      margin-top:10px;\n    }\n\n\t\t.name-scene-para{\n      color: white;\n      position: absolute;\n      width: 100%;\n      top: 5px;\n      font-size: 10px;\n      font-weight: bold;\n      left: 10px;\n      text-align: center;\n    }\n\n\t\t.name-scene-input{\n      position: absolute;\n      color:white;\n      top: 30px;\n      width: 60%;\n      height: 40px;\n      left: 20px;\n      background: none;\n      border: none;\n      font-size: 12px;\n      overflow: hidden;\n      resize:none;\n    }\n\n\t\t.btn-option{\n      position: absolute;\n      width: 100%;\n      text-align: right;\n      bottom: 10px;\n      //top: 60px;\n      //right:-15px;\n    }\n\n\t\t.canvas-white img{\n      width:20px;\n    }\n\n\t\t.canvas-white, .del-btn{\n      padding: 5px;\n    }\n\n\t\t.del-btn img{\n      width: 12px;\n    }\n\n\t\t/* footer */\n\n\t\tfooter{\n      background-color: #272526;\n      color: white;\n      width: 100%;\n      height: 50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    }\n\n\t\t/*footer {\n      background-color: #18273e;\n      color: white;\n      //padding: 15px;\n      width: 100%;\n      height:50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    }*/\n\n\t\t.viewer{\n      padding-top: 15px;\n    }\n\n\t\t.nav-tabs{\n      position: absolute;\n      top: -10px;\n      width: 90%;\n      margin: auto;\n      left: 37%;\n    }\n\n\t\t.nav-tabs .img-icon{\n      margin: 10px;\n      padding-top: 13px;\n      border-top:3px solid #fff;\n    }\n\n\t\t.nav-tabs .active{\n      border-top:3px solid #04a0f8;\n    }\n\n\t\tfooter .img-icon img{\n      width: 30px;\n    }\n\n\t\tinput:focus, button:focus, textarea:focus{\n      outline: none;\n    }\n\n\t\tul li{\n      display: inline;\n    }\n\n\t\t#ToolOptions{\n\t    position: absolute;\n\t    bottom: 0px;\n\t    width: 100%;\n\t    height: 25vh;\n\t    background: #372e33;\n      opacity: .9;\n    \tz-index:9999;\n\t    bottom: 50px;\n    }\n\n\t\t#Photo360 {\n\t\tbackground-image: url(" + __webpack_require__(271) + ");\n\t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n    background-repeat: no-repeat;\n  }\n\n\t\t#Photo360:hover {\n\t   background-image: url(" + __webpack_require__(272) + ");\n     background-repeat: no-repeat;\n  }\n\n\t\t#Photo360>.text,#Photo360:hover>.uploadText,#Video360>.text,#Video360:hover >.uploadText{\n\t\tdisplay:block;\n  }\n\n\t\t#Photo360:hover>.text,#Photo360 >.uploadText,#Video360:hover> .text,#Video360> .uploadText{\n\t\tdisplay:none;\n  }\n\n\t\t#Video360{\n  \t\tbackground-image: url(" + __webpack_require__(273) + ");\n  \t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n    background-repeat: no-repeat;\n  \t}\n\n\t\t#Video360:hover{\n  \t\tbackground-image: url(" + __webpack_require__(272) + ");\n      background-repeat: no-repeat;\n  \t}\n\n\t\t.number{\n      position: absolute;\n      top: 5px;\n      right: 5px;\n      background: #fff;\n      border-radius: 100%;\n      height: 15px;\n      color: #000;\n      width: 15px;\n      font-size: 11px;\n      font-weight: bold;\n    }\n\n\t\t.active-btn{\n      position: absolute;\n      top:5px;\n      left: 5px;\n      padding:2px;\n      background: #fff;\n      color: #000;\n      border-radius: 10px;\n      font-size: 8px;\n      font-weight: bold;\n    }\n\n\t\t.crosshair {\n      cursor: crosshair !important;\n    }\n\n\t\t.scene-create{\n      margin: 35px;\n    }\n\n\t\t.fadeout-retina{\n      background: url(" + __webpack_require__(274) + ");\n      color: #000;\n    }\n\n\t\t.startingoff{\n      background: url(" + __webpack_require__(275) + ");\n    }\n\n\t\t.animate{\n      background: url(" + __webpack_require__(276) + ");\n    }\n\n\t\t.objects{\n      background: url(" + __webpack_require__(277) + ");\n    }\n\n\t\t.animate-card{\n      background: url(" + __webpack_require__(278) + ");\n    }\n\n\t\t.himalay{\n      background: url(" + __webpack_require__(279) + ");\n    }\n\n\t\t.water{\n      background: url(" + __webpack_require__(280) + ");\n    }\n\n\t\t.eagle{\n      background: url(" + __webpack_require__(281) + ");\n    }\n\n\t\t.musuem{\n      background: url(" + __webpack_require__(282) + ");\n    }\n\n\t\t.roller{\n      background: url(" + __webpack_require__(283) + ");\n    }\n\n\t\t.rainbow{\n      background: url(" + __webpack_require__(284) + ");\n    }\n\n\t\t.static-bg{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 135px;\n      border-radius: 6px;\n    }\n\n\t\t.card-image{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 171.33px;\n      border-radius: 6px;\n      padding: 1px 10px;\n    }\n\n\t\t.pd-all{\n      padding: 30px 0;\n    }\n\n\t\t.save-btn{\n      background: #fff;\n      color: #000;\n      padding: 10px;\n      border-radius: 20px;\n    }\n\n\t\t.middle-text{\n      padding: 10px;\n    }\n\n\t\t.edit-pic{\n      padding-top: 85px;\n    }\n\n\t\t.static-bg img{\n      width: 15%;\n      margin: 5px;\n    }\n\n\t\t.static-bg img:last-child{\n      width: 11%;\n    }\n\n\t\t.pic-info{\n      background: #fff;\n      color:#000;\n      border-bottom-right-radius: 6px;\n      border-bottom-left-radius: 6px;\n    }\n\n\t\t.pic-heading{\n      margin-bottom: 0;\n      padding-top: 10px;\n    }\n\n\t\t.pic-detail{\n      font-size: 12px;\n      padding-bottom: 10px;\n    }\n\n\t\t.mainPage{\n  background: #333;\n  color: white;\n  padding: 50px 0 100px 0;\n  position: relative;\n  min-height:100vh;\n }\n\n\t\t::-webkit-input-placeholder { /* WebKit browsers */\n    color:    #fff ;\n}\n\n\t\t:-moz-placeholder { /* Mozilla Firefox 4 to 18 */\n    color:    #fff;\n}\n\n\t\t::-moz-placeholder { /* Mozilla Firefox 19+ */\n    color:    #fff;\n}\n\n\t\t:-ms-input-placeholder { /* Internet Explorer 10+ */\n    color:    #fff;\n}\n\n\t\t@media (max-width: 530px) {\n  .search-input{\n    width: 100%;\n  }\n  h6{\n    left: 0;\n  }\n  .upload{\n    margin-right: 0;\n    font-size: 11px;\n  }\n  .glyphicon-remove{\n    font-size: 9px;\n  }\n  .search-input input{\n    width: 79%;\n  }\n  .steps{\n    font-size: 12.5px;\n    font-weight: bold;\n  }\n}\n\n\t\t@media (min-width: 992px) and (max-width: 1199px){\n  .create-scene{\n    margin-right: 3%;\n  }\n  .sl-btn{\n    right: -10px;\n  }\n  h6{\n    top:16px;\n    left:20px;\n  }\n}\n\n\t\t@media (min-width: 768px) and (max-width: 991px) {\n  h6{\n    left:-14px;\n  }\n  .sl-btn{\n    right:50px;\n  }\n  .card-image{\n    margin-bottom: 20px;\n  }\n  .static-bg{\n    margin-bottom: 70px;\n  }\n  .mainPage{\n    overflow-y: scroll;\n    height: 100vh;\n  }\n  .nav-tabs{\n    left:25%;\n  }\n  .create-scene{\n    width: 150px;\n  }\n  .scene-container{\n    width: 100%;\n    overflow-x:scroll;\n  }\n  .scroll-container{\n    width:100vh;\n    overflow: hidden !important;\n  }\n}\n\n\t\t@media (max-width: 767px) {\n .steps {\n   text-align: center;\n }\n .card-image{\n    height:150px;\n    margin-bottom: 20px;\n  }\n  .pd-all{\n    padding: 10px 0;\n  }\n  .static-bg{\n    margin-bottom: 70px;\n  }\n\n  .mainPage{\n    overflow-y: scroll;\n    height: 100vh;\n  }\n\n  .footer-mobile{\n    text-align: left;\n  }\n  .nav-tabs{\n    left:10%;\n  }\n  .create-scene{\n    width: 90px;\n  }\n  .canvas-white img{\n    width:15px;\n  }\n  .del-btn img{\n    width: 9px;\n  }\n  .scene-btn{\n    font-size: 9px;\n  }  \n  .scene-container{\n    width: 100%;\n    overflow-x:scroll;\n  }\n  .scroll-container{\n    width:100vh;\n    overflow: hidden !important;\n  }\n  #ToolOptions{\n    height: 30vh;\n   }\n}\n\n\t\t#inspectorEye{\n    position: fixed;\n    bottom: 36px;\n    background: none;\n\n\n}\n\n\t\t.a-body{\n\n    background: #333;\n}\n\n\t\t.text-tool{\n  border-right:2px solid #272526;\n}\n\n\t\t.small-text-icon img{\n  width: 53%;\n\tmargin-left: 4px;\n  padding-bottom:12px;\n}\n\n\t\t.text-icon img{\n  width: 106%;\n  padding-bottom:12px;\n}\n\n\t\t.heading-text {\n  background: rgb(39, 37, 38);\n  border: none;\n  width: 100%;\n  border-radius: 4px;\n  height: 85px;\n  margin: 0px;\n  resize: none;\n  padding: 10px;\n}\n\n\t\t.text-rotate img {\n  width: 50px;\n}\n\n\t\t.divide-line{\n  height: 90px;\n  border-left: 2px solid #272526;\n  margin-left: 3%;\n}\n\n\t\t.dropdown, .pick-color{\n  background: #fff;\n  z-index: 1000;\n  padding: 5px;\n  color: #000;\n  width: 100%;\n  border-radius: 20px;\n  color: #000;\n  border:none;\n  margin-bottom: 5px;\n}\n\n\t\t.picker-heading{\n  margin-bottom: 0;\n}\n\n\t\t.tool-option img{\n\twidth: 10%;\n  margin-bottom: 10px;\n}\n\n\t\t.pick-color{\n  background: #ee686e;\n}\n\n\t\t.Text3d{\n\tmargin-left: 20px;\n}\n\n\t\t.anotherbuttonName{\n\tposition: absolute;\n\ttop: 34px;\n  left: -6px;\n\tcolor: white;\n\twidth: 100%;\n\tfont-weight: bold;\n}\n\n\t\t.input-wrapper {\n  height: auto;\n  margin: 20% 0;\n  vertical-align: middle;\n}\n\n\t\tinput.name-experience-input {\n  margin-top: 10px; \n  background-color: transparent !important;\n  border-bottom: 1px solid red !important;; \n  color: #000 !important;\n}\n\n\t\tinput.name-experience-input::-webkit-input-placeholder { \n  color: #000;\n}\n\n\t\tinput.name-experience-input::-moz-placeholder {\n  color: #000;\n  opacity: 1;\n}\n\n\t\tinput.name-experience-input:-ms-input-placeholder {\n  color: #000;\n}\n\n\t\tinput.name-experience-input:-moz-input-placeholder { /* WebKit browsers */\n  color: #000;\n}\n\n\t\t.boxFilter{\n  margin-right: none !important;\n}\n", ""]);
+	exports.push([module.id, "    /* Remove the navbar's default margin-bottom and rounded borders */\n\n\t\tbody{\n\t\t\tfont-family: 'Karla', sans-serif;\n\t\t}\n\n\t\t.navbar {\n      padding: 10px;\n      margin-bottom: 0;\n      border-radius: 0;\n    }\n\n\t\t.img-icon{\n      padding: 0 5px;\n    }\n\n\t\t.img-icon img{\n      width: 20px;\n    }\n\n\t\t.empty{\n      //height: 375px;\n    }\n\n\t\t.search{\n      background: #372e33;\n      opacity: .8;\n      padding-top: 15px;\n    }\n\n\t\t.search-input{\n      border-radius: 20px;\n      border: 0;\n      background: #2c2930;\n      padding: 5px;\n      width: 60%;\n      margin: auto;\n    }\n\n\t\t.search-input input{\n      background: #2c2930 !important;\n      border:0;\n      width: 80%;\n      margin-left: 10px;\n    }\n\n\t\t.upload{\n      background: white;\n      border-radius: 20px;\n      color: #18273e;\n      padding: 5px 10px;\n      font-weight: bold;\n      font-size: 12px;\n      margin-right:10px;\n    }\n\n\t\t.scene-container{\n      padding-top: 20px;\n      bottom: 20px;\n    }\n\n\t\t.create-scene{\n      position: relative;\n      padding-left: 0;\n      padding-right:0;\n      padding-bottom: 10px;\n      margin-right: 10px;\n    }\n\n\t\t.create-scene > img{\n      width: 100%;\n      height: 13vh;\n      border-radius: 4px;\n    }\n\n\t\t/*h6{\n      position: absolute;\n      top:25px;\n      left:10px;\n      color: white;\n      width: 100%;\n      font-weight: bold;\n    }*/\n\n\t\t.buttonName{\n      position: absolute;\n      top:25px;\n      text-align: center;\n      //left:10px;\n      color: black;\n      width: 100%;\n      font-weight: bold;\n    }\n\n\t\t.scene-btn{\n      position: absolute;\n      width:100%;\n      color: black;\n      height: 50%;\n      background: none;\n      border: none;\n      font-size: 12px;\n      font-weight: bold;\n      left:0;\n    }\n\n\t\t.slider-button{\n      padding-top: 7px;\n    }\n\n\t\t.slider-button div{\n      padding:0;\n    }\n\n\t\t.slider-button .glyphicon{\n      color:#7a859c;\n    }\n\n\t\t.slider-button hr{\n      border-top:3px solid #7a859c;\n      margin-top:10px;\n    }\n\n\t\t.name-scene-para{\n      color: white;\n      position: absolute;\n      width: 100%;\n      top: 5px;\n      font-size: 10px;\n      font-weight: bold;\n      left: 10px;\n      text-align: center;\n    }\n\n\t\t.name-scene-input{\n      position: absolute;\n      color:white;\n      top: 30px;\n      width: 60%;\n      height: 40px;\n      left: 20px;\n      background: none;\n      border: none;\n      font-size: 12px;\n      overflow: hidden;\n      resize:none;\n    }\n\n\t\t.btn-option{\n      position: absolute;\n      width: 100%;\n      text-align: right;\n      bottom: 10px;\n      //top: 60px;\n      //right:-15px;\n    }\n\n\t\t.canvas-white img{\n      width:20px;\n    }\n\n\t\t.canvas-white, .del-btn{\n      padding: 5px;\n    }\n\n\t\t.del-btn img{\n      width: 12px;\n    }\n\n\t\t/* footer */\n\n\t\tfooter{\n      background-color: #272526;\n      color: white;\n      width: 100%;\n      height: 50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    }\n\n\t\t/*footer {\n      background-color: #18273e;\n      color: white;\n      //padding: 15px;\n      width: 100%;\n      height:50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    }*/\n\n\t\t.viewer{\n      padding-top: 15px;\n    }\n\n\t\t.nav-tabs{\n      position: absolute;\n      top: -10px;\n      width: 90%;\n      margin: auto;\n      left: 37%;\n    }\n\n\t\t.nav-tabs .img-icon{\n      margin: 10px;\n      padding-top: 13px;\n      border-top:3px solid #fff;\n    }\n\n\t\t.nav-tabs .active{\n      border-top:3px solid #04a0f8;\n    }\n\n\t\tfooter .img-icon img{\n      width: 30px;\n    }\n\n\t\tinput:focus, button:focus, textarea:focus{\n      outline: none;\n    }\n\n\t\tul li{\n      display: inline;\n    }\n\n\t\t#ToolOptions{\n\t    position: absolute;\n\t    bottom: 0px;\n\t    width: 100%;\n\t    height: 25vh;\n\t    background: #372e33;\n      opacity: .9;\n    \tz-index:9999;\n\t    bottom: 50px;\n    }\n\n\t\t#Photo360 {\n\t\tbackground-image: url(" + __webpack_require__(271) + ");\n\t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n    background-repeat: no-repeat;\n  }\n\n\t\t#Photo360:hover {\n\t   background-image: url(" + __webpack_require__(272) + ");\n     background-repeat: no-repeat;\n  }\n\n\t\t#Photo360>.text,#Photo360:hover>.uploadText,#Video360>.text,#Video360:hover >.uploadText{\n\t\tdisplay:block;\n  }\n\n\t\t#Photo360:hover>.text,#Photo360 >.uploadText,#Video360:hover> .text,#Video360> .uploadText{\n\t\tdisplay:none;\n  }\n\n\t\t#Video360{\n  \t\tbackground-image: url(" + __webpack_require__(273) + ");\n  \t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n    background-repeat: no-repeat;\n  \t}\n\n\t\t#Video360:hover{\n  \t\tbackground-image: url(" + __webpack_require__(272) + ");\n      background-repeat: no-repeat;\n  \t}\n\n\t\t.number{\n      position: absolute;\n      top: 5px;\n      right: 5px;\n      background: #fff;\n      border-radius: 100%;\n      height: 15px;\n      color: #000;\n      width: 15px;\n      font-size: 11px;\n      font-weight: bold;\n    }\n\n\t\t.active-btn{\n      position: absolute;\n      top:5px;\n      left: 5px;\n      padding:2px;\n      background: #fff;\n      color: #000;\n      border-radius: 10px;\n      font-size: 8px;\n      font-weight: bold;\n    }\n\n\t\t.crosshair {\n      cursor: crosshair !important;\n    }\n\n\t\t.scene-create{\n      margin: 35px;\n    }\n\n\t\t.fadeout-retina{\n      background: url(" + __webpack_require__(274) + ");\n      color: #000;\n    }\n\n\t\t.startingoff{\n      background: url(" + __webpack_require__(275) + ");\n    }\n\n\t\t.animate{\n      background: url(" + __webpack_require__(276) + ");\n    }\n\n\t\t.objects{\n      background: url(" + __webpack_require__(277) + ");\n    }\n\n\t\t.animate-card{\n      background: url(" + __webpack_require__(278) + ");\n    }\n\n\t\t.himalay{\n      background: url(" + __webpack_require__(279) + ");\n    }\n\n\t\t.water{\n      background: url(" + __webpack_require__(280) + ");\n    }\n\n\t\t.eagle{\n      background: url(" + __webpack_require__(281) + ");\n    }\n\n\t\t.musuem{\n      background: url(" + __webpack_require__(282) + ");\n    }\n\n\t\t.roller{\n      background: url(" + __webpack_require__(283) + ");\n    }\n\n\t\t.rainbow{\n      background: url(" + __webpack_require__(284) + ");\n    }\n\n\t\t.static-bg{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 135px;\n      border-radius: 6px;\n    }\n\n\t\t.card-image{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 171.33px;\n      border-radius: 6px;\n      padding: 1px 10px;\n    }\n\n\t\t.pd-all{\n      padding: 30px 0;\n    }\n\n\t\t.save-btn{\n      background: #fff;\n      color: #000;\n      padding: 10px;\n      border-radius: 20px;\n    }\n\n\t\t.middle-text{\n      padding: 10px;\n    }\n\n\t\t.edit-pic{\n      padding-top: 85px;\n    }\n\n\t\t.static-bg img{\n      width: 15%;\n      margin: 5px;\n    }\n\n\t\t.static-bg img:last-child{\n      width: 11%;\n    }\n\n\t\t.pic-info{\n      background: #fff;\n      color:#000;\n      border-bottom-right-radius: 6px;\n      border-bottom-left-radius: 6px;\n    }\n\n\t\t.pic-heading{\n      margin-bottom: 0;\n      padding-top: 10px;\n    }\n\n\t\t.pic-detail{\n      font-size: 12px;\n      padding-bottom: 10px;\n    }\n\n\t\t.mainPage{\n  background: #333;\n  color: white;\n  padding: 50px 0 100px 0;\n  position: relative;\n  min-height:100vh;\n }\n\n\t\t::-webkit-input-placeholder { /* WebKit browsers */\n    color:    #fff ;\n}\n\n\t\t:-moz-placeholder { /* Mozilla Firefox 4 to 18 */\n    color:    #fff;\n}\n\n\t\t::-moz-placeholder { /* Mozilla Firefox 19+ */\n    color:    #fff;\n}\n\n\t\t:-ms-input-placeholder { /* Internet Explorer 10+ */\n    color:    #fff;\n}\n\n\t\t@media (max-width: 530px) {\n  .search-input{\n    width: 100%;\n  }\n  h6{\n    left: 0;\n  }\n  .upload{\n    margin-right: 0;\n    font-size: 11px;\n  }\n  .glyphicon-remove{\n    font-size: 9px;\n  }\n  .search-input input{\n    width: 79%;\n  }\n  .steps{\n    font-size: 12.5px;\n    font-weight: bold;\n  }\n}\n\n\t\t@media (min-width: 992px) and (max-width: 1199px){\n  .create-scene{\n    margin-right: 3%;\n  }\n  .sl-btn{\n    right: -10px;\n  }\n  h6{\n    top:16px;\n    left:20px;\n  }\n}\n\n\t\t@media (min-width: 768px) and (max-width: 991px) {\n  h6{\n    left:-14px;\n  }\n  .sl-btn{\n    right:50px;\n  }\n  .card-image{\n    margin-bottom: 20px;\n  }\n  .static-bg{\n    margin-bottom: 70px;\n  }\n  .mainPage{\n    overflow-y: scroll;\n    height: 100vh;\n  }\n  .nav-tabs{\n    left:25%;\n  }\n  .create-scene{\n    width: 150px;\n  }\n  .scene-container{\n    width: 100%;\n    overflow-x:scroll;\n  }\n  .scroll-container{\n    width:100vh;\n    overflow: hidden !important;\n  }\n}\n\n\t\t@media (max-width: 767px) {\n .steps {\n   text-align: center;\n }\n .card-image{\n    height:150px;\n    margin-bottom: 20px;\n  }\n  .pd-all{\n    padding: 10px 0;\n  }\n  .static-bg{\n    margin-bottom: 70px;\n  }\n\n  .mainPage{\n    overflow-y: scroll;\n    height: 100vh;\n  }\n\n  .footer-mobile{\n    text-align: left;\n  }\n  .nav-tabs{\n    left:10%;\n  }\n  .create-scene{\n    width: 90px;\n  }\n  .canvas-white img{\n    width:15px;\n  }\n  .del-btn img{\n    width: 9px;\n  }\n  .scene-btn{\n    font-size: 9px;\n  }\n  .scene-container{\n    width: 100%;\n    overflow-x:scroll;\n  }\n  .scroll-container{\n    width:100vh;\n    overflow: hidden !important;\n  }\n  #ToolOptions{\n    height: 30vh;\n   }\n}\n\n\t\t#inspectorEye{\n    position: fixed;\n    bottom: 36px;\n    background: none;\n\n\n}\n\n\t\t.a-body{\n\n    background: #333;\n}\n\n\t\t.text-tool{\n  border-right:2px solid #272526;\n}\n\n\t\t.small-text-icon img{\n  width: 53%;\n\tmargin-left: 4px;\n  padding-bottom:12px;\n}\n\n\t\t.text-icon img{\n  width: 106%;\n  padding-bottom:12px;\n}\n\n\t\t.heading-text {\n  background: rgb(39, 37, 38);\n  border: none;\n  width: 100%;\n  border-radius: 4px;\n  height: 85px;\n  margin: 0px;\n  resize: none;\n  padding: 10px;\n}\n\n\t\t.text-rotate img {\n  width: 50px;\n}\n\n\t\t.divide-line{\n  height: 90px;\n  border-left: 2px solid #272526;\n  margin-left: 3%;\n}\n\n\t\t.dropdown, .pick-color{\n  background: #fff;\n  z-index: 1000;\n  padding: 5px;\n  color: #000;\n  width: 100%;\n  border-radius: 20px;\n  color: #000;\n  border:none;\n  margin-bottom: 5px;\n}\n\n\t\t.picker-heading{\n  margin-bottom: 0;\n}\n\n\t\t.tool-option img{\n\twidth: 10%;\n  margin-bottom: 10px;\n}\n\n\t\t.pick-color{\n  background: #ee686e;\n}\n\n\t\t.Text3d{\n\tmargin-left: 20px;\n}\n\n\t\t.anotherbuttonName{\n\tposition: absolute;\n\ttop: 34px;\n  left: -6px;\n\tcolor: white;\n\twidth: 100%;\n\tfont-weight: bold;\n}\n\n\t\t.experience-header {\n\theight: auto;\n\twidth: 100vw;\n\tposition: fixed;\n\ttop: 0;\n\tleft: 0;\n\tz-index: 9999;\n\tpadding-top: 10px;\n}\n\n\t\t.logo {\n\tfloat: left;\n}\n\n\t\t.header-tools {\n\tfloat: right;\n}\n\n\t\t.experience-name-wrapper {\n    height: auto;\n\tmargin: 0 auto;\n\twidth: 30vw;\n\tfont-size: 17px;\n\tposition: relative;\n\tz-index: 5;\n    text-align: center;\n}\n\n\t\tinput.experience-name {\n  \tmargin-top: 10px;\n  \tbackground-color: transparent !important;\n  \tborder-bottom: 1px solid #fff;\n  \tcolor: #fff !important;\n  \ttext-align: center;\n}\n\n\t\t#overlay {\n\tbackground: rgba(0, 0, 0, 0.7);\n    display: none;\n    width: 100vw;\n\theight: 100vh;\n    position: absolute;\n\ttop: 0;\n\tleft: 0;\n\tz-index: 10000;\n}\n\n\t\t.boxFilter{\n  margin-right: none !important;\n}\n\n\t\t#experiences {\n\toverflow-y: scroll;\n    overflow-x: hidden;\n    height: 210px;\n    width: auto;\n    float: right;\n}\n\n\t\t#experience {\n    height: 200px;\n    margin-bottom: 5px;\n}\n\n\t\t::-webkit-scrollbar {\n    width: 5px;\n}\n\n\t\t::-webkit-scrollbar-track {\n    background-color: rgba(0, 0, 0, 0.2);\n    border-radius: 10px;\n}\n\n\t\t::-webkit-scrollbar-thumb {\n    border-radius: 10px;\n    background-color: rgba(0, 0, 0, 0.7);\n}\n", ""]);
 
 	// exports
 
