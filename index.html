@@ -159,10 +159,10 @@
                         <h2><span><img src="assets/creationsimplifiedscapicwhiteicon.svg" alt="" width="50px;"></span>scapic</h2>
                         <p>Send me the latest updates about Scapic</p>
                         <div class="col-md-8">
-                          <input type="text" placeholder="Your Email Address">
+                          <input type="email" id="notify-email" placeholder="Your Email Address">
                         </div>
                         <div class="col-md-2 button-container">
-                          <a href="#" class="btn">Notify Me</a>
+                          <a href="#" class="btn notify">Notify Me</a>
                         </div>
                       </div>
 
@@ -220,7 +220,7 @@
                     $('#submit').click(function(e) { 
                      e.preventDefault();  
                      var name = $('#last').val();
-                     var email = $('#email').val();
+                     var email = $('#notify-email').val();
                      var message = $('#message').val();
                      var formdata = {
                       contact:{
@@ -235,6 +235,30 @@
                       data: formdata,
                       success: function(){
                         console.log("Email sent");
+                      }
+                    })
+                  });
+                  });
+
+                  $(function(){ 
+                    $('.notify').click(function(e) { 
+                     e.preventDefault();  
+                     var name = "Notify me"
+                     var email = $('#notify-email').val();
+                     var message =  "Please send me latest updates on scapic."
+                     var formdata = {
+                      contact:{
+                        name:name,
+                        email:email,
+                        message:message
+                      }
+                    }
+                    $.ajax({
+                      type: 'POST',
+                      url: 'https://hidden-oasis-33636.herokuapp.com/api/v1/contacts',
+                      data: formdata,
+                      success: function(){
+                        console.log("Email Notification");
                       }
                     })
                   });
