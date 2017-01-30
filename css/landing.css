@@ -592,7 +592,7 @@ body {
     color: rgba(238, 94, 95, 0.5); }
   .conatct-container .button-container {
     text-align: center; }
-    .conatct-container .button-container a {
+    .conatct-container .button-container button {
       width: 180px;
       padding-top: 15px;
       padding-bottom: 12px;
@@ -605,6 +605,7 @@ body {
       color: #fff;
       font-family: "GothamRounded-Bold";
       background-color: #ee5e5f;
-      border-radius: 53px; }
+      border-radius: 53px;
+      border:none; }
 
 /*# sourceMappingURL=landing.css.map */

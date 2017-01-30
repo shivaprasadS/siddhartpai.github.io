@@ -1,234 +1,269 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8">
-    <title>scapic</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <title>scapic</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" type="text/css" href="css/landing.css">
+  <link rel="stylesheet" type="text/css" href="css/landing.css">
 
 </head>
-
 <body>
-    <nav class="navbar navbar-fixed-top nav-scapic">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle collapsed">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar top-bar"></span>
-                        <span class="icon-bar middle-bar"></span>
-                        <span class="icon-bar bottom-bar"></span>
-                    </button>
-                <a href="#" class="navbar-brand">scapic</a>
-            </div>
+  <nav  class="navbar navbar-fixed-top nav-scapic">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle collapsed">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar top-bar"></span>
+          <span class="icon-bar middle-bar"></span>
+          <span class="icon-bar bottom-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">scapic</a>
+      </div>
 
-            <!-- Collection of nav links and other content for toggling -->
-            <div id="navbarCollapse" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right nav-content">
-                    <li><a href="#creation">about scapic <span class="hidden-xs">what we do</span></a>
-                        <li><a href="#contact">contact<span class="hidden-xs">reach out</span></a></li>
-                </ul>
-            </div>
+      <!-- Collection of nav links and other content for toggling -->
+      <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right nav-content">
+          <li><a href="#creation">about scapic <span class="hidden-xs">what we do</span></a>
+            <li><a href="#contact">contact<span class="hidden-xs">reach out</span></a></li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <div class="container-fluid main-container ">
-        <div class="row">
-            <img src="assets/rockethero.svg" class="gherkin test" style="position: absolute;" id="test">
-            <div class="col-md-12" style="">
-                <h1>Create your own world </h1>
-                <h4>Create Scapes</h4>
-            </div>
-            <div class="col-md-12 parallax  test" id="target">
-                <img src="assets/planet-one.svg" class="parallax test3  skyline">
-                <img src="assets/planet-one.svg" class="parallax test2 blimp ">
+      <div class="row">
+       <img src="assets/rockethero.svg" class="gherkin test" style="position: absolute;" id="test">
+       <div class="col-md-12" style="">
+        <h1>Create your own world </h1>
+        <h4>Create Scapes</h4>
+      </div>
+      <div class="col-md-12 parallax  test" id="target">
+        <img src="assets/planet-one.svg" class="parallax test3  skyline" >
+        <img src="assets/planet-one.svg" class="parallax test2 blimp " >
 
-                <img src="assets/planet-one.svg" class="parallax  dino">
-                <!-- <img src="https://source.unsplash.com/category/technology/600x600" class="parallax  bull"> -->
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 main-image" id="scene" data-friction-x="0.1" data-friction-y="0.1" data-scalar-x="25" data-scalar-y="15">
-
-                <img src="assets/group-1.png" alt="" class="layer" data-depth="0.00">
-            </div>
-        </div>
+        <img src="assets/planet-one.svg" class="parallax  dino" >
+        <!-- <img src="https://source.unsplash.com/category/technology/600x600" class="parallax  bull"> -->
+      </div>
     </div>
-    <div class="become-container">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-5 img-container">
-                    <!-- <ul class="list-inline">
+    <div class="row">
+      <div class="col-md-12 main-image" id="scene" data-friction-x="0.1"
+      data-friction-y="0.1"
+      data-scalar-x="25"
+      data-scalar-y="15">
+
+      <img src="assets/group-1.png" alt="" class="layer" data-depth="0.00">
+    </div>
+  </div>
+</div>
+<div class="become-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-5 img-container">
+                        <!-- <ul class="list-inline">
                             <li><img src="assets/creation.svg" alt="" style="width: 40%;margin-left:15%;"></li>
                             <li><p class="meet">Meet</p><p class="header">scapic</p></li>
-                        </ul> -->
-                    <!-- <div class="text-center">
-
+                          </ul> -->
+                        <!-- <div class="text-center">
+                           
                             <img src="assets/meet-scrap.png" alt="" style="width: 40%;margin-left:15%;">
 
-                        </div> -->
-                    <div class="text-center" style="margin-bottom: 40px;">
-                        <img src="assets/meet-scrap.png">
-                    </div>
-                    <img src="assets/Scapic.png" alt="" style="width: 100%;">
+                          </div> -->
+                          <div class="text-center" style="margin-bottom: 40px;">
+                            <img src="assets/meet-scrap.png" >
+                          </div>
+                          <img src="assets/Scapic.png" alt="" style="width: 100%;">
 
-                </div>
-                <div class="col-md-6 col-md-offset-1 text-container">
-                    <h2>Become a creator</h2>
-                    <p>Scapic is a simple content tool for creating and exploring Virtual reality & Augmented reality experiences</p>
-                    <p>We built scapic with simplicity in mind. As creators, your imagination should never be held back.</p>
-                    <ul>
-                        <li>- Imagine</li>
-                        <li>- Create</li>
-                        <li>- Experience</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="creation-container" id="creation">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <img src="assets/creationsimplifiedscapicwhiteicon.svg" alt="" class="main-image">
-                    <h2>Creation Simplified</h2>
-                </div>
-                <div class="col-md-4 box-center col-md-push-4">
-                    <img src="assets/Illlustration - Creation Simplified.svg" alt="">
-                </div>
-                <div class="col-md-4  box-right  col-md-pull-4">
-                    <img src="assets/No Downloads.svg" alt="">
-                    <h4>No Downloads</h4>
-                    <p>Experiences created do not require apps to be downloaded</p>
-                    <img src="assets/Easy Collaboration.svg" alt="">
-                    <h4>Easy Collaboration</h4>
-                    <p>Collaborate on the same version of the creative experience</p>
-                </div>
-                <div class="col-md-4 box-left">
-                    <img src="assets/Seamless Sharing.svg" alt="">
-                    <h4>Seamless Sharing</h4>
-                    <p>Share your creation with anyone with just a link</p>
-                    <img src="assets/Works Everywhere.svg" alt="">
-                    <h4>Works Everywhere</h4>
-                    <p>Let others experience your creation on any device</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="everwhere-container">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 text-container">
-                    <h2>Scapic is for everyone</h2>
-                    <p>Create experiences without any code required. You can get started in a matter of minutes.
-                    </p>
-                    <p>And if you do know code, you can build your experience with the Sandbox feature built in to Scapic.</p>
-                </div>
-                <div class="col-md-6 img-container">
+                        </div>
+                        <div class="col-md-6 col-md-offset-1 text-container">
+                          <h2>Become a creator</h2>
+                          <p>Scapic is a simple content tool for creating and exploring Virtual reality & Augmented reality experiences</p>
+                          <p>We built scapic with simplicity in mind. As creators, your imagination should never be held back.</p>
+                          <ul>
+                            <li>- Imagine</li>
+                            <li>- Create</li>
+                            <li>- Experience</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="creation-container" id="creation">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <img src="assets/creationsimplifiedscapicwhiteicon.svg" alt="" class="main-image">
+                          <h2>Creation Simplified</h2>
+                        </div>
+                        <div class="col-md-4 box-center col-md-push-4">
+                          <img src="assets/Illlustration - Creation Simplified.svg" alt="">
+                        </div>
+                        <div class="col-md-4  box-right  col-md-pull-4">
+                          <img src="assets/No Downloads.svg" alt="">
+                          <h4>No Downloads</h4>
+                          <p>Experiences created do not require apps to be downloaded</p>
+                          <img src="assets/Easy Collaboration.svg" alt="">
+                          <h4>Easy Collaboration</h4>
+                          <p>Collaborate on the same version of the creative experience</p>
+                        </div>
+                        <div class="col-md-4 box-left">
+                          <img src="assets/Seamless Sharing.svg" alt="">
+                          <h4>Seamless Sharing</h4>
+                          <p>Share your creation with anyone with just a link</p>
+                          <img src="assets/Works Everywhere.svg" alt="">
+                          <h4>Works Everywhere</h4>
+                          <p>Let others experience your creation on any device</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="everwhere-container">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-6 text-container">
+                          <h2>Scapic is for everyone</h2>
+                          <p>Create experiences without any code required. You can get started in a matter of minutes. 
+                          </p>
+                          <p>And if you do know code, you can build your experience with the Sandbox feature built in to Scapic.</p>
+                        </div>
+                        <div class="col-md-6 img-container">
+                          <div class="row">
+                            <div class="col-md-6 text-right">
+                              <a href="http://scapic.com/demos/tunnel/" target="_blank"><img src="assets/demo1.png" alt=""></a>
+                            </div>
+                            <div class="col-md-6">
+                              <a href="http://scapic.com/demos/equalizer/" target="_blank"><img src="assets/demo2.png" alt=""></a>
+                            </div>
+                            <div class="col-md-6 text-right">
+                              <a href="http://scapic.com/demos/city/" target="_blank"><img src="assets/demo3.png" alt=""></a>
+                            </div>
+                            <div class="col-md-6">
+                             <h2>Experience these scapes created on Scapic</h2>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="update-email">
+                  <div class="container">
                     <div class="row">
-                        <div class="col-md-6 text-right">
-                            <a href="http://scapic.com/demos/equalizer/" target="_blank"><img src="assets/demo1.png" alt=""></a>
+                      <div class="col-md-12">
+                        <h2><span><img src="assets/creationsimplifiedscapicwhiteicon.svg" alt="" width="50px;"></span>scapic</h2>
+                        <p>Send me the latest updates about Scapic</p>
+                        <div class="col-md-8">
+                          <input type="email" id="notify-email" placeholder="Your Email Address">
                         </div>
-                        <div class="col-md-6">
-                            <a href="http://scapic.com/demos/city/" target="_blank"><img src="assets/demo2.png" alt=""></a>
+                        <div class="col-md-2 button-container">
+                          <a href="#" class="btn notify">Notify Me</a>
                         </div>
-                        <div class="col-md-6 text-right">
-                            <a href="http://scapic.com/demos/tunnel/" target="_blank"><img src="assets/demo3.png" alt=""></a>
-                        </div>
-                        <div class="col-md-6">
-                            <h2>Experience these scapes created on Scapic</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="update-email">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2><span><img src="assets/creationsimplifiedscapicwhiteicon.svg" alt="" width="50px;"></span>scapic</h2>
-                    <p>Send me the latest updates about Scapic</p>
-                    <div class="col-md-8">
-                        <input type="text" placeholder="Your Email Address">
-                    </div>
-                    <div class="col-md-2 button-container">
-                        <a href="#" class="btn">Notify Me</a>
-                    </div>
-                </div>
+                      </div>
 
-            </div>
-        </div>
-    </div>
-    <div class="conatct-container " id="contact">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>Don’t be shy, talk to us</h2>
-                    <p>hello@scapic.com</p>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input type="text" placeholder="Name" id="last">
-                        </div>
-                        <div class="col-md-6">
-                            <input type="text" placeholder="Email Address">
+                <div class="conatct-container " id="contact">
+                  <div class="container">
+                    <form class="contact-detail" id="target" method="post">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <h2>Don’t be shy, talk to us</h2>
+                          <p>hello@scapic.com</p>
                         </div>
                         <div class="col-md-12">
-                            <input type="text" placeholder="How can we help">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <input type="text" placeholder="Name" id="last">
+                            </div>
+                            <div class="col-md-6">
+                              <input type="text" placeholder="Email Address" id="email">
+                            </div>
+                            <div class="col-md-12">
+                              <input type="text" placeholder="How can we help" id="message">
+                            </div>
+                          </div>
                         </div>
+                        <div class="col-md-12 button-container">
+                        <button type="button" class="submit" name="submit" id="submit">Send</button>
+                          <!-- <input type="submit" class="submit" name="submit" id="submit" value="SEND"> -->
+                        </div>
+                      </form>
                     </div>
+                  </div>
+                  <img src="assets/Mountain-with-gradient.png" alt="" style="width:100%;">
                 </div>
-                <div class="col-md-12 button-container">
-                    <a href="" class="btn ">Send</a>
-                </div>
-            </div>
-        </div>
-        <img src="assets/Mountain-with-gradient.png" alt="" style="width:100%;">
-    </div>
-</body>
 
-<script type="text/javascript">
-    $(function() {
-        $('a[href*="#"]:not([href="#"])').click(function() {
-            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-                var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-                if (target.length) {
-                    $('html, body').animate({
-                        scrollTop: target.offset().top
-                    }, 1000);
-                    return false;
-                }
-            }
-        });
-    });
-</script>
-<script>
-    (function(i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function() {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+                <script type="text/javascript">
+                  $(function() {
+                    $('a[href*="#"]:not([href="#"])').click(function() {
+                      if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+                        var target = $(this.hash);
+                        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+                        if (target.length) {
+                          $('html, body').animate({
+                            scrollTop: target.offset().top
+                          }, 1000);
+                          return false;
+                        }
+                      }
+                    });
+                  });
 
-    ga('create', 'UA-90854316-1', 'auto');
-    ga('send', 'pageview');
-</script>
+                  $(function(){ 
+                    $('#submit').click(function(e) { 
+                     e.preventDefault();  
+                     var name = $('#last').val();
+                     var email = $('#notify-email').val();
+                     var message = $('#message').val();
+                     var formdata = {
+                      contact:{
+                        name:name,
+                        email:email,
+                        message:message
+                      }
+                    }
+                    $.ajax({
+                      type: 'POST',
+                      url: 'https://hidden-oasis-33636.herokuapp.com/api/v1/contacts',
+                      data: formdata,
+                      success: function(){
+                        console.log("Email sent");
+                      }
+                    })
+                  });
+                  });
 
+                  $(function(){ 
+                    $('.notify').click(function(e) { 
+                     e.preventDefault();  
+                     var name = "Notify me"
+                     var email = $('#notify-email').val();
+                     var message =  "Please send me latest updates on scapic."
+                     var formdata = {
+                      contact:{
+                        name:name,
+                        email:email,
+                        message:message
+                      }
+                    }
+                    $.ajax({
+                      type: 'POST',
+                      url: 'https://hidden-oasis-33636.herokuapp.com/api/v1/contacts',
+                      data: formdata,
+                      success: function(){
+                        console.log("Email Notification");
+                      }
+                    })
+                  });
+                  });
 
-</html>
+                </script>
+              </body>
+              </html>

@@ -826,7 +826,7 @@ img {
 }
 	.button-container {
 		text-align: center;
-		a {
+		button {
 			    width: 180px;
 			padding-top: 15px;
     		padding-bottom: 12px;
@@ -841,6 +841,8 @@ img {
 			//display: block;
 			background-color:#ee5e5f;
 			border-radius: 53px;
+      border:none;
+
 	}
 	}
 } 
