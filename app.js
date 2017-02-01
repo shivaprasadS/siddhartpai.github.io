@@ -55,7 +55,7 @@
     }
   }
 
-  $(".notify").html('Notifying Soon..');     
+  $(".notify").html('Saving..');     
   $.ajax({
     type: 'POST',
     url: 'https://hidden-oasis-33636.herokuapp.com/api/v1/contacts',
