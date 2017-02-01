@@ -28,7 +28,9 @@ AFRAME.registerComponent('set-image', {
         document.querySelector('#links').setAttribute('visible',false);
         document.querySelector('#menuBG').setAttribute('visible',false);
         document.querySelector('#videoControls').setAttribute('visible',true);
-        document.querySelector(data.src).play();
+        var video = document.querySelector(data.src)
+        video.currentTime =0 ;
+        video.play();
     });
   },
 

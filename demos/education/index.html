@@ -22,8 +22,12 @@
 	<img id="background" src="assets/educationBG.jpg">
         <img id="video2Thumb" src="assets/bodyThumb.png">
         <img id="goBack" src="assets/goBack.png">
-        <video id="video1" src="planet.mp4"></video>
-        <video id="video2" src="body.mp4"></video>
+        <video id="video1">
+          <source src="planet.mp4">
+        </video>
+        <video id="video2" >
+          <source src="body.mp4">
+        </video>
         <!-- Image link template to be reused. -->
         <script id="link" type="text/nunjucks">
           <a-plane class="link" height="1" width="1"
@@ -74,10 +78,11 @@
       <a-entity camera look-controls id="camera">
         <a-cursor id="cursor"
           fuse=true
+          material="color:white;shader:flat"
           animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
           animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
           event-set__1="_event: mouseenter; color: springgreen"
-          event-set__2="_event: mouseleave; color: black"
+          event-set__2="_event: mouseleave; color: white"
           set-controls="target:#videoControls;"
           raycaster="objects: .link"></a-cursor>
       </a-entity>
