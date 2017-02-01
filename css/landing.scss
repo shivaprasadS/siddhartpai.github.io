@@ -656,6 +656,13 @@ img {
     	border-bottom: solid 2px #ffffff;
     	height:50px;
     	background-color:transparent;
+      font-family: "GothamRounded-Bold" !important;
+      font-size: 16px !important;
+      font-style: normal !important;
+      font-stretch: normal !important;
+      line-height: 1.14 !important;
+      letter-spacing: normal !important;
+      color: rgba(232, 230, 230, 0.28) !important;
       &:focus {
         outline:none;
       }
@@ -776,6 +783,13 @@ img {
   		background-color:transparent;
   		width: 100%;
   		margin-bottom: 60px;
+      font-family: "GothamRounded-Bold";
+      font-size: 16px;
+      font-style: normal;
+      font-stretch: normal;
+      line-height: 1.14;
+      letter-spacing: normal;
+      color: rgba(238, 94, 95, 0.5);
       &:focus {
         outline:none;
       }
@@ -846,4 +860,31 @@ img {
 	}
 	}
 } 
+
+.notify{
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 12px;
+  font-size: 18px;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.14;
+  letter-spacing: normal;
+  text-align: center;
+  color: #211442;
+  font-family: "GothamRounded-Bold";
+  display: block;
+  background-color: #fff;
+  border-radius: 53px;
+}
+
+#notify-email {
+  font-family: "GothamRounded-Bold" !important;
+  font-size: 16px !important;
+  font-style: normal !important;
+  font-stretch: normal !important;
+  line-height: 1.14 !important;
+  letter-spacing: normal !important;
+  color: rgba(232, 230, 230, 0.28) !important;
+}
 
