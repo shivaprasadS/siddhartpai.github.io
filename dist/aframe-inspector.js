@@ -51,6 +51,8 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -95,7 +97,7 @@
 
 	__webpack_require__(269);
 
-	__webpack_require__(285);
+	__webpack_require__(286);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -105,7 +107,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(287);
+	__webpack_require__(288);
 	var INSPECTOR = __webpack_require__(204);
 	var Events = __webpack_require__(186);
 
@@ -274,8 +276,10 @@
 	  });
 	  AFRAME.INSPECTOR = INSPECTOR;
 
-	  console.log('A-Frame Inspector Version:', ("0.4.2"), '(' + ("30-01-2017") + ' Commit: ' + ("caed1b31ae7d452d52776a0ecab684e95d47c0e2\n").substr(0, 7) + ')');
+	  console.log('A-Frame Inspector Version:', VERSION, '(' + BUILD_TIMESTAMP + ' Commit: ' + COMMIT_HASH.substr(0, 7) + ')');
 	})();
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "Main.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
 /* 2 */
@@ -21819,6 +21823,8 @@
 /* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -21923,9 +21929,13 @@
 	};
 	exports.default = Sidebar;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "Sidebar.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 184 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -22011,9 +22021,13 @@
 	};
 	exports.default = ComponentsContainer;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "ComponentsContainer.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 185 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -22218,9 +22232,13 @@
 	  return i;
 	}
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "AddComponent.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 186 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -22246,6 +22264,8 @@
 	};
 
 	module.exports = new Events();
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "Events.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
 /* 187 */
@@ -25215,6 +25235,8 @@
 /* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
 	'use strict';
 
 	var Events = __webpack_require__(186);
@@ -25565,9 +25587,13 @@
 
 	module.exports = new Inspector();
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "inspector.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 205 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -25978,6 +26004,8 @@
 
 	module.exports = Viewport;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "index.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 206 */
 /***/ function(module, exports) {
@@ -26364,7 +26392,9 @@
 
 /***/ },
 /* 207 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	"use strict";
 
@@ -27361,9 +27391,13 @@
 		THREE.TransformControls.prototype.constructor = THREE.TransformControls;
 	})();
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "TransformControls.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 208 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -27678,9 +27712,13 @@
 	THREE.EditorControls.prototype = Object.create(THREE.EventDispatcher.prototype);
 	THREE.EditorControls.prototype.constructor = THREE.EditorControls;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "EditorControls.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 209 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -27733,9 +27771,13 @@
 	  getMajorVersion: getMajorVersion
 	};
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "utils.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 210 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -27809,9 +27851,13 @@
 
 	module.exports = ComponentLoader;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "componentloader.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 211 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -27864,9 +27910,13 @@
 
 	module.exports = ShaderLoader;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "shaderloader.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 212 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -27943,9 +27993,13 @@
 	  }
 	};
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "shortcuts.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 213 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -28202,9 +28256,13 @@
 	  return baseId + '-' + i;
 	}
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "entity.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 214 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -28401,9 +28459,13 @@
 	};
 	exports.default = Component;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "Component.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 215 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -28586,9 +28648,13 @@
 	};
 	exports.default = PropertyRow;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "PropertyRow.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 216 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -28657,9 +28723,13 @@
 	};
 	exports.default = BooleanWidget;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "BooleanWidget.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 217 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -28772,9 +28842,13 @@
 	};
 	exports.default = ColorWidget;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "ColorWidget.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 218 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -28838,9 +28912,13 @@
 	};
 	exports.default = InputWidget;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "InputWidget.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 219 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -29017,9 +29095,13 @@
 	};
 	exports.default = NumberWidget;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "NumberWidget.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 220 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -29115,9 +29197,13 @@
 	};
 	exports.default = SelectWidget;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "SelectWidget.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 221 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -29346,9 +29432,13 @@
 	};
 	exports.default = TextureWidget;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "TextureWidget.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 222 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -29437,9 +29527,13 @@
 	};
 	exports.default = Vec3Widget;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "Vec3Widget.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 223 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -29526,9 +29620,13 @@
 	};
 	exports.default = Vec2Widget;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "Vec2Widget.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 224 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -29619,9 +29717,13 @@
 	  return string === null || string === '';
 	}
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "component.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 225 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -29713,6 +29815,8 @@
 	  collapsed: false
 	};
 	exports.default = Collapsible;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "Collapsible.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
 /* 226 */
@@ -30495,6 +30599,8 @@
 /* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -30653,9 +30759,13 @@
 	};
 	exports.default = CommonComponents;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "CommonComponents.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 235 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -30670,9 +30780,13 @@
 	  Vec2Widget: __webpack_require__(223).default
 	};
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "index.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 236 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -30681,9 +30795,13 @@
 	});
 	exports.default = ['visible', 'position', 'scale', 'rotation'];
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "DefaultComponents.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 237 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -30835,9 +30953,13 @@
 	};
 	exports.default = Mixin;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "Mixins.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 238 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -30945,9 +31067,13 @@
 	};
 	exports.default = ModalHelp;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "ModalHelp.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 239 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -31079,9 +31205,13 @@
 	};
 	exports.default = Modal;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "Modal.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 240 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -31369,9 +31499,13 @@
 	};
 	exports.default = SceneGraph;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "SceneGraph.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 241 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -31472,9 +31606,13 @@
 
 	exports.default = Toolbar;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "Toolbar.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 242 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -31549,9 +31687,13 @@
 	  return xmlString;
 	}
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "exporter.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 243 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -31657,9 +31799,13 @@
 
 	exports.default = Toolbar;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "ToolBar.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 244 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -31760,6 +31906,11 @@
 	    _this2.changeToolOptions = function (option) {
 	      _this2.renderOptions(option);
 	      var optionHistory = _this2.state.optionHistory;
+	      Tools.map(function (tools) {
+	        if (tools.value == option) {
+	          optionHistory = [];
+	        }
+	      });
 	      optionHistory.push(option);
 	      _this2.setState({ optionHistory: optionHistory });
 	    };
@@ -31784,7 +31935,7 @@
 	      option: 'canvas',
 	      selectedTool: null,
 	      inspectorEnabled: true,
-	      optionHistory: [],
+	      optionHistory: ['canvas'],
 	      experience: props.experience.name ? props.experience : { name: '', scenes: [] },
 	      currentScene: '',
 	      preloadedImages: []
@@ -31833,7 +31984,7 @@
 	            ),
 	            React.createElement(
 	              'div',
-	              { className: 'col-xs-11 col-sm-11 col-md-11 text-center footer-mobile' },
+	              { className: 'col-xs-11 col-sm-11 col-md-10 text-center footer-mobile' },
 	              React.createElement(
 	                'ul',
 	                { className: 'nav nav-tabs', role: 'tablist' },
@@ -31875,9 +32026,13 @@
 
 	exports.default = SpectoToolBar;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "SpectoToolBar.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 245 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -32092,9 +32247,13 @@
 
 	exports.default = ToolOptions;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "ToolOptions.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 246 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -32178,9 +32337,13 @@
 
 	exports.default = CanvasTool;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "CanvasTool.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 247 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -32250,7 +32413,7 @@
 				if (this.state.currentState === STATES[0]) {
 					return React.createElement(
 						'div',
-						{ className: 'col-xs-2 col-sm-2 col-md-1 col-lg-1 text-left create-scene', onClick: this.incrementState.bind(this, STATES[1]) },
+						{ className: 'col-xs-2 col-sm-2 col-md-1 col-lg-1 text-left create-scene', onClick: this.incrementState.bind(this, STATES[2]) },
 						React.createElement('img', { src: '../../assets/img/create-scene.png' }),
 						React.createElement(
 							'div',
@@ -32295,9 +32458,13 @@
 
 	exports.default = CreateSceneButton;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "CreateSceneButton.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 248 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -32411,6 +32578,8 @@
 	    }
 	  });
 	}
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "spectoAPI.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
 /* 249 */
@@ -34288,6 +34457,8 @@
 /* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -34311,7 +34482,7 @@
 		var sky = document.createElement('a-sky');
 		flushScene();
 		sky.setAttribute('color', '#0dacff');
-		document.querySelector('a-scene').append(sky);
+		document.querySelector('a-scene').appendChild(sky);
 	}
 	function flushScene() {
 		var sky = document.querySelector('a-sky');
@@ -34403,9 +34574,13 @@
 		changeSky(sky.sky.getAttribute('src'));
 	}
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "SpectoAframeLib.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 257 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -34554,9 +34729,13 @@
 
 	exports.default = SceneButton;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "SceneButton.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 258 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -34635,9 +34814,13 @@
 
 	exports.default = RealitySelector;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "RealitySelector.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 259 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -34716,12 +34899,11 @@
 			value: function render() {
 				return React.createElement(
 					'div',
-					{ className: 'col-xs-12 text-center scene-container' },
-					React.createElement('div', { className: 'col-xs-3' }),
+					{ className: 'col-sm-offset-3  col-sm-6 col-xs-12 text-center scene-container' },
+					React.createElement('div', { className: 'col-sm-3 col-xs-3' }),
 					React.createElement(
 						'div',
-						{ className: 'col-xs-1 create-scene' },
-						React.createElement('img', { src: '../assets/img/color.png' }),
+						{ className: 'col-sm-1 col-xs-1 create-scene-color create-scene' },
 						React.createElement(
 							'div',
 							{ className: 'chs-option buttonName ' },
@@ -34730,7 +34912,7 @@
 					),
 					React.createElement(
 						'div',
-						{ id: 'Photo360', className: 'col-xs-1 create-scene', onClick: this.triggerFileHandler.bind(this, 'photoFile') },
+						{ id: 'Photo360', className: 'col-sm-1 col-xs-1 create-scene', onClick: this.triggerFileHandler.bind(this, 'photoFile') },
 						React.createElement(
 							'div',
 							{ className: 'chs-option buttonName text' },
@@ -34745,7 +34927,7 @@
 					),
 					React.createElement(
 						'div',
-						{ className: 'col-xs-1 create-scene', id: 'Video360' },
+						{ className: 'col-sm-1 col-xs-1 create-scene', id: 'Video360' },
 						React.createElement(
 							'div',
 							{ className: 'chs-option buttonName text' },
@@ -34757,7 +34939,7 @@
 							'Upload'
 						)
 					),
-					React.createElement('div', { className: 'col-xs-3' })
+					React.createElement('div', { className: 'col-sm-3' })
 				);
 			}
 		}]);
@@ -34767,9 +34949,13 @@
 
 	exports.default = SelectBackground;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "SelectBackground.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 260 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -34849,9 +35035,13 @@
 
 	exports.default = TriggerSelector;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "TriggerSelector.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 261 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -34939,9 +35129,13 @@
 
 	exports.default = NewTrigger;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "NewTrigger.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 262 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -35042,9 +35236,13 @@
 
 	exports.default = LinkScenes;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "LinkScenes.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 263 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -35182,9 +35380,13 @@
 
 	exports.default = HotspotButton;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "HotspotButton.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 264 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -35327,9 +35529,13 @@
 
 	exports.default = TextTools;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "TextTools.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 265 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -35394,18 +35600,26 @@
 	        };
 
 	        _this2.inputFocus = function () {
+	            var toolOptionsHeight = $('#ToolOptions').height();
+	            var footerHeight = $('footer').height();
+	            var totalHeight = toolOptionsHeight + footerHeight;
+	            totalHeight = "+=" + totalHeight;
 	            $('.experience-name-wrapper').css('z-index', 10002);
 	            $('footer').fadeOut(300);
 	            $('#ToolOptions').animate({
-	                top: "+=350"
+	                top: totalHeight
 	            }, 300);
 	            $('#overlay').fadeIn(300);
 	        };
 
 	        _this2.inputOutofFocus = function () {
+	            var toolOptionsHeight = $('#ToolOptions').height();
+	            var footerHeight = $('footer').height();
+	            var totalHeight = toolOptionsHeight + footerHeight;
+	            totalHeight = "-=" + totalHeight;
 	            $('#overlay').fadeOut(300);
 	            $('#ToolOptions').animate({
-	                top: "-=350"
+	                top: totalHeight
 	            }, 300);
 	            $('footer').fadeIn(300);
 	            $('.experience-name-wrapper').css('z-index', 5);
@@ -35436,13 +35650,13 @@
 	            if (_this2.state.experience.name === '') {
 	                return React.createElement(
 	                    'div',
-	                    { className: 'experience-name-wrapper' },
+	                    { className: 'experience-name-wrapper col-md-4 col-sm-8 col-xs-10' },
 	                    React.createElement('input', { className: 'experience-name', autoFocus: true, placeholder: 'Name Your Scape', onKeyUp: _this2.keyup.bind(_this2) })
 	                );
 	            } else if (!_this2.state.experienceRename) {
 	                return React.createElement(
 	                    'div',
-	                    { className: 'experience-name-wrapper', onClick: function onClick() {
+	                    { className: 'experience-name-wrapper col-md-4 col-sm-8 col-xs-10', onClick: function onClick() {
 	                            _this2.nameClicked();
 	                        } },
 	                    _this2.state.experience.name
@@ -35450,7 +35664,7 @@
 	            } else {
 	                return React.createElement(
 	                    'div',
-	                    { className: 'experience-name-wrapper' },
+	                    { className: 'experience-name-wrapper col-md-4 col-sm-8 col-xs-10' },
 	                    React.createElement('input', { className: 'experience-name', autoFocus: true, defaultValue: _this2.state.experience.name, onKeyUp: _this2.keyup.bind(_this2) })
 	                );
 	            }
@@ -35479,9 +35693,13 @@
 	            return React.createElement(
 	                'div',
 	                { className: 'container-fluid experience-header' },
-	                React.createElement('div', { className: 'logo' }),
-	                React.createElement('div', { className: 'header-tools' }),
-	                this.renderExperienceName(),
+	                React.createElement(
+	                    'div',
+	                    { className: 'row' },
+	                    React.createElement('div', { className: 'logo col-md-4 col-sm-2 col-xs-1' }),
+	                    this.renderExperienceName(),
+	                    React.createElement('div', { className: 'header-tools col-md-4 col-sm-2 col-xs-1' })
+	                ),
 	                React.createElement('div', { id: 'overlay', onClick: function onClick() {
 	                        _this3.checkIfNameSet();
 	                    } })
@@ -35494,9 +35712,13 @@
 
 	exports.default = ExperienceHeader;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "ExperienceHeader.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 266 */
 /***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -35597,8 +35819,6 @@
 	        value: function componentWillUnmount() {
 	            $('.a-canvas').show();
 	        }
-	        // TODO testing
-
 	    }, {
 	        key: 'render',
 	        value: function render() {
@@ -35742,6 +35962,8 @@
 
 	exports.default = Experience;
 
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "experiences.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
 /***/ },
 /* 267 */
 /***/ function(module, exports, __webpack_require__) {
@@ -35817,7 +36039,7 @@
 
 
 	// module
-	exports.push([module.id, "    /* Remove the navbar's default margin-bottom and rounded borders */\n\n\t\tbody{\n\t\t\tfont-family: 'Karla', sans-serif;\n\t\t}\n\n\t\t.navbar {\n      padding: 10px;\n      margin-bottom: 0;\n      border-radius: 0;\n    }\n\n\t\t.img-icon{\n      padding: 0 5px;\n    }\n\n\t\t.img-icon img{\n      width: 20px;\n    }\n\n\t\t.empty{\n      //height: 375px;\n    }\n\n\t\t.search{\n      background: #372e33;\n      opacity: .8;\n      padding-top: 15px;\n    }\n\n\t\t.search-input{\n      border-radius: 20px;\n      border: 0;\n      background: #2c2930;\n      padding: 5px;\n      width: 60%;\n      margin: auto;\n    }\n\n\t\t.search-input input{\n      background: #2c2930 !important;\n      border:0;\n      width: 80%;\n      margin-left: 10px;\n    }\n\n\t\t.upload{\n      background: white;\n      border-radius: 20px;\n      color: #18273e;\n      padding: 5px 10px;\n      font-weight: bold;\n      font-size: 12px;\n      margin-right:10px;\n    }\n\n\t\t.scene-container{\n      padding-top: 20px;\n      bottom: 20px;\n    }\n\n\t\t.create-scene{\n      position: relative;\n      padding-left: 0;\n      padding-right:0;\n      padding-bottom: 10px;\n      margin-right: 10px;\n    }\n\n\t\t.create-scene > img{\n      width: 100%;\n      height: 13vh;\n      border-radius: 4px;\n    }\n\n\t\t/*h6{\n      position: absolute;\n      top:25px;\n      left:10px;\n      color: white;\n      width: 100%;\n      font-weight: bold;\n    }*/\n\n\t\t.buttonName{\n      position: absolute;\n      top:25px;\n      text-align: center;\n      //left:10px;\n      color: black;\n      width: 100%;\n      font-weight: bold;\n    }\n\n\t\t.scene-btn{\n      position: absolute;\n      width:100%;\n      color: black;\n      height: 50%;\n      background: none;\n      border: none;\n      font-size: 12px;\n      font-weight: bold;\n      left:0;\n    }\n\n\t\t.slider-button{\n      padding-top: 7px;\n    }\n\n\t\t.slider-button div{\n      padding:0;\n    }\n\n\t\t.slider-button .glyphicon{\n      color:#7a859c;\n    }\n\n\t\t.slider-button hr{\n      border-top:3px solid #7a859c;\n      margin-top:10px;\n    }\n\n\t\t.name-scene-para{\n      color: white;\n      position: absolute;\n      width: 100%;\n      top: 5px;\n      font-size: 10px;\n      font-weight: bold;\n      left: 10px;\n      text-align: center;\n    }\n\n\t\t.name-scene-input{\n      position: absolute;\n      color:white;\n      top: 30px;\n      width: 60%;\n      height: 40px;\n      left: 20px;\n      background: none;\n      border: none;\n      font-size: 12px;\n      overflow: hidden;\n      resize:none;\n    }\n\n\t\t.btn-option{\n      position: absolute;\n      width: 100%;\n      text-align: right;\n      bottom: 10px;\n      //top: 60px;\n      //right:-15px;\n    }\n\n\t\t.canvas-white img{\n      width:20px;\n    }\n\n\t\t.canvas-white, .del-btn{\n      padding: 5px;\n    }\n\n\t\t.del-btn img{\n      width: 12px;\n    }\n\n\t\t/* footer */\n\n\t\tfooter{\n      background-color: #272526;\n      color: white;\n      width: 100%;\n      height: 50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    }\n\n\t\t/*footer {\n      background-color: #18273e;\n      color: white;\n      //padding: 15px;\n      width: 100%;\n      height:50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    }*/\n\n\t\t.viewer{\n      padding-top: 15px;\n    }\n\n\t\t.nav-tabs{\n      position: absolute;\n      top: -10px;\n      width: 90%;\n      margin: auto;\n      left: 37%;\n    }\n\n\t\t.nav-tabs .img-icon{\n      margin: 10px;\n      padding-top: 13px;\n      border-top:3px solid #fff;\n    }\n\n\t\t.nav-tabs .active{\n      border-top:3px solid #04a0f8;\n    }\n\n\t\tfooter .img-icon img{\n      width: 30px;\n    }\n\n\t\tinput:focus, button:focus, textarea:focus{\n      outline: none;\n    }\n\n\t\tul li{\n      display: inline;\n    }\n\n\t\t#ToolOptions{\n\t    position: absolute;\n\t    bottom: 0px;\n\t    width: 100%;\n\t    height: 25vh;\n\t    background: #372e33;\n      opacity: .9;\n    \tz-index:9999;\n\t    bottom: 50px;\n    }\n\n\t\t#Photo360 {\n\t\tbackground-image: url(" + __webpack_require__(271) + ");\n\t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n    background-repeat: no-repeat;\n  }\n\n\t\t#Photo360:hover {\n\t   background-image: url(" + __webpack_require__(272) + ");\n     background-repeat: no-repeat;\n  }\n\n\t\t#Photo360>.text,#Photo360:hover>.uploadText,#Video360>.text,#Video360:hover >.uploadText{\n\t\tdisplay:block;\n  }\n\n\t\t#Photo360:hover>.text,#Photo360 >.uploadText,#Video360:hover> .text,#Video360> .uploadText{\n\t\tdisplay:none;\n  }\n\n\t\t#Video360{\n  \t\tbackground-image: url(" + __webpack_require__(273) + ");\n  \t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n    background-repeat: no-repeat;\n  \t}\n\n\t\t#Video360:hover{\n  \t\tbackground-image: url(" + __webpack_require__(272) + ");\n      background-repeat: no-repeat;\n  \t}\n\n\t\t.number{\n      position: absolute;\n      top: 5px;\n      right: 5px;\n      background: #fff;\n      border-radius: 100%;\n      height: 15px;\n      color: #000;\n      width: 15px;\n      font-size: 11px;\n      font-weight: bold;\n    }\n\n\t\t.active-btn{\n      position: absolute;\n      top:5px;\n      left: 5px;\n      padding:2px;\n      background: #fff;\n      color: #000;\n      border-radius: 10px;\n      font-size: 8px;\n      font-weight: bold;\n    }\n\n\t\t.crosshair {\n      cursor: crosshair !important;\n    }\n\n\t\t.scene-create{\n      margin: 35px;\n    }\n\n\t\t.fadeout-retina{\n      background: url(" + __webpack_require__(274) + ");\n      color: #000;\n    }\n\n\t\t.startingoff{\n      background: url(" + __webpack_require__(275) + ");\n    }\n\n\t\t.animate{\n      background: url(" + __webpack_require__(276) + ");\n    }\n\n\t\t.objects{\n      background: url(" + __webpack_require__(277) + ");\n    }\n\n\t\t.animate-card{\n      background: url(" + __webpack_require__(278) + ");\n    }\n\n\t\t.himalay{\n      background: url(" + __webpack_require__(279) + ");\n    }\n\n\t\t.water{\n      background: url(" + __webpack_require__(280) + ");\n    }\n\n\t\t.eagle{\n      background: url(" + __webpack_require__(281) + ");\n    }\n\n\t\t.musuem{\n      background: url(" + __webpack_require__(282) + ");\n    }\n\n\t\t.roller{\n      background: url(" + __webpack_require__(283) + ");\n    }\n\n\t\t.rainbow{\n      background: url(" + __webpack_require__(284) + ");\n    }\n\n\t\t.static-bg{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 135px;\n      border-radius: 6px;\n    }\n\n\t\t.card-image{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 171.33px;\n      border-radius: 6px;\n      padding: 1px 10px;\n    }\n\n\t\t.pd-all{\n      padding: 30px 0;\n    }\n\n\t\t.save-btn{\n      background: #fff;\n      color: #000;\n      padding: 10px;\n      border-radius: 20px;\n    }\n\n\t\t.middle-text{\n      padding: 10px;\n    }\n\n\t\t.edit-pic{\n      padding-top: 85px;\n    }\n\n\t\t.static-bg img{\n      width: 15%;\n      margin: 5px;\n    }\n\n\t\t.static-bg img:last-child{\n      width: 11%;\n    }\n\n\t\t.pic-info{\n      background: #fff;\n      color:#000;\n      border-bottom-right-radius: 6px;\n      border-bottom-left-radius: 6px;\n    }\n\n\t\t.pic-heading{\n      margin-bottom: 0;\n      padding-top: 10px;\n    }\n\n\t\t.pic-detail{\n      font-size: 12px;\n      padding-bottom: 10px;\n    }\n\n\t\t.mainPage{\n  background: #333;\n  color: white;\n  padding: 50px 0 100px 0;\n  position: relative;\n  min-height:100vh;\n }\n\n\t\t::-webkit-input-placeholder { /* WebKit browsers */\n    color:    #fff ;\n}\n\n\t\t:-moz-placeholder { /* Mozilla Firefox 4 to 18 */\n    color:    #fff;\n}\n\n\t\t::-moz-placeholder { /* Mozilla Firefox 19+ */\n    color:    #fff;\n}\n\n\t\t:-ms-input-placeholder { /* Internet Explorer 10+ */\n    color:    #fff;\n}\n\n\t\t@media (max-width: 530px) {\n  .search-input{\n    width: 100%;\n  }\n  h6{\n    left: 0;\n  }\n  .upload{\n    margin-right: 0;\n    font-size: 11px;\n  }\n  .glyphicon-remove{\n    font-size: 9px;\n  }\n  .search-input input{\n    width: 79%;\n  }\n  .steps{\n    font-size: 12.5px;\n    font-weight: bold;\n  }\n}\n\n\t\t@media (min-width: 992px) and (max-width: 1199px){\n  .create-scene{\n    margin-right: 3%;\n  }\n  .sl-btn{\n    right: -10px;\n  }\n  h6{\n    top:16px;\n    left:20px;\n  }\n}\n\n\t\t@media (min-width: 768px) and (max-width: 991px) {\n  h6{\n    left:-14px;\n  }\n  .sl-btn{\n    right:50px;\n  }\n  .card-image{\n    margin-bottom: 20px;\n  }\n  .static-bg{\n    margin-bottom: 70px;\n  }\n  .mainPage{\n    overflow-y: scroll;\n    height: 100vh;\n  }\n  .nav-tabs{\n    left:25%;\n  }\n  .create-scene{\n    width: 150px;\n  }\n  .scene-container{\n    width: 100%;\n    overflow-x:scroll;\n  }\n  .scroll-container{\n    width:100vh;\n    overflow: hidden !important;\n  }\n}\n\n\t\t@media (max-width: 767px) {\n .steps {\n   text-align: center;\n }\n .card-image{\n    height:150px;\n    margin-bottom: 20px;\n  }\n  .pd-all{\n    padding: 10px 0;\n  }\n  .static-bg{\n    margin-bottom: 70px;\n  }\n\n  .mainPage{\n    overflow-y: scroll;\n    height: 100vh;\n  }\n\n  .footer-mobile{\n    text-align: left;\n  }\n  .nav-tabs{\n    left:10%;\n  }\n  .create-scene{\n    width: 90px;\n  }\n  .canvas-white img{\n    width:15px;\n  }\n  .del-btn img{\n    width: 9px;\n  }\n  .scene-btn{\n    font-size: 9px;\n  }\n  .scene-container{\n    width: 100%;\n    overflow-x:scroll;\n  }\n  .scroll-container{\n    width:100vh;\n    overflow: hidden !important;\n  }\n  #ToolOptions{\n    height: 30vh;\n   }\n}\n\n\t\t#inspectorEye{\n    position: fixed;\n    bottom: 36px;\n    background: none;\n\n\n}\n\n\t\t.a-body{\n\n    background: #333;\n}\n\n\t\t.text-tool{\n  border-right:2px solid #272526;\n}\n\n\t\t.small-text-icon img{\n  width: 53%;\n\tmargin-left: 4px;\n  padding-bottom:12px;\n}\n\n\t\t.text-icon img{\n  width: 106%;\n  padding-bottom:12px;\n}\n\n\t\t.heading-text {\n  background: rgb(39, 37, 38);\n  border: none;\n  width: 100%;\n  border-radius: 4px;\n  height: 85px;\n  margin: 0px;\n  resize: none;\n  padding: 10px;\n}\n\n\t\t.text-rotate img {\n  width: 50px;\n}\n\n\t\t.divide-line{\n  height: 90px;\n  border-left: 2px solid #272526;\n  margin-left: 3%;\n}\n\n\t\t.dropdown, .pick-color{\n  background: #fff;\n  z-index: 1000;\n  padding: 5px;\n  color: #000;\n  width: 100%;\n  border-radius: 20px;\n  color: #000;\n  border:none;\n  margin-bottom: 5px;\n}\n\n\t\t.picker-heading{\n  margin-bottom: 0;\n}\n\n\t\t.tool-option img{\n\twidth: 10%;\n  margin-bottom: 10px;\n}\n\n\t\t.pick-color{\n  background: #ee686e;\n}\n\n\t\t.Text3d{\n\tmargin-left: 20px;\n}\n\n\t\t.anotherbuttonName{\n\tposition: absolute;\n\ttop: 34px;\n  left: -6px;\n\tcolor: white;\n\twidth: 100%;\n\tfont-weight: bold;\n}\n\n\t\t.experience-header {\n\theight: auto;\n\twidth: 100vw;\n\tposition: fixed;\n\ttop: 0;\n\tleft: 0;\n\tz-index: 9999;\n\tpadding-top: 10px;\n}\n\n\t\t.logo {\n\tfloat: left;\n}\n\n\t\t.header-tools {\n\tfloat: right;\n}\n\n\t\t.experience-name-wrapper {\n    height: auto;\n\tmargin: 0 auto;\n\twidth: 30vw;\n\tfont-size: 17px;\n\tposition: relative;\n\tz-index: 5;\n    text-align: center;\n}\n\n\t\tinput.experience-name {\n  \tmargin-top: 10px;\n  \tbackground-color: transparent !important;\n  \tborder-bottom: 1px solid #fff;\n  \tcolor: #fff !important;\n  \ttext-align: center;\n}\n\n\t\t#overlay {\n\tbackground: rgba(0, 0, 0, 0.7);\n    display: none;\n    width: 100vw;\n\theight: 100vh;\n    position: absolute;\n\ttop: 0;\n\tleft: 0;\n\tz-index: 10000;\n}\n\n\t\t.boxFilter{\n  margin-right: none !important;\n}\n\n\t\t#experiences {\n\toverflow-y: scroll;\n    overflow-x: hidden;\n    height: 210px;\n    width: auto;\n    float: right;\n}\n\n\t\t#experience {\n    height: 200px;\n    margin-bottom: 5px;\n}\n\n\t\t::-webkit-scrollbar {\n    width: 5px;\n}\n\n\t\t::-webkit-scrollbar-track {\n    background-color: rgba(0, 0, 0, 0.2);\n    border-radius: 10px;\n}\n\n\t\t::-webkit-scrollbar-thumb {\n    border-radius: 10px;\n    background-color: rgba(0, 0, 0, 0.7);\n}\n", ""]);
+	exports.push([module.id, "    /* Remove the navbar's default margin-bottom and rounded borders */\n\n\t\tbody{\n\t\t\tfont-family: 'Karla', sans-serif;\n\t\t}\n\n\t\t.navbar {\n      padding: 10px;\n      margin-bottom: 0;\n      border-radius: 0;\n    }\n\n\t\t.img-icon{\n      padding: 0 5px;\n    }\n\n\t\t.img-icon img{\n      width: 20px;\n    }\n\n\t\t.empty{\n      //height: 375px;\n    }\n\n\t\t.search{\n      background: #372e33;\n      opacity: .8;\n      padding-top: 15px;\n    }\n\n\t\t.search-input{\n      border-radius: 20px;\n      border: 0;\n      background: #2c2930;\n      padding: 5px;\n      width: 60%;\n      margin: auto;\n    }\n\n\t\t.search-input input{\n      background: #2c2930 !important;\n      border:0;\n      width: 80%;\n      margin-left: 10px;\n    }\n\n\t\t.upload{\n      background: white;\n      border-radius: 20px;\n      color: #18273e;\n      padding: 5px 10px;\n      font-weight: bold;\n      font-size: 12px;\n      margin-right:10px;\n    }\n\n\t\t.scene-container{\n      padding-top: 20px;\n      bottom: 20px;\n    }\n\n\t\t.create-scene{\n      position: relative;\n      padding-left: 0;\n      padding-right:0;\n      padding-bottom: 10px;\n      margin-right: 10px;\n    }\n\n\t\t.create-scene > img{\n      width: 100%;\n      height: 13vh;\n      border-radius: 4px;\n    }\n\n\t\t.create-scene-color{\n\n    background-image: url(" + __webpack_require__(271) + ");\n    height: 100px;\n    width: 100px;\n    background-size: contain;\n    background-repeat: no-repeat;\n  }\n\n\t\t/*h6{\n      position: absolute;\n      top:25px;\n      left:10px;\n      color: white;\n      width: 100%;\n      font-weight: bold;\n    }*/\n\n\t\t.buttonName{\n      position: absolute;\n      top:25px;\n      text-align: center;\n      //left:10px;\n      color: black;\n      width: 100%;\n      font-weight: bold;\n    }\n\n\t\t.scene-btn{\n      position: absolute;\n      width:100%;\n      color: black;\n      height: 50%;\n      background: none;\n      border: none;\n      font-size: 12px;\n      font-weight: bold;\n      left:0;\n    }\n\n\t\t.slider-button{\n      padding-top: 7px;\n    }\n\n\t\t.slider-button div{\n      padding:0;\n    }\n\n\t\t.slider-button .glyphicon{\n      color:#7a859c;\n    }\n\n\t\t.slider-button hr{\n      border-top:3px solid #7a859c;\n      margin-top:10px;\n    }\n\n\t\t.name-scene-para{\n      color: white;\n      position: absolute;\n      width: 100%;\n      top: 5px;\n      font-size: 10px;\n      font-weight: bold;\n      /*left: 10px;*/\n      text-align: center;\n    }\n\n\t\t.name-scene-input{\n      position: absolute;\n      color:white;\n      top: 30px;\n      width: 60%;\n      height: 40px;\n      left: 20px;\n      background: none;\n      border: none;\n      font-size: 12px;\n      overflow: hidden;\n      resize:none;\n    }\n\n\t\t.btn-option{\n      position: absolute;\n      width: 100%;\n      text-align: right;\n      bottom: 10px;\n      //top: 60px;\n      //right:-15px;\n    }\n\n\t\t.canvas-white img{\n      width:20px;\n    }\n\n\t\t.canvas-white, .del-btn{\n      padding: 5px;\n    }\n\n\t\t.del-btn img{\n      width: 12px;\n    }\n\n\t\t/* footer */\n\n\t\tfooter{\n      background-color: #272526;\n      color: white;\n      width: 100%;\n      height: 50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    }\n\n\t\t/*footer {\n      background-color: #18273e;\n      color: white;\n      //padding: 15px;\n      width: 100%;\n      height:50px;\n      position: absolute;\n      bottom:0px;\n      z-index:9999;\n    }*/\n\n\t\t.viewer{\n      padding-top: 15px;\n    }\n\n\t\t.nav-tabs{\n      position: absolute;\n      top: -10px;\n      width: 90%;\n      margin: auto;\n      left: 37%;\n    }\n\n\t\t.nav-tabs .img-icon{\n      margin: 10px;\n      padding-top: 13px;\n      border-top:3px solid #fff;\n    }\n\n\t\t.nav-tabs .active{\n      border-top:3px solid #04a0f8;\n    }\n\n\t\tfooter .img-icon img{\n      width: 30px;\n    }\n\n\t\tinput:focus, button:focus, textarea:focus{\n      outline: none;\n    }\n\n\t\tul li{\n      display: inline;\n    }\n\n\t\t#ToolOptions{\n\t    position: absolute;\n\t    bottom: 0px;\n\t    width: 100%;\n\t    height: 25vh;\n\t    background: #372e33;\n      opacity: .9;\n    \tz-index:9999;\n\t    bottom: 50px;\n    }\n\n\t\t#Photo360 {\n\t\tbackground-image: url(" + __webpack_require__(272) + ");\n\t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n    background-repeat: no-repeat;\n  }\n\n\t\t#Photo360:hover {\n\t   background-image: url(" + __webpack_require__(273) + ");\n     background-repeat: no-repeat;\n  }\n\n\t\t#Photo360>.text,#Photo360:hover>.uploadText,#Video360>.text,#Video360:hover >.uploadText{\n\t\tdisplay:block;\n  }\n\n\t\t#Photo360:hover>.text,#Photo360 >.uploadText,#Video360:hover> .text,#Video360> .uploadText{\n\t\tdisplay:none;\n  }\n\n\t\t#Video360{\n  \t\tbackground-image: url(" + __webpack_require__(274) + ");\n  \t\theight: 100px;\n\t\twidth: 100px;\n\t\tbackground-size: contain;\n    background-repeat: no-repeat;\n  \t}\n\n\t\t#Video360:hover{\n  \t\tbackground-image: url(" + __webpack_require__(273) + ");\n      background-repeat: no-repeat;\n  \t}\n\n\t\t.number{\n      position: absolute;\n      top: 5px;\n      right: 5px;\n      background: #fff;\n      border-radius: 100%;\n      height: 15px;\n      color: #000;\n      width: 15px;\n      font-size: 11px;\n      font-weight: bold;\n    }\n\n\t\t.active-btn{\n      position: absolute;\n      top:5px;\n      left: 5px;\n      padding:2px;\n      background: #fff;\n      color: #000;\n      border-radius: 10px;\n      font-size: 8px;\n      font-weight: bold;\n    }\n\n\t\t.crosshair {\n      cursor: crosshair !important;\n    }\n\n\t\t.scene-create{\n      margin: 35px;\n    }\n\n\t\t.fadeout-retina{\n      background: url(" + __webpack_require__(275) + ");\n      color: #000;\n    }\n\n\t\t.startingoff{\n      background: url(" + __webpack_require__(276) + ");\n    }\n\n\t\t.animate{\n      background: url(" + __webpack_require__(277) + ");\n    }\n\n\t\t.objects{\n      background: url(" + __webpack_require__(278) + ");\n    }\n\n\t\t.animate-card{\n      background: url(" + __webpack_require__(279) + ");\n    }\n\n\t\t.himalay{\n      background: url(" + __webpack_require__(280) + ");\n    }\n\n\t\t.water{\n      background: url(" + __webpack_require__(281) + ");\n    }\n\n\t\t.eagle{\n      background: url(" + __webpack_require__(282) + ");\n    }\n\n\t\t.musuem{\n      background: url(" + __webpack_require__(283) + ");\n    }\n\n\t\t.roller{\n      background: url(" + __webpack_require__(284) + ");\n    }\n\n\t\t.rainbow{\n      background: url(" + __webpack_require__(285) + ");\n    }\n\n\t\t.static-bg{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 135px;\n      border-radius: 6px;\n    }\n\n\t\t.card-image{\n      background-size: cover;\n      background-position: 50% 50%;\n      height: 171.33px;\n      border-radius: 6px;\n      padding: 1px 10px;\n    }\n\n\t\t.pd-all{\n      padding: 30px 0;\n    }\n\n\t\t.save-btn{\n      background: #fff;\n      color: #000;\n      padding: 10px;\n      border-radius: 20px;\n    }\n\n\t\t.middle-text{\n      padding: 10px;\n    }\n\n\t\t.edit-pic{\n      padding-top: 85px;\n    }\n\n\t\t.static-bg img{\n      width: 15%;\n      margin: 5px;\n    }\n\n\t\t.static-bg img:last-child{\n      width: 11%;\n    }\n\n\t\t.pic-info{\n      background: #fff;\n      color:#000;\n      border-bottom-right-radius: 6px;\n      border-bottom-left-radius: 6px;\n    }\n\n\t\t.pic-heading{\n      margin-bottom: 0;\n      padding-top: 10px;\n    }\n\n\t\t.pic-detail{\n      font-size: 12px;\n      padding-bottom: 10px;\n    }\n\n\t\t.mainPage{\n  background: #333;\n  color: white;\n  padding: 50px 0 100px 0;\n  position: relative;\n  min-height:100vh;\n }\n\n\t\t::-webkit-input-placeholder { /* WebKit browsers */\n    color:    #fff ;\n}\n\n\t\t:-moz-placeholder { /* Mozilla Firefox 4 to 18 */\n    color:    #fff;\n}\n\n\t\t::-moz-placeholder { /* Mozilla Firefox 19+ */\n    color:    #fff;\n}\n\n\t\t:-ms-input-placeholder { /* Internet Explorer 10+ */\n    color:    #fff;\n}\n\n\t\t@media (max-width: 530px) {\n  .search-input{\n    width: 100%;\n  }\n  h6{\n    left: 0;\n  }\n  .upload{\n    margin-right: 0;\n    font-size: 11px;\n  }\n  .glyphicon-remove{\n    font-size: 9px;\n  }\n  .search-input input{\n    width: 79%;\n  }\n  .steps{\n    font-size: 12.5px;\n    font-weight: bold;\n  }\n}\n\n\t\t@media (min-width: 992px) and (max-width: 1199px){\n  .create-scene{\n    margin-right: 3%;\n  }\n  .sl-btn{\n    right: -10px;\n  }\n  h6{\n    top:16px;\n    left:20px;\n  }\n}\n\n\t\t@media (min-width: 768px) and (max-width: 991px) {\n  h6{\n    left:-14px;\n  }\n  .sl-btn{\n    right:50px;\n  }\n  .card-image{\n    margin-bottom: 20px;\n  }\n  .static-bg{\n    margin-bottom: 70px;\n  }\n  .mainPage{\n    overflow-y: scroll;\n    height: 100vh;\n  }\n  .nav-tabs{\n    left:25%;\n  }\n  .create-scene{\n    width: 150px;\n  }\n  .scene-container{\n    width: 100%;\n    overflow-x:scroll;\n  }\n  .scroll-container{\n    width:100vh;\n    overflow: hidden !important;\n  }\n}\n\n\t\t@media (max-width: 767px) {\n .steps {\n   text-align: center;\n }\n .card-image{\n    height:150px;\n    margin-bottom: 20px;\n  }\n  .pd-all{\n    padding: 10px 0;\n  }\n  .static-bg{\n    margin-bottom: 70px;\n  }\n\n  .mainPage{\n    overflow-y: scroll;\n    height: 100vh;\n  }\n\n  .footer-mobile{\n    text-align: left;\n  }\n  .nav-tabs{\n    left:10%;\n  }\n  .create-scene{\n    width: 90px;\n  }\n  .canvas-white img{\n    width:15px;\n  }\n  .del-btn img{\n    width: 9px;\n  }\n  .scene-btn{\n    font-size: 9px;\n  }\n  .scene-container{\n    width: 100%;\n    overflow-x:scroll;\n  }\n  .scroll-container{\n    width:100vh;\n    overflow: hidden !important;\n  }\n  #ToolOptions{\n    height: 30vh;\n   }\n}\n\n\t\t#inspectorEye{\n    position: fixed;\n    bottom: 36px;\n    background: none;\n\n\n}\n\n\t\t.a-body{\n\n    background: #333;\n}\n\n\t\t.text-tool{\n  border-right:2px solid #272526;\n}\n\n\t\t.small-text-icon img{\n  width: 53%;\n\tmargin-left: 4px;\n  padding-bottom:12px;\n}\n\n\t\t.text-icon img{\n  width: 106%;\n  padding-bottom:12px;\n}\n\n\t\t.heading-text {\n  background: rgb(39, 37, 38);\n  border: none;\n  width: 100%;\n  border-radius: 4px;\n  height: 85px;\n  margin: 0px;\n  resize: none;\n  padding: 10px;\n}\n\n\t\t.text-rotate img {\n  width: 50px;\n}\n\n\t\t.divide-line{\n  height: 90px;\n  border-left: 2px solid #272526;\n  margin-left: 3%;\n}\n\n\t\t.dropdown, .pick-color{\n  background: #fff;\n  z-index: 1000;\n  padding: 5px;\n  color: #000;\n  width: 100%;\n  border-radius: 20px;\n  color: #000;\n  border:none;\n  margin-bottom: 5px;\n}\n\n\t\t.picker-heading{\n  margin-bottom: 0;\n}\n\n\t\t.tool-option img{\n\twidth: 10%;\n  margin-bottom: 10px;\n}\n\n\t\t.pick-color{\n  background: #ee686e;\n}\n\n\t\t.Text3d{\n\tmargin-left: 20px;\n}\n\n\t\t.anotherbuttonName{\n\tposition: absolute;\n\ttop: 34px;\n  left: -6px;\n\tcolor: white;\n\twidth: 100%;\n\tfont-weight: bold;\n}\n\n\t\t.experience-header {\n\theight: auto;\n\twidth: 100vw;\n\tposition: fixed;\n\ttop: 0;\n\tleft: 0;\n\tz-index: 9999;\n\tpadding-top: 10px;\n}\n\n\t\t.logo {\n\tfloat: left;\n}\n\n\t\t.header-tools {\n\tfloat: right;\n}\n\n\t\t.experience-name-wrapper {\n    height: auto;\n\tmargin: 0 auto;\n\tfont-size: 17px;\n\tposition: relative;\n\tz-index: 5;\n    text-align: center;\n}\n\n\t\tinput.experience-name {\n    width: 100%;\n  \tmargin-top: 10px;\n  \tbackground-color: transparent !important;\n  \tborder-bottom: 1px solid #fff;\n  \tcolor: #fff !important;\n  \ttext-align: center;\n}\n\n\t\t#overlay {\n\tbackground: rgba(0, 0, 0, 0.7);\n    display: none;\n    width: 100vw;\n\theight: 100vh;\n    position: absolute;\n\ttop: 0;\n\tleft: 0;\n\tz-index: 10000;\n}\n\n\t\t.boxFilter{\n  margin-right: none !important;\n}\n\n\t\t#experiences {\n\toverflow-y: scroll;\n    overflow-x: hidden;\n    height: 202px;\n    width: auto;\n    float: right;\n}\n\n\t\t#experience {\n    height: 200px;\n    margin-bottom: 5px;\n}\n\n\t\t::-webkit-scrollbar {\n    width: 8px;\n}\n\n\t\t::-webkit-scrollbar-track {\n    background-color: rgba(0, 0, 0, 0.2);\n    border-radius: 10px;\n}\n\n\t\t::-webkit-scrollbar-thumb {\n    border-radius: 10px;\n    background-color: rgba(0, 0, 0, 0.7);\n}\n", ""]);
 
 	// exports
 
@@ -35826,94 +36048,100 @@
 /* 271 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "f1d1cccd1c282d965be3df896ce2e90d.png";
+	module.exports = __webpack_require__.p + "da3a5224fd06314d0271c88edbab1248.png";
 
 /***/ },
 /* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "a5990f6eb60f7b046ec6a4653a377081.png";
+	module.exports = __webpack_require__.p + "f1d1cccd1c282d965be3df896ce2e90d.png";
 
 /***/ },
 /* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "c9bf3b73e083e03c8a07407ccbc19cee.png";
+	module.exports = __webpack_require__.p + "a5990f6eb60f7b046ec6a4653a377081.png";
 
 /***/ },
 /* 274 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "29040af7da4a6a3f568008e260c7665e.png";
+	module.exports = __webpack_require__.p + "c9bf3b73e083e03c8a07407ccbc19cee.png";
 
 /***/ },
 /* 275 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "67cf49c19f4ad5ae0b4180ec1c314121.png";
+	module.exports = __webpack_require__.p + "29040af7da4a6a3f568008e260c7665e.png";
 
 /***/ },
 /* 276 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "aab92a2e18643cd0c9c80e4c32aff17f.png";
+	module.exports = __webpack_require__.p + "67cf49c19f4ad5ae0b4180ec1c314121.png";
 
 /***/ },
 /* 277 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "88267ae0db23af65628c06d9ee8b0d40.png";
+	module.exports = __webpack_require__.p + "aab92a2e18643cd0c9c80e4c32aff17f.png";
 
 /***/ },
 /* 278 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "5d74213e1aae4482755dfd3fbd3c729c.png";
+	module.exports = __webpack_require__.p + "88267ae0db23af65628c06d9ee8b0d40.png";
 
 /***/ },
 /* 279 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "16d970f65c5d5fc68f5e52c0f9740cce.jpg";
+	module.exports = __webpack_require__.p + "5d74213e1aae4482755dfd3fbd3c729c.png";
 
 /***/ },
 /* 280 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "4c16cd2d53238b96bda35240c5b4724c.jpg";
+	module.exports = __webpack_require__.p + "16d970f65c5d5fc68f5e52c0f9740cce.jpg";
 
 /***/ },
 /* 281 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "e73f3c360fce6fc52cfc443fc9302e91.jpg";
+	module.exports = __webpack_require__.p + "4c16cd2d53238b96bda35240c5b4724c.jpg";
 
 /***/ },
 /* 282 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "af1b97413334ba200409b1ab69c25817.jpg";
+	module.exports = __webpack_require__.p + "e73f3c360fce6fc52cfc443fc9302e91.jpg";
 
 /***/ },
 /* 283 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "0d2a93b9d56e511972698efc67e08e2e.jpg";
+	module.exports = __webpack_require__.p + "af1b97413334ba200409b1ab69c25817.jpg";
 
 /***/ },
 /* 284 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "74ca9c4a2abd45c94c32b96fd06c2dfe.jpg";
+	module.exports = __webpack_require__.p + "0d2a93b9d56e511972698efc67e08e2e.jpg";
 
 /***/ },
 /* 285 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = __webpack_require__.p + "74ca9c4a2abd45c94c32b96fd06c2dfe.jpg";
+
+/***/ },
+/* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(286);
+	var content = __webpack_require__(287);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(203)(content, {});
@@ -35933,7 +36161,7 @@
 	}
 
 /***/ },
-/* 286 */
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(202)();
@@ -35947,8 +36175,10 @@
 
 
 /***/ },
-/* 287 */
-/***/ function(module, exports) {
+/* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react-dom/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 
 	'use strict';
 
@@ -35960,6 +36190,8 @@
 
 	ga('create', 'UA-80530812-1', 'auto');
 	ga('send', 'pageview');
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/sid/Projects/aframe-inspector/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "ga.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ }
 /******/ ]);
