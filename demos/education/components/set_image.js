@@ -26,6 +26,7 @@ AFRAME.registerComponent('set-image', {
         document.querySelector('#image-360').setAttribute('visible',false);
         document.querySelector('#videoSphere').setAttribute('visible',true);
         document.querySelector('#links').setAttribute('visible',false);
+        document.querySelector('#menuBG').setAttribute('visible',false);
         document.querySelector('#videoControls').setAttribute('visible',true);
         document.querySelector(data.src).play();
     });

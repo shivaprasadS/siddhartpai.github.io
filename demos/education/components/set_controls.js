@@ -29,6 +29,7 @@ AFRAME.registerComponent('set-controls', {
         document.querySelector('#videoControls').setAttribute('visible',false);
         document.querySelector('#image-360').setAttribute('visible',true);        
         document.querySelector('#links').setAttribute('visible',true);
+        document.querySelector('#menuBG').setAttribute('visible',true);
         
         
     });

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>360&deg; Image Gallery</title>
+    <title>360&deg; Education Gallery</title>
     <meta name="description" content="360&deg; Gallery - Scapic">
     <script src="https://rawgit.com/aframevr/aframe/917c06889ee1f3f79b7b1bbd9eab9815f9512503/dist/aframe.min.js"></script>
     <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
@@ -53,12 +53,15 @@
       <a-sky id="image-360" radius="10" src="#background" visible=true></a-sky>
 
       <!-- Image links. -->
-      <a-entity id="links" layout="type: line; margin: 1.5" position="0 -1 -4">
+      <a-entity id="links" layout="type: line; margin: 1.5" position="3.61 1.86 5.09" scale="2.5 1.6 1" rotation="0.57 -167.88 -0.57">
         <a-entity class="thumbs" template="src: #link" data-src="#video1" data-thumb="#video1Thumb"></a-entity>
         <a-entity class="thumbs" template="src: #link" data-src="#video2" data-thumb="#video2Thumb"></a-entity>
+       
         <!-- <a-entity class="thumbs" template="src: #link" data-src="#sechelt" data-thumb="#dubaiThumb"></a-entity> -->
       </a-entity>
-
+        <a-entity position="1.78 1.83 5.54" scale="8.74 2.28 1" rotation="0 -167.30 -0.57" id="menuBG" visible=true>
+          <a-plane  height="1" width="1" material="shader: flat;transparent:true; opacity:0.5;side:doubleside;color:#18eeff;" ></a-plane>
+        </a-entity>
       <a-entity id="videoControls" layout="type: circle; margin 1.5" position ="0 -3 -4" visible=false>
           <a-entity id="backButton" class="thumbs" template="src: #videoControl" data-thumb="#goBack">
           </a-entity>
