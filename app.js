@@ -1,4 +1,5 @@
-  $(function() {
+ $( document ).ready(function() {
+    
     $('a[href*="#"]:not([href="#"])').click(function() {
       if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
         var target = $(this.hash);
@@ -11,13 +12,11 @@
         }
       }
     });
-  });
-
-$(function(){ 
-  $('#submit').click(function(e) { 
+ 
+  $('#contactUsForm').submit(function(e) { 
    e.preventDefault();  
    var name = $('#last').val();
-   var email = $('#notify-email').val();
+   var email = $('#email').val();
    var message = $('#message').val();
    var formdata = {
     contact:{
@@ -26,26 +25,24 @@ $(function(){
       message:message
     }
   }
+  $('.submit').html('Sending ...')
   $.ajax({
     type: 'POST',
     url: 'https://hidden-oasis-33636.herokuapp.com/api/v1/contacts',
     data: formdata,
     success: function(){
-      console.log("Email sent");
+      console.log("Email Sent")
+     $(".submit").html('Send');
+     $('#last').val("");
+      $('#email').val("");
+      $('#message').val("");
     }
   })
-
-     $(".submit").html('Sending..');
-      setTimeout(function(){
-      $(".submit").html('Send');
-         
-         },5000);
-
-});
 });
 
-$(function(){ 
-  $('.notify').click(function(e) { 
+
+
+  $('#notification').submit(function(e) { 
    e.preventDefault();  
    var name = "Notify me"
    var email = $('#notify-email').val();
@@ -58,21 +55,19 @@ $(function(){
     }
   }
 
-        
+  $(".notify").html('Notifying Soon..');     
   $.ajax({
     type: 'POST',
     url: 'https://hidden-oasis-33636.herokuapp.com/api/v1/contacts',
     data: formdata,
     success: function(){
-      console.log("Email Notification");
+      console.log("Send Notification")
+      $(".notify").html('Notify Me');
+      $('#notify-email').val("");
+        
     }
   })
-
-     $(".notify").html('Notifying Soon..');
-      setTimeout(function(){
-      $(".notify").html('Notify Me');
-         },5000);
   
 });
-});
 
+});

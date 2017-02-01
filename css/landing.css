@@ -561,7 +561,7 @@ body {
     color: rgba(238, 94, 95, 0.5);
   }
     .conatct-container input:focus {
-      outline: none; }
+      outline: none !important; }
   .conatct-container ::-webkit-input-placeholder {
     /* Chrome/Opera/Safari */
     font-family: "GothamRounded-Bold";
@@ -616,7 +616,7 @@ body {
       border-radius: 53px;
       border:none; }
 
-      .notify{
+.notify{
   width: 100%;
   padding-top: 15px;
   padding-bottom: 12px;
@@ -633,6 +633,14 @@ body {
   border-radius: 53px;
 }
 
+.notify:focus{
+  outline:none !important;
+}
+
+#contactUs:focus {
+  outline: none !important;
+}
+
 #notify-email {
   font-family: "GothamRounded-Bold" !important;
   font-size: 16px !important;
@@ -640,7 +648,7 @@ body {
   font-stretch: normal !important;
   line-height: 1.14 !important;
   letter-spacing: normal !important;
-  color: rgba(232, 230, 230, 0.28) !important;
+  color: #fff !important;
 }
 
 /*# sourceMappingURL=landing.css.map */

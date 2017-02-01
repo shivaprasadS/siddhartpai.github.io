@@ -151,13 +151,13 @@
       <div class="col-md-12">
         <h2><span><img src="assets/creationsimplifiedscapicwhiteicon.svg" alt="" width="50px;"></span>scapic</h2>
         <p>Send me the latest updates about Scapic</p>
-        <form>
+        <form method="post" id="notification">
           <div class="col-md-8">
             <input type="email" id="notify-email" placeholder="Your Email Address" required />
           </div>
           <div class="col-md-2 button-container">
             <!-- <a href="#" class="btn notify">Notify Me</a> -->
-            <button class="btn notify">Notify Me</button>
+            <button type="submit" class="btn notify" id="submit">Notify</button>
           </div>
         </form>
       </div>
@@ -167,7 +167,7 @@
 </div>
 <div class="conatct-container " id="contact">
   <div class="container">
-    <form class="contact-detail" id="target" method="post">
+    <form class="contact-detail" id="contactUsForm" method="javascript:;">
       <div class="row">
         <div class="col-md-12">
           <h2>Don’t be shy, talk to us</h2>
@@ -187,15 +187,14 @@
           </div>
         </div>
         <div class="col-md-12 button-container">
-          <button class="submit" name="submit" id="submit">Send</button>
-          <!-- <input type="submit" class="submit" name="submit" id="submit" value="SEND"> -->
+          <button class="submit" id="contactUs" type="submit" value="submit"/>Send</button>
         </div>
       </form>
     </div>
   </div>
   <img src="assets/Mountain-with-gradient.png" alt="" style="width:100%;">
 </div>
-
+  <!-- <script src="app.js"></script> -->
 
 </body>
 </html>

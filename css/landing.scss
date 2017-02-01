@@ -856,6 +856,9 @@ img {
 			background-color:#ee5e5f;
 			border-radius: 53px;
       border:none;
+      &:focus {
+        outline:none; 
+      }
 
 	}
 	}
@@ -885,6 +888,6 @@ img {
   font-stretch: normal !important;
   line-height: 1.14 !important;
   letter-spacing: normal !important;
-  color: rgba(232, 230, 230, 0.28) !important;
+  color: #fff !important;
 }
 
