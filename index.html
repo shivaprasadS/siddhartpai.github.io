@@ -194,6 +194,7 @@
                     <div class="col-md-12">
                         <h2><span><img src="assets/creationsimplifiedscapicwhiteicon.svg" alt="" width="50px;"></span>scapic</h2>
                         <p>Send me the latest updates about Scapic</p>
+                        <form id="notification">
                         <div class="col-md-8">
                             <input type="email" id="notify-email" placeholder="Your Email Address" required />
                         </div>
@@ -201,6 +202,7 @@
                             <!-- <a href="#" class="btn notify">Notify Me</a> -->
                             <button type="submit" class="btn notify" id="submit">Notify</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -214,46 +216,34 @@
                     </div>
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" placeholder="Name" id="last" required />
-                            </div>
-                            <div class="col-md-6">
-                              <input type="email" placeholder="Email Address" id="email" required />
-                            </div>
-                            <div class="col-md-12">
-                              <input type="text" placeholder="How can we help" id="message" required />
-                            </div>
+                            <form  id="contactUsForm">
+                                <div class="col-md-6">
+                                    <input type="text" placeholder="Name" id="last" required />
+                                </div>
+                                <div class="col-md-6">
+                                  <input type="email" placeholder="Email Address" id="email" required />
+                                </div>
+                                <div class="col-md-12">
+                                  <input type="text" placeholder="How can we help" id="message" required />
+                                </div>
+                        
+                                <div class="col-md-12 button-container">
+                                    <button class="submit" id="contactUs" type="submit"/>Send</button>
+                                </div>
+                            </form>
                         </div>
-                         <div class="col-md-12 button-container">
-                        <button class="submit" id="contactUs" type="submit" value="submit"/>Send</button>
                     </div>
-                   
-                  </div>
-              </div>
-    </div>
-     <img src="assets/Mountain-with-gradient.png" alt="" style="width:100%;">
-    </div>
+                </div>
+            </div>
+
+            <img src="assets/Mountain-with-gradient.png" alt="" style="width:100%;">
+        </div>
     </div>
     <script type="text/javascript" src="js/jquery.parallax.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
 
 
-<script type="text/javascript">
-    $(function() {
-        $('a[href*="#"]:not([href="#"])').click(function() {
-            if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-                var target = $(this.hash);
-                target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-                if (target.length) {
-                    $('html, body').animate({
-                        scrollTop: target.offset().top
-                    }, 1000);
-                    return false;
-                }
-            }
-        });
-    });
 
-</script>
 
     <script type="text/javascript">
         $('.scene').parallax();
