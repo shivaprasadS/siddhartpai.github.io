@@ -9,6 +9,12 @@
     <!-- <script src="components/set_controls.js"></script> -->
     <script src="app.js"></script>
     <script src="components/update-raycaster.js"></script>
+    <style>
+      #loaderWrapper{
+        margin-right:auto;
+        margin-left:auto;
+      }
+    </style>
 </head>
 <body>
    <div id="loaderWrapper">
@@ -27,7 +33,9 @@
 </script>
 <a-scene>
   <a-assets>
-    <video id="roadVideo" src="assets/city.mp4"></video>
+    <video id="roadVideo" loop=true autoplay=true>
+      <source src="assets/city.mp4"></source>
+    </video>
     <a-asset-item id="beemer" src="assets/Volvo-Blue.dae"></a-asset-item>
     <a-asset-item id="pokeballModel" src="assets/Pokeball.dae"></a-asset-item>
   </a-assets>
@@ -67,7 +75,7 @@
                repeat="indefinite"
                ></a-animation>
   </a-collada-model>
-  <a-videosphere src="#roadVideo" rotation="0 180 0"  loop crossorigin visible=false></a-videosphere>
+  <a-videosphere src="#roadVideo" id="videosphere" rotation="0 180 0" visible=false></a-videosphere>
   <a-sky src="assets/road.jpg" id="sky" visible=true></a-sky>
 </a-scene>
 

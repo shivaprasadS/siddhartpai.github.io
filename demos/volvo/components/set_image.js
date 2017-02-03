@@ -30,6 +30,7 @@
     this.el.addEventListener('click', function (evt) {
       document.querySelector('a-sky').setAttribute('visible',false);
       document.querySelector('#pokeball').setAttribute('visible',false);
+      document.querySelector('a-videosphere').setAttribute('src',"#roadVideo");
       document.querySelector('a-videosphere').setAttribute('visible',true);
       document.querySelector('#carModel').setAttribute('visible',true);
       document.querySelector('#carModel').setAttribute('position',"-0.77 -0.75 -6.320");
