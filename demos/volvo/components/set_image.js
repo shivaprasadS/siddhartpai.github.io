@@ -33,7 +33,7 @@
       document.querySelector('a-videosphere').setAttribute('src',"#roadVideo");
       document.querySelector('a-videosphere').setAttribute('visible',true);
       document.querySelector('#carModel').setAttribute('visible',true);
-      document.querySelector('#carModel').setAttribute('position',"-0.77 -0.75 -6.320");
+      document.querySelector('#carModel').setAttribute('position',"-10.8 -1.86 -19.0");
       document.querySelector('#carModel').setAttribute('rotation',"0 -89.38 0");
       document.querySelector('#camera').setAttribute("position","0.0 1.73 4.21");
       document.querySelector("#camera").setAttribute("rotation","-9.17 1.72 0.0");
