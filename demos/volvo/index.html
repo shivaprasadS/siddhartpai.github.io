@@ -1,0 +1,67 @@
+<html>
+<head>
+	<script src="aframe.min.js"></script>
+    <script src="components/set_image.js"></script>
+    <!-- <script src="components/set_controls.js"></script> -->
+    <script src="components/update-raycaster.js"></script>
+</head>
+<body>
+<audio src="assets/em.mp3" type="audio/mpeg" loop autoplay></audio>
+<script id="link" type="text/nunjucks">
+  <a-entity class="link" height="1" width="1"
+    material="shader: flat; src: {{ thumb }}"
+    event-set__1="_event: mousedown; scale: 1 1 1"
+    event-set__2="_event: mouseup; scale: 1.2 1.2 1"
+    event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
+    event-set__4="_event: mouseleave; scale: 1 1 1"
+    set-image="on: click; target: #sky; src: {{ src }}"
+    update-raycaster="#cursor"></a-plane>
+</script>
+<a-scene>
+  <a-assets>
+    <video id="roadVideo" src="assets/city.mp4"></video>
+    <a-asset-item id="beemer" src="assets/Volvo-Blue.dae"></a-asset-item>
+    <a-asset-item id="pokeballModel" src="assets/Pokeball.dae"></a-asset-item>
+  </a-assets>
+  <!-- Using the asset management system. -->
+  <a-collada-model id="carModel" class="link" update-raycaster="#cursor" car-gonna-turn src="#beemer" position="-8.04 -0.75 0.89" rotation="0 -2.86 -13.1" scale="1.61 1.61 1.81" visible=true>
+  	 <a-animation  attribute="rotation"
+               dur="10000"
+               fill="forwards"
+               to="0 130 0"
+               begin="rotateMe"></a-animation>
+  </a-collada-model>
+
+  <a-entity>
+    <a-entity camera="userHeight: 0" position="0 0 0" look-controls>
+        <a-cursor id="cursor"
+          fuse=true
+          material="color:white;shader:flat"
+          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
+          event-set__1="_event: mouseenter; color: springgreen"
+          event-set__2="_event: mouseleave; color: white"
+          set-controls="target:#videoControls;"
+          raycaster="objects: .link"></a-cursor>
+    </a-entity>
+    <!-- <a-animation attribute="rotation"
+                 dur="10000"
+                 fill="forwards"
+                 to="0 360 0"
+                 repeat="indefinite"></a-animation> -->
+  </a-entity>
+  <!-- <a-videosphere></a-videosphere> -->
+  <a-collada-model id="pokeball" src="#pokeballModel" class="link" update-raycaster="#cursor" poke-anime position="-13 -6.140 -6.37" visible=false>
+    <a-animation  attribute="rotation"
+               dur="10000"
+               fill="forwards"
+               to="0 360 0"
+               repeat="indefinite"
+               ></a-animation>
+  </a-collada-model>
+  <a-videosphere src="#roadVideo" rotation="0 180 0"  loop crossorigin visible=false></a-videosphere>
+  <a-sky src="assets/road.jpg" id="sky" visible=true></a-sky>
+</a-scene>
+
+</body>
+</html>
