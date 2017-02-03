@@ -33,8 +33,7 @@
 </script>
 <a-scene>
   <a-assets>
-    <video id="roadVideo" loop=true autoplay=true>
-      <source src="assets/city.mp4"></source>
+    <video id="roadVideo" loop=true autoplay=true  src="assets/city.mp4">
     </video>
     <a-asset-item id="beemer" src="assets/Volvo-Blue.dae"></a-asset-item>
     <a-asset-item id="pokeballModel" src="assets/Pokeball.dae"></a-asset-item>
@@ -49,7 +48,7 @@
   </a-collada-model>
 
   <a-entity>
-    <a-entity camera="userHeight: 0" position="0 0 0" look-controls>
+    <a-entity id="camera" camera="userHeight: 0" position="0 0 0" look-controls>
         <a-cursor id="cursor"
           fuse=true
           material="color:white;shader:flat"
@@ -75,7 +74,9 @@
                repeat="indefinite"
                ></a-animation>
   </a-collada-model>
-  <a-videosphere src="#roadVideo" id="videosphere" rotation="0 180 0" visible=false></a-videosphere>
+  <!-- <a-videosphere src="#roadVideo" geometry="thetaStart:90;thetaLength:180;phiStart:0;phiLength:360" id="videosphere" rotation="0 180 0" visible=false></a-videosphere> -->
+  <a-videosphere src="#roadVideo"  id="videosphere" rotation="0 180 0" visible=false></a-videosphere>
+  <!-- <a-sky src="assets/road.jpg" id="sky" geometry="thetaStart:270;thetaLength:180;phiStart:0;phiLength:360" visible=true></a-sky> -->
   <a-sky src="assets/road.jpg" id="sky" visible=true></a-sky>
 </a-scene>
 
