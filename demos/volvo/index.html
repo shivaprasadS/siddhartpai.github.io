@@ -66,14 +66,22 @@
                  repeat="indefinite"></a-animation> -->
   </a-entity>
   <!-- <a-videosphere></a-videosphere> -->
-  <a-collada-model id="pokeball" src="#pokeballModel" class="link" update-raycaster="#cursor" poke-anime position="-13 -6.140 -6.37" visible=false>
+  <!-- <a-collada-model id="pokeball" src="#pokeballModel" class="link" update-raycaster="#cursor" poke-anime position="-13 -6.140 -6.37" visible=false>
     <a-animation  attribute="rotation"
                dur="10000"
                fill="forwards"
                to="0 360 0"
                repeat="indefinite"
                ></a-animation>
-  </a-collada-model>
+  </a-collada-model> -->
+  <a-sphere id="pokeball" position="-13 -6.140 -6.37"  class="link" update-raycaster="#cursor" poke-anime visible=false color="deepskyblue">
+    <a-animation  attribute="rotation"
+               dur="10000"
+               fill="forwards"
+               to="0 360 0"
+               repeat="indefinite"
+               ></a-animation>
+  </a-sphere>
   <!-- <a-videosphere src="#roadVideo" geometry="thetaStart:90;thetaLength:180;phiStart:0;phiLength:360" id="videosphere" rotation="0 180 0" visible=false></a-videosphere> -->
   <a-videosphere src="#roadVideo"  id="videosphere" rotation="0 180 0" visible=false></a-videosphere>
   <!-- <a-sky src="assets/road.jpg" id="sky" geometry="thetaStart:270;thetaLength:180;phiStart:0;phiLength:360" visible=true></a-sky> -->
