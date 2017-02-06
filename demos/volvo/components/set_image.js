@@ -35,8 +35,8 @@
       document.querySelector('#carModel').setAttribute('visible',true);
       document.querySelector('#carModel').setAttribute('position',"-10.8 -1.86 -19.0");
       document.querySelector('#carModel').setAttribute('rotation',"0 -89.38 0");
-      document.querySelector('#camera').setAttribute("position","0.0 1.73 4.21");
-      document.querySelector("#camera").setAttribute("rotation","-9.17 1.72 0.0");
+      document.querySelector('#camera').setAttribute("position","-2.62 0.72 -7.69");
+      document.querySelector("#camera").setAttribute("rotation","-13.8 -16.8 0.0");
       document.querySelector('#roadVideo').play();
     });
   }
