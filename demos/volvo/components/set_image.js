@@ -9,8 +9,13 @@
   init: function () {
     var rotate=true;
     this.el.querySelector('a-animation').addEventListener('animationend',function(evt){
-      document.querySelector('a-sky').setAttribute('src','assets/carInside.jpg');
-      document.querySelector('#carModel').setAttribute('visible',false);
+      // document.querySelector('a-sky').setAttribute('src','assets/carInside.jpg');
+      // document.querySelector('#carModel').setAttribute('visible',false);
+      document.querySelector('#camera').setAttribute('position',"-47.7 1.15 0.38");
+      document.querySelector('#camera').setAttribute('rotation',"-2.7 231.5 0.0");
+
+      // document.querySelector('#car').setAttribute('position',"-33.8 -1.29 4.42");
+      // document.querySelector('#car').setAttribute('rotation',"0 -2.86 -13.1");
       setTimeout(function(){
         document.querySelector('#pokeball').setAttribute('visible',true);
       },5000)
