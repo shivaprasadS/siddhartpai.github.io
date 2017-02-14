@@ -3,7 +3,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.4.0/aframe.js"></script>
 	<script src="https://rawgit.com/donmccurdy/aframe-obj-loader-component/master/dist/aframe-obj-loader-component.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="pace.min.js" data-pace-options='{"maxProgressPerFrame":5}'></script>
+	<script src="pace.min.js" data-pace-options='{"maxProgressPerFrame":1}'></script>
 	<link rel="stylesheet" href="style.css"></link>
 	<script>
 	$(document).ready(function(){
@@ -27,16 +27,11 @@
 </head>
 <body>
 	<a-scene>
-		<a-assets>
-			<a-asset-item id="Bed" src="assets/GameVR_BedOnly.dae">
-			<a-asset-item id="SideTable" src="assets/GameVR_SideTableOnly.dae">	
-			<a-asset-item id="TV" src="assets/GameVR_TVUnit_StandardMaterialConvertered.dae">
-			<a-asset-item id="Walls" src="assets/GameVR_WallsOnly.dae">
-		</a-assets>
-		<a-collada-model id="BedCollada" src="#Bed"></a-collada-model>
-		<a-collada-model id="SideTableCollada" src="#SideTable"></a-collada-model>
-		<a-collada-model id="TVCollada" src="#TV"></a-collada-model>
-		<a-collada-model id="WallsCollada" src="#Walls"></a-collada-model>
+
+		<a-collada-model id="Bed" src="assets/GameVR_BedOnly.dae"></a-collada-model>
+		<a-collada-model id="SideTable" src="assets/GameVR_SideTableOnly.dae"></a-collada-model>	
+		<a-collada-model id="TV" src="assets/GameVR_TVUnit_StandardMaterialConvertered.dae"></a-collada-model>
+		<a-collada-model id="Walls" src="assets/GameVR_WallsOnly.dae"></a-collada-model>
         <!-- <a-entity obj-loader="src: url(./assets/GameVR_T1.obj);
                               mtl: url(./assets/gamevr_t1.mtl);">
         </a-entity> -->
