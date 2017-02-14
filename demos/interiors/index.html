@@ -3,12 +3,24 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.4.0/aframe.js"></script>
 	<script src="https://rawgit.com/donmccurdy/aframe-obj-loader-component/master/dist/aframe-obj-loader-component.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="pace.min.js"></script>
+	<script src="pace.min.js" data-pace-options='{"maxProgressPerFrame":5}'></script>
 	<link rel="stylesheet" href="style.css"></link>
 	<script>
 	$(document).ready(function(){
-		document.querySelector('a-scene').addEventListener('loaded',function(event){
-			console.log('loaded',event);
+		var models = document.querySelectorAll('a-collada-model');
+		var promiseArray = [];
+		models.forEach(function(index){
+			var promise = new Promise((resolve,reject)=>{
+				this.addEventListener('loaded',function(event){
+					resolve();
+				});	
+			});
+			promiseArray.push(promise);
+		});
+		console.log(promiseArray);
+
+		Promise.all(promiseArray).then((resolution)=>{
+			console.log('finished loadin.');
 		});
 	});
 	</script>
