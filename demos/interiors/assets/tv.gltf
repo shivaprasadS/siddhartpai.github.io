@@ -1,0 +1,38 @@
+{
+    "accessors": {},
+    "animations": {},
+    "asset": {
+        "generator": "collada2gltf@a7295644e558eea74b58b0d794a3569f0c3faf94",
+        "premultipliedAlpha": true,
+        "profile": {
+            "api": "WebGL",
+            "version": "1.0.2"
+        },
+        "version": "1.0.1"
+    },
+    "bufferViews": {
+        "bufferView_2": {
+            "buffer": "tv",
+            "byteLength": 0,
+            "byteOffset": 0,
+            "target": 34963
+        },
+        "bufferView_3": {
+            "buffer": "tv",
+            "byteLength": 0,
+            "byteOffset": 0,
+            "target": 34962
+        }
+    },
+    "buffers": {},
+    "images": {
+        "Map #1-image": {
+            "name": "Map #1",
+            "uri": ""
+        }
+    },
+    "materials": {},
+    "meshes": {},
+    "nodes": {},
+    "skins": {}
+}

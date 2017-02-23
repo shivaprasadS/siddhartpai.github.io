@@ -1,6 +1,6 @@
 <html>
 <head>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.4.0/aframe.js"></script>
+	<script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
 	<script src="https://rawgit.com/donmccurdy/aframe-obj-loader-component/master/dist/aframe-obj-loader-component.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="pace.min.js" data-pace-options='{"maxProgressPerFrame":1}'></script>
@@ -28,13 +28,14 @@
 <body>
 	<a-scene>
 
-		<a-collada-model id="Bed" src="assets/GameVR_BedOnly.dae"></a-collada-model>
+<!-- 		<a-collada-model id="Bed" src="assets/GameVR_BedOnly.dae"></a-collada-model>
 		<a-collada-model id="SideTable" src="assets/GameVR_SideTableOnly.dae"></a-collada-model>	
 		<a-collada-model id="TV" src="assets/GameVR_TVUnit_StandardMaterialConvertered.dae"></a-collada-model>
-		<a-collada-model id="Walls" src="assets/GameVR_WallsOnly.dae"></a-collada-model>
+		<a-collada-model id="Walls" src="assets/GameVR_WallsOnly.dae"></a-collada-model> -->
         <!-- <a-entity obj-loader="src: url(./assets/GameVR_T1.obj);
                               mtl: url(./assets/gamevr_t1.mtl);">
         </a-entity> -->
+        <a-entity gltf-model="url('assets/tv.gltf')"></a-entity>
 		<a-entity id="cameraWrapper" position="0 1 8">
 			<a-entity id="camera" camera look-controls wasd-controls position="2.67 0.0 -9.81" rotation="-3.76 26.02 0.0">
 				<a-entity id="cursor" position="0 0 -2"
