@@ -1,0 +1,67 @@
+<html>
+	<script
+	  src="https://code.jquery.com/jquery-3.1.1.min.js"
+	  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	  crossorigin="anonymous"></script>
+	<!-- <script src="https://rawgit.com/aframevr/aframe/917c06889ee1f3f79b7b1bbd9eab9815f9512503/dist/aframe.min.js"></script> -->
+	<script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+	<script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
+	<script src="https://npmcdn.com/aframe-event-set-component@3.0.1"></script>
+	<script src="https://npmcdn.com/aframe-layout-component@3.0.1"></script>
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/nunjucks/2.3.0/nunjucks.min.js"> </script>
+  <script src="https://unpkg.com/aframe-template-component@^3.1.1/dist/aframe-template-component.min.js"></script>
+	<script src='JS/Hotspots.js'></script>
+	<script src="JS/set-image.js"></script>
+<body>
+	
+	<a-scene>
+
+		<a-asset-items>
+			<a-asset id="corridor_view_hotspots" src="assets/panos/corridor_view_hotspots.jpg"></a-asset>
+			<a-asset id="corridor_view" src="assets/panos/corridor_view.jpg"></a-asset>
+			<a-asset id="kitchen_view_one_hotspots" src="assets/panos/kitchen_view_one_hotspots.jpg"></a-asset>
+			<a-asset id="kitchen_view_one" src="assets/panos/kitchen_view_one.jpg"></a-asset>
+			<a-asset id="kitchen_view_two_hotspots" src="assets/panos/kitchen_view_two_hotspots.jpg"></a-asset>
+			<a-asset id="kitchen_view_two" src="assets/panos/kitchen_view_two.jpg"></a-asset>
+			<a-asset id="living_room_hotspot" src="assets/panos/living_room_hotspot.jpg"></a-asset>
+			<a-asset id="living_room" src="assets/panos/living_room_.jpg"></a-asset>
+			<a-asset id="master_bedroom_return_hotspot" src="assets/panos/master_bedroom_return_hotspot.jpg"></a-asset>
+			<a-asset id="master_bedroom_view_one" src="assets/panos/master_bedroom_view_one.jpg"></a-asset>
+			<a-asset id="master_bedroom_view_two_hotspot" src="assets/panos/master_bedroom_view_two_hotspot.jpg"></a-asset>
+			<a-asset id="master_bedroom_view_two" src="assets/panos/master_bedroom_view_two.jpg"></a-asset>
+			<a-asset id="master_toilet_hotspot" src="assets/panos/master_toilet_hotspot.jpg"></a-asset>
+			<a-asset id="master_toilet" src="assets/panos/master_toilet.jpg"></a-asset>
+			<a-asset id="hotspot" src="assets/img/hotspot.png"></a-asset>
+			<a-mixin id="H_image" material="src: #hotspot"></a-mixin>
+	        <script id="link" type="text/nunjucks">
+	          <a-plane mixin="H_image" class="link" height="1" width="1"
+	            material="shader: flat;side:double;transparent:true;"
+	            event-set__1="_event: mousedown; scale: 1 1 1"
+	            event-set__2="_event: mouseup; scale: 1.2 1.2 1"
+	            event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
+	            event-set__4="_event: mouseleave; scale: 1 1 1"
+	            set-image="on:click;"
+	            ></a-plane>
+        	</script>
+		</a-asset-items>
+<!-- 		set-image="on: click;"
+<a-image src="#hotspot" position="9.12 -0.43 -0.95" rotation="0 -94.5 0" scale="1 1 1" visible="true" material="color:#FFF;shader:flat;side:double;transparent:true;src:#hotspot" geometry="primitive:plane" id="masterBedRoom_H"></a-image>
+
+		<a-image src="#hotspot" position="-11.5 0.02 -4.94" rotation="0 64.74 0" scale="1 1 1" visible="true" material="color:#FFF;shader:flat;side:double;transparent:true;src:#hotspot" geometry="primitive:plane" id="KitchenViewOne_H"></a-image>
+
+		<a-image src="#hotspot" position="-8.89 -0.65 7.46" rotation="0 126 0" scale="1 1 1" visible="true" material="color:#FFF;shader:flat;side:double;transparent:true;src:#hotspot" geometry="primitive:plane" id="LivingRoom_H"></a-image>
+
+		<a-image src="#hotspot" position="0.08 0.5 -8.28" rotation="0 0 0" scale="1 1 1" visible="true" material="color:#FFF;shader:flat;side:double;transparent:true;src:#hotspot" geometry="primitive:plane" id="KitchenViewTwo_H"></a-image>
+	 -->
+	 	<a-entity id="camera" camera look-controls wasd-controls>
+          <!-- Cursor. -->
+          <a-entity id="cursor" position="0 0 -2" cursor="fuse: true; fuseTimeout: 500"
+                    geometry="primitive: ring; radiusOuter: 0.016; radiusInner: 0.01"
+                    material="color: #ff9; shader: flat; transparent: true; opacity: 0.5"
+                    scale="2 2 2" raycaster>
+          </a-entity>
+        </a-entity>
+		<a-sky src="#corridor_view_hotspots"></a-sky>
+	</a-scene>
+</body>
+</html>
