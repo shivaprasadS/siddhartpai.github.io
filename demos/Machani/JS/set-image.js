@@ -15,7 +15,6 @@ AFRAME.registerComponent('set-image', {
   init: function () {
     var data = this.data;
     var el = this.el;
-
     el.addEventListener("click",function (event) {
 
         var loadSceneName = this.parentEl.dataset.src;
@@ -25,10 +24,13 @@ AFRAME.registerComponent('set-image', {
           }
         });
         if(sceneToLoad.length>0){
-          loadScene(sceneToLoad[0].name,this)
+          document.querySelector('#cursor').emit('animate'); 
+          document.querySelector('a-sky').emit('animate');
+          loadScene(sceneToLoad[0].name,this);
         }
     });
   },
+
 
   /**
    * Setup fade-in + fade-out.
