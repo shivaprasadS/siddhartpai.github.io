@@ -110,10 +110,14 @@ var renderHotspot = function(hotspot){
 	entity.setAttribute('class','hotspotClass');
 	document.querySelector('a-scene').append(entity);
 }
+var sceneArray = [];
+
 var loadScene = function(sceneName,loadedFrom){
 	removeHotspots();
+	sceneArray.push(sceneName);	
 	SCENES.map(function(scene){
 		if(scene.name===sceneName){
+			document.querySelector('a-sky').setAttribute('color','');
 			document.querySelector('a-sky').setAttribute('src',scene.pano);
 			scene.hotspots.forEach(function(hotspot){
 				renderHotspot(hotspot);
@@ -141,15 +145,53 @@ var closeExp = function(){
 	removeHotspots();
 	document.querySelector('#startScreen').setAttribute('visible',true);
 	document.querySelector('#startScreen2').setAttribute('visible',true);
-
+	document.querySelector('#ScapicAbout').setAttribute('visible',false);
+	document.querySelector('#MachaniAbout').setAttribute('visible',false);
+	document.querySelector('a-sky').setAttribute('color','');
 	document.querySelector('a-sky').setAttribute('src','#start');
 	document.querySelectorAll('.experienceScreen').forEach(function(value){
 		value.setAttribute('visible',false);
 	});
 }
+
+var showAboutScapic = function(){
+	// var lastScene = sceneArray[sceneArray.length-1];
+	removeHotspots();
+	document.querySelector('#ScapicAbout').setAttribute('visible',true);
+	document.querySelector('a-sky').setAttribute('src','');
+	document.querySelector('a-sky').setAttribute('color','#293f59');
+}
+var showAboutMachani = function(){
+	// var lastScene = sceneArray[sceneArray.length-1];
+	removeHotspots();
+	document.querySelector('#MachaniAbout').setAttribute('visible',true);
+	document.querySelector('a-sky').setAttribute('src','');
+	document.querySelector('a-sky').setAttribute('color','#293f59');
+}
+var goBackFromAboutScreen = function(){
+	loadScene(sceneArray[sceneArray.length-1]);
+	document.querySelector('#ScapicAbout').setAttribute('visible',false);
+	document.querySelector('#MachaniAbout').setAttribute('visible',false);
+}
+
 $(document).ready(function(){
 	console.log('loaded')
 	document.querySelector('#startExperience').addEventListener('click',startExp);
 	document.querySelector('#startExperience2').addEventListener('click',startExp);
 	document.querySelector('#back').addEventListener('click',closeExp);
+	document.querySelector('.backFromAbout').addEventListener('click',goBackFromAboutScreen);
+	document.querySelector('.backMachani').addEventListener('click',goBackFromAboutScreen);
+	document.querySelector('.homeMachani').addEventListener('click',closeExp);
+	document.querySelector('.homeScapic').addEventListener('click',closeExp);
+	document.querySelector('.home').addEventListener('click',closeExp);
+	document.querySelector('#scapicLogo').addEventListener('click',showAboutScapic);
+	document.querySelector('#machaniLogo').addEventListener('click',showAboutMachani);
+	// document.querySelector('')
+	var noSleep = new NoSleep();
+	function enableNoSleep() {
+	  noSleep.enable();
+	  console.log('nosleeping');
+	  document.querySelector('.a-enter-vr-button').addEventListener('click', enableNoSleep, false);
+	}
+	document.querySelector('.a-enter-vr-button').addEventListener('click', enableNoSleep, false);
 });
