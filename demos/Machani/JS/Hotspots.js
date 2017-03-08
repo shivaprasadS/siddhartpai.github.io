@@ -36,6 +36,33 @@ var SCENES = [
 							position:'6.41 -0.83 -6.33',
 							rotation: '0.0 130.6 0.0',
 							connected : 'CorridorView',
+						},{
+							id:'MasterToilet_H',
+							position:'-3.54 -3.52 8.11',
+							rotation: '-1.72 156.9 -12.6',
+							connected : 'MasterToilet',
+						},{
+							id:'MasterBedroomViewTwo_H',
+							position:"-14.0 -2.25 -1.09",
+							rotation:"-1.72 91.10 -12.6",
+							connected : "MasterBedroomViewTwo"
+						}
+					]
+				},{
+					name: 'MasterBedroomViewTwo',
+					pano:'#master_bedroom_view_two',
+					hotspots: [
+						{
+							id:'masterBedroomViewOne_H',
+							position:'-9.95 -0.83 1.04',
+							rotation: '0.0 90 0.0',
+							connected : 'masterBedroomViewOne',
+						},
+						{
+							id:'masterToilet_H',
+							position:'-10.1 -2.2 -3.37',
+							rotation: '0.0 72.7 0.0',
+							connected : 'MasterToilet',
 						}
 					]
 				},
@@ -94,6 +121,18 @@ var SCENES = [
 							position:'-13.0 -0.96 -4.81',
 							rotation: '0 71.05 0.0',
 							connected : 'CorridorView'
+						}
+					]
+				},
+				{
+					name : 'MasterToilet',
+					pano: "#master_toilet",
+					hotspots: [
+						{
+							id : 'MasterBedroomViewOne_H',
+							position:'-13.0 -2.2 0.60',
+							rotation: '0 71.05 0.0',
+							connected : 'masterBedroomViewOne'
 						}
 					]
 				}
