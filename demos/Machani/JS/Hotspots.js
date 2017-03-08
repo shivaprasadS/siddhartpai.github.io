@@ -217,7 +217,6 @@ $(document).ready(function(){
 	console.log('loaded')
 	document.querySelector('#startExperience').addEventListener('click',startExp);
 	document.querySelector('#startExperience2').addEventListener('click',startExp);
-	document.querySelector('#back').addEventListener('click',closeExp);
 	document.querySelector('.backFromAbout').addEventListener('click',goBackFromAboutScreen);
 	document.querySelector('.backMachani').addEventListener('click',goBackFromAboutScreen);
 	document.querySelector('.homeMachani').addEventListener('click',closeExp);
