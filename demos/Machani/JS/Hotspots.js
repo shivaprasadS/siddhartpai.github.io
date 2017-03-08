@@ -173,7 +173,7 @@ var startExp = function(){
 	document.querySelector('#startScreen').emit('start');
 	document.querySelector('#startScreen').setAttribute('visible',false);
 	document.querySelector('#startScreen2').setAttribute('visible',false);
-
+	document.querySelector('#welcomeScapic').play();
 	document.querySelectorAll('.experienceScreen').forEach(function(value){
 		value.setAttribute('visible',true);
 	});
@@ -196,6 +196,7 @@ var closeExp = function(){
 var showAboutScapic = function(){
 	// var lastScene = sceneArray[sceneArray.length-1];
 	removeHotspots();
+	hideLogos();
 	document.querySelector('#ScapicAbout').setAttribute('visible',true);
 	document.querySelector('a-sky').setAttribute('src','');
 	document.querySelector('a-sky').setAttribute('color','#293f59');
@@ -203,16 +204,28 @@ var showAboutScapic = function(){
 var showAboutMachani = function(){
 	// var lastScene = sceneArray[sceneArray.length-1];
 	removeHotspots();
+	hideLogos();
 	document.querySelector('#MachaniAbout').setAttribute('visible',true);
 	document.querySelector('a-sky').setAttribute('src','');
 	document.querySelector('a-sky').setAttribute('color','#293f59');
 }
+
 var goBackFromAboutScreen = function(){
 	loadScene(sceneArray[sceneArray.length-1]);
+	showLogos();
 	document.querySelector('#ScapicAbout').setAttribute('visible',false);
 	document.querySelector('#MachaniAbout').setAttribute('visible',false);
 }
-
+var hideLogos = function(){
+	document.querySelector('#scapicLogo').setAttribute('visible',false);
+	document.querySelector('#machaniLogo').setAttribute('visible',false);
+	document.querySelector('#homeButtonLogo').setAttribute('visible',false);
+}
+var showLogos = function(){
+	document.querySelector('#scapicLogo').setAttribute('visible',true);
+	document.querySelector('#machaniLogo').setAttribute('visible',true);
+	document.querySelector('#homeButtonLogo').setAttribute('visible',true);	
+}
 $(document).ready(function(){
 	console.log('loaded')
 	document.querySelector('#startExperience').addEventListener('click',startExp);
@@ -228,6 +241,8 @@ $(document).ready(function(){
 	var noSleep = new NoSleep();
 	function enableNoSleep() {
 	  noSleep.enable();
+	  document.querySelector('#welcomeScapic').play();
+	  document.querySelector('#welcomeScapic').pause();
 	  console.log('nosleeping');
 	  document.querySelector('.a-enter-vr-button').addEventListener('click', enableNoSleep, false);
 	}

@@ -37,6 +37,7 @@
 			<img id="backButton" src="assets/img/goBack.png"></img>
 			<img id="homeButton" src="assets/img/homeButton.png"></img>
 			<img id="aboutScapic" src="assets/img/aboutScapic.png"></img>
+			<img id="aboutMachani" src="assets/img/aboutMachani.png"></img>
 			<a-mixin id="H_image" material="src: #hotspot"></a-mixin>
 	        <script id="link" type="text/nunjucks">
 	          <a-plane mixin="H_image" class="link" height="1" width="1"
@@ -48,6 +49,7 @@
 	            set-image="on:click;"
 	            ></a-plane>
         	</script>
+        	<audio src="assets/media/WelcomeScapic.ogg" id="welcomeScapic"></audio>
 		</a-asset-items>
 	 <a-entity id="startScreen">
 	 	<a-image id="machaniLogo1" src="#mcLogo" position="-6.21 0 -0.68" rotation="0 90.53 0" scale="5.66 2.52 1"></a-image>
@@ -61,7 +63,7 @@
 	 </a-entity> 
 	 	 <a-image class="experienceScreen" visible="false" id="scapicLogo" src="#scapic" position ="-2.94 -5.76 -1.65" rotation="-87 -115 -156" scale="2.23 0.80 1"></a-image>
 	 	<a-image class="experienceScreen" visible="false" id="machaniLogo" src="#machani" position="-3.13 -5.93 1.74" rotation="-75.6 144.3 -52.1" scale="3 1.35 1"></a-image>
-	 	<a-image class="experienceScreen home"  visible="false" id="homeButton" src="#homeButton" position="-1.76 -5.76 -0.05" rotation="-90 90.53 0" scale="1.26 0.42 1"> </a-image> 
+	 	<a-image class="experienceScreen home"  visible="false" id="homeButtonLogo" src="#homeButton" position="-1.76 -5.76 -0.05" rotation="-90 90.53 0" scale="1.26 0.42 1"> </a-image> 
 	 	<a-entity id="ScapicAbout" visible="false">
 	 		<a-image position="-15.8 0.0 0.0" rotation="0 90 0" scale="13.49 8.37 1" src="#aboutScapic"></a-image>
 	 		
@@ -72,7 +74,7 @@
 	 		
  		</a-entity>
 	 	<a-entity id="MachaniAbout" visible="false">
-	 		<a-image position="-15.8 0.0 0.0" rotation="0 90 0" scale="13.49 8.37 1" src="#aboutScapic"></a-image>
+	 		<a-image position="-15.8 0.0 0.0" rotation="0 90 0" scale="21.89 8.31 1" src="#aboutMachani"></a-image>
 	 		<a-entity id="line" layout="type: line; margin: 2" position="-16.5 -5.44 2.56" rotation="0 90 0" scale="2.38 1.28 1">
 	 			<a-image class="backMachani" src="#backButton" position="0 0.0 0.0" scale="1.76 0.83 1" rotation="0 0 0"></a-image>
 	 			<a-image class="homeMachani" src="#homeButton" position="2.22 0.0 0.0" scale="1.82 0.83 1" rotation="0 0 0"></a-image>	
@@ -80,7 +82,6 @@
  		</a-entity>
 	 	<a-entity id="camera" camera look-controls wasd-controls rotation="-11.8 80.9 0">
           <!-- Cursor. -->
-          <a-image visible="false" class="experienceScreen"  src="#mcLogo"  position="6.74 3.81 -5.37" rotation="10.31 -44.6 -17.1" scale="1.8 0.72 1"></a-image>
           <a-entity id="cursor" position="0 0 -2" cursor="fuse: true; fuseTimeout: 900"
                     geometry="primitive: ring; radiusOuter: 0.016; radiusInner: 0.01"
                     material="color: #ff9; shader: flat; transparent: true; opacity: 0.5"
