@@ -129,6 +129,8 @@ var removeHotspots = function(){
 var startExp = function(){
 	document.querySelector('#startScreen').emit('start');
 	document.querySelector('#startScreen').setAttribute('visible',false);
+	document.querySelector('#startScreen2').setAttribute('visible',false);
+
 	document.querySelectorAll('.experienceScreen').forEach(function(value){
 		value.setAttribute('visible',true);
 	});
@@ -138,6 +140,8 @@ var startExp = function(){
 var closeExp = function(){
 	removeHotspots();
 	document.querySelector('#startScreen').setAttribute('visible',true);
+	document.querySelector('#startScreen2').setAttribute('visible',true);
+
 	document.querySelector('a-sky').setAttribute('src','#start');
 	document.querySelectorAll('.experienceScreen').forEach(function(value){
 		value.setAttribute('visible',false);
@@ -146,5 +150,6 @@ var closeExp = function(){
 $(document).ready(function(){
 	console.log('loaded')
 	document.querySelector('#startExperience').addEventListener('click',startExp);
+	document.querySelector('#startExperience2').addEventListener('click',startExp);
 	document.querySelector('#back').addEventListener('click',closeExp);
 });
