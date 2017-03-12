@@ -40769,7 +40769,7 @@
 	var SCENES = URL + 'scenes/'; //='+store.default.getState().AuthState.token_values.access_token;
 	var IMAGES = URL + 'images/'; //='+store.default.getState().AuthState.token_values.access_token;
 	var LOGIN = LOGURL + 'oauth/token';
-	var REGISTER = LOGURL + 'api/v1/users/register/';
+	var REGISTER = DEVEL + 'users/register/';
 	var USERDETAILS = LOGURL + 'api/v1/users/me?';
 
 	function error(errorMessage, err, result, callback) {
@@ -47843,6 +47843,8 @@
 	                    if (res.access_token) {
 	                        _store.store.dispatch((0, _AuthActions.AuthActions_CtoSendToken)(res));
 	                    }
+	                }, function (err) {
+	                    alert("Invalid User details");
 	                });
 	            }
 	    }
@@ -47885,6 +47887,8 @@
 	          if (!res.failure_msg) {
 	            _store.store.dispatch((0, _AuthActions.AuthActions_CtoLogin)());
 	          } else {}
+	        }, function (err) {
+	          alert("Invalid User details");
 	        });
 	        return newState;
 	      }
